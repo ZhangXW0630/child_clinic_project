@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>医生端</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <!--<link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">-->
+    <!--&lt;!&ndash; Font Awesome &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/css/font-awesome.min.css">-->
+    <!--&lt;!&ndash; Ionicons &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/css/ionicons.min.css">-->
+    <!--&lt;!&ndash; fullCalendar 2.2.5&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.min.css">-->
+    <!--<link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.print.css" media="print">-->
+    <!--&lt;!&ndash; Theme style &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">-->
+    <!--&lt;!&ndash; AdminLTE Skins. Choose a skin from the css/skins-->
+    <!--folder instead of downloading all of them to reduce the load. &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">-->
+    <!--&lt;!&ndash; To make font of Chinese words like an app fonts&ndash;&gt;-->
+    <!--<link rel = "stylesheet" href="static/ui/css/maindoc.css">-->
+    <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+    <!-- fullCalendar 2.2.5-->
+    <link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.print.css" media="print">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">
+    <!-- To make font of Chinese words like an app fonts-->
+    <link rel="stylesheet" href="static/ui/css/maindoc.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+    </style>
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini">
+{% import json %}
+<div class="wrapper">
+
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">康康助手</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img src="static/ui/dist/img/ICT1.png" style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 4 messages</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle"
+                                                     alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Support Team
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <!-- end message -->
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="static/ui/dist/img/user3-128x128.jpg" class="img-circle"
+                                                     alt="User Image">
+                                            </div>
+                                            <h4>
+                                                AdminLTE Design Team
+                                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="static/ui/dist/img/user4-128x128.jpg" class="img-circle"
+                                                     alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Developers
+                                                <small><i class="fa fa-clock-o"></i> Today</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="static/ui/dist/img/user3-128x128.jpg" class="img-circle"
+                                                     alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Sales Department
+                                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <img src="static/ui/dist/img/user4-128x128.jpg" class="img-circle"
+                                                     alt="User Image">
+                                            </div>
+                                            <h4>
+                                                Reviewers
+                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                            </h4>
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 10 notifications</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning text-yellow"></i> Very long description here that
+                                            may not fit into the
+                                            page and may cause design problems
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-users text-red"></i> 5 new members joined
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user text-red"></i> You changed your username
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <!-- Tasks: style can be found in dropdown.less -->
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-flag-o"></i>
+                            <span class="label label-danger">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 9 tasks</li>
+                            <li>
+                                <!-- inner menu: contains the actual data -->
+                                <ul class="menu">
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Design some buttons
+                                                <small class="pull-right">20%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                     role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                    <span class="sr-only">20% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Create a nice theme
+                                                <small class="pull-right">40%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-green" style="width: 40%"
+                                                     role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                    <span class="sr-only">40% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Some task I need to do
+                                                <small class="pull-right">60%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-red" style="width: 60%"
+                                                     role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                    <span class="sr-only">60% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                    <li><!-- Task item -->
+                                        <a href="#">
+                                            <h3>
+                                                Make beautiful transitions
+                                                <small class="pull-right">80%</small>
+                                            </h3>
+                                            <div class="progress xs">
+                                                <div class="progress-bar progress-bar-yellow" style="width: 80%"
+                                                     role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                     aria-valuemax="100">
+                                                    <span class="sr-only">80% Complete</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <!-- end task item -->
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="#">View all tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="static/ui/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{doctor["d_name"]}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                <p>
+                                    {{doctor["d_name"]}}
+                                    <small>Member since Nov. 2016</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="/invitation">邀请好友</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{doctor["d_name"]}}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索...">
+                    <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="header">导航栏</li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard text-blue"></i> <span>案例测试分析</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/xy_jiuzhen"><i class="fa fa-circle-o"></i> 案例测试分析</a></li>
+                    </ul>
+                </li>
+                <li class="treeview ">
+                    <a href="#" onclick="bzbuchong()">
+                        <i class="fa fa-heartbeat text-red"></i> <span>体征分类</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% for tg_index, tg_content in enumerate(sorted(tigejiancha.keys())) %}
+                        <li><a style="cursor:pointer;" id="tige{{tg_index + 1}}"
+                               onclick="chooseTigeType({{tg_index + 1}}, {{json.dumps(tigejiancha)}})">
+                            &nbsp;&nbsp; <i class="fa fa-circle-o"></i> {{tg_content[2:]}}</a></li>
+                        {% end %}
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-pie-chart text-aqua"></i>
+                        <span>病例管理</span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/dataui"> &nbsp;&nbsp;<i class="fa fa-circle-o"></i> 数据管理</a></li>
+                        <li><a href="/show_images">&nbsp;&nbsp;<i class="fa fa-circle-o"></i> 可视化分析</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/doctor_jiuzhen">
+                        <i class="fa fa-commenting text-yellow"></i> <span>问答诊断</span>
+                        <span class="pull-right-container">
+			<i class="fa fa-angle-left pull-right"></i>
+			</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="/search_home">
+                        <i class="fa fa-commenting text-blue"></i> <span>知识搜索</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                </li>
+                <!--<li class="treeview">-->
+                <!--<a href="/zy_model">-->
+                <!--<i class="fa fa-commenting text-yellow"></i> <span>中医诊断</span>-->
+                <!--<span class="pull-right-container">-->
+                <!--<i class="fa fa-angle-left pull-right"></i>-->
+                <!--</span>-->
+                <!--</a>-->
+                <!--</li>-->
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <script>
+        function bzbuchong() {
+
+            $('#myTab  li:eq(1) a').tab('show')
+
+        }
+    </script>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                诊断信息
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li class="active">医生</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">患者列表</h4>
+                        </div>
+                        <div class="box-body" style="min-width:150px;max-height:500px;overflow-y:auto;overflow-x:auto;">
+					        <section class="sidebar" id="patient_list" >
+						        <ul class="sidebar-menu " style="border-radius:4px;background-color:#f0f0f0;box-shadow:0px 2px 5px #f0f0f0;min-width:175px">
+                                    {% set p_ids = [item[0]["p_id"] for item in unprocessed_patients] %}
+                                    {% for index, (patient, p_check, p_zhenduan) in enumerate(unprocessed_patients) %}
+                                    <li class="treeview" style="border:1px dotted #ccc; border-left:none;border-right:none;min-width:175px">
+
+						                <a href="#" id={{patient['p_id']}}  onclick="choosePatient({{patient['p_id']}}, {{json.dumps(p_ids)}})" >
+							                <span class="time" style="font-size:10px;color:#828282"><b style="color:#000;font-size:15px">{{ patient["p_name"] }}</b><br>
+                                                <i class="fa fa-clock-o"></i> {{patient["p_date"]}}
+                                            </span>
+
+							                <span class="pull-right-container">
+							                    <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+						                </a>
+
+						            </li>
+                                    {% end %}
+					            </ul>
+					        </section>
+                        </div>
+                        <!--<div class="box-body" id="patient_list">-->
+                            <!--&lt;!&ndash; the events &ndash;&gt;-->
+                            <!--<div class="col-sm-12 col-md-12">-->
+                                <!--{% for index, (patient, p_check, p_zhenduan) in enumerate(unprocessed_patients) %}-->
+                                <!--<span class="time"><i class="fa fa-clock-o"></i> {{patient["p_date"]}}</span>-->
+                                <!--<button type="submit" class="btn bg-maroon btn-primary btn-block" id={{patient['p_id']}}-->
+                                        <!--onclick="choosePatient({{patient['p_id']}})"> {{ patient["p_name"] }}-->
+                                <!--</button>-->
+                                <!--{% end %}-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                    <div class="box box-solid">
+
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="box box-primary">
+                        <section id="binglitest" data-spy="scroll" data-target="#scrollspy-components">
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-md-11">
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs" id="myTab">
+                                            <li class="active" id="activity_1"><a href="#timeline" data-toggle="tab">分析流程</a>
+                                            </li>
+                                            <li id="activity_2"><a href="#bzbuchong" data-toggle="tab">病症补充</a></li>
+
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane" id="bzbuchong">
+                                                <div class="box box-default color-palette-box">
+                                                    <div class="box-header with-border" id="tige_change">
+                                                        <i class="fa fa-tag"></i> 病症标签
+                                                    </div>
+
+                                                    {% for key_index, key_content in enumerate(sorted(tigejiancha.keys())) %}
+                                                    <div class="box-body" id="bg{{key_index + 1}}"
+                                                         style="display: none">
+                                                        {% for tg_index, tg_label in enumerate(tigejiancha[key_content])
+                                                        %}
+                                                        <div class="col-sm-4 col-md-4">
+                                                            <div class="box box-solid  box-default "
+                                                                 style="border-radius: 10px;">
+                                                                <button type="button"
+                                                                        id="tg{{(key_index + 1) * 1731 + (tg_index + 1)}}"
+                                                                        class="btn btn-block btn-primary"
+                                                                        style="border-radius: 10px;"
+                                                                        onclick="chooseSymptom({{(key_index + 1) * 1731 + (tg_index + 1)}})"
+                                                                        ondblclick="deleteSymp({{(key_index + 1) * 1731 + (tg_index + 1)}})">
+                                                                    {{tg_label}}
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        {% end %}
+                                                    </div>
+
+                                                    {% end %}
+                                                    <div class="box-body">
+
+                                                        <div class="box-body">
+                                                            <div class="form-group">
+                                                                <label for="text_content">点击选择的内容：</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="text_content"
+                                                                       placeholder="请根据提示添加相应症状">
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.box-body -->
+
+                                                        <div class="box-footer">
+                                                            <button type="submit" class="btn btn-success"
+                                                                    onclick="submit_info()">提 交
+                                                            </button>
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button type="reset" class="btn btn-warning"
+                                                                    onclick="reset_info()">重 置
+                                                            </button>
+                                                        </div>
+
+                                                        <!-- /.box-body -->
+                                                    </div>
+                                                    <!-- /.box -->
+                                                </div>
+
+                                            </div>
+
+                                            <div class="active tab-pane" id="timeline">
+                                                <!-- The timeline -->
+
+                                                {% if len(unprocessed_patients) > 0 %}
+                                                {% set patient, p_check, p_zhenduan = unprocessed_patients[0] %}
+                                                <ul class="timeline timeline-inverse">
+                                                    <!-- timeline time label -->
+                                                    <li class="time-label">
+                                                        <span class="bg-red">
+                                                          基本信息
+                                                        </span>
+                                                    </li>
+                                                    <!-- /.timeline-label -->
+
+                                                    <div id="p_id" style="display: none;">{{patient["p_id"]}}</div>
+
+                                                    <!-- 姓名 -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                                            <h3 id="p_name" class="timeline-header no-border"><a
+                                                                    href="#">姓名：</a> {{ patient["p_name"] }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </li>
+                                                    <!-- END 姓名 -->
+                                                    <!-- 手机 -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                                            <h3 class="timeline-header no-border" id="p_phone"><a
+                                                                    href="#">手机：</a> {{ patient["p_phone"] }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </li>
+                                                    <!-- END 手机 -->
+                                                    <!-- 性别 -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                                            <h3 class="timeline-header no-border" id="p_sex"><a
+                                                                    href="#">性别：</a>
+                                                                {% if patient["p_sex"] == 0 %}
+                                                                {{"女"}}
+                                                                {% else %}
+                                                                {{"男"}}
+                                                                {% end %}
+                                                            </h3>
+
+                                                        </div>
+                                                    </li>
+                                                    <!-- END 性别 -->
+                                                    <!-- 年龄 -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                                            <h3 class="timeline-header no-border" id="p_age"><a
+                                                                    href="#">年龄：</a> {{ str(patient["p_age"]) + "岁" }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                                                            <h3 class="timeline-header no-border" id="p_date"><a
+                                                                    href="#">就诊时间：</a> {{ patient["p_date"] }}
+                                                            </h3>
+
+                                                        </div>
+                                                    </li>
+                                                    <!-- END 性别 -->
+
+
+                                                    <!-- timeline time label -->
+                                                    <li class="time-label">
+                                                        <span class="bg-green">
+                                                          患者症状
+                                                        </span>
+                                                    </li>
+                                                    <!-- /.timeline-label -->
+                                                    <!-- timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-user bg-aqua"></i>
+
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i
+                                                                    class="fa fa-clock-o"></i> 12:05</span>
+
+                                                            <h3 class="timeline-header"><a href="#">症状</a></h3>
+
+                                                            <div class="timeline-footer" id="p_info">
+                                                                {{ patient["p_info"] }}
+
+                                                            </div>
+                                                            <div class="timeline-footer">
+                                                                <a class="btn btn-primary btn-xs">Read more</a>
+                                                                <a class="btn btn-danger btn-xs">Delete</a>
+                                                            </div>
+
+                                                        </div>
+                                                    </li>
+
+
+                                                    <li class="time-label">
+                                                        <span class="bg-maroon">
+                                                          检查结果
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-camera bg-purple"></i>
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                                                            <h3 class="timeline-header"> "三便"结果：</h3>
+
+                                                            <div class="timeline-body" id="addCheck">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12" style="border-radius:8px;width:96%;border:1px solid #4B0091;background:#FAF4FF;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px">
+                                                                        <a>模型名称：</a>{{p_check["check_model"]}}<br>
+                                                                        <a>模型结果：</a>{% raw p_check["check_res"] %}<br>
+                                                                        <a>模型解释：</a>{{p_check["check_reason"]}}<br>
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+                                                                <a href="/patient_report/{{patient['p_id']}}" class="btn btn-primary">生 成 报 告</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li class="time-label">
+                                                        <span class="bg-blue">
+                                                          诊断结果
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-camera bg-purple"></i>
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                                                            <h3 class="timeline-header"> 诊断结果：</h3>
+
+                                                            <div class="timeline-body" id="addZhenduan">
+                                                                {% set model_names = p_zhenduan["zd_model"].split(u"\n") %}
+                                                                {% set model_results = p_zhenduan["zd_res"].split(u"\n") %}
+                                                                {% set model_reasons = p_zhenduan["zd_reason"].split(u"\n") %}
+                                                                <b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-yellow"></i>专业模型:</b>
+                                                                {% for i in range(4) %}
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12" style="border-radius:8px;width:96%;border:1px solid #ffcc00;background:#fffff7;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px">
+                                                                            <a>{{i + 1}}、模型名称：</a>{{model_names[i]}}<br>
+                                                                            <a>模型结果：</a><a class="btn-warning btn-xs">{{model_results[i]}}</a><br>
+                                                                            <a>模型解释：</a>{{model_reasons[i]}}<br>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                {% end %}
+                                                                <b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-red"></i> 综合模型：</b>
+                                                                {% for i in range(4, len(model_names)) %}
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12" style=" border-radius:8px;width:96%;border:1px solid #ffaad5;background:#FFECF5;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px">
+                                                                            <a>{{i + 1}}、模型名称：</a>{{model_names[i]}}<br>
+                                                                            <a>模型结果：</a><a class="btn-danger btn-xs">{{model_results[i]}}</a><br>
+                                                                            <a>模型解释：</a>{{model_reasons[i]}}<br>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                {% end %}
+                                                                <a href="/patient_report/{{patient['p_id']}}" class="btn btn-primary">生 成 报 告</a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <!--<li class="time-label">-->
+                                                      <!--<span class="bg-yellow">-->
+                                                        <!--初筛结果-->
+                                                      <!--</span>-->
+                                                    <!--</li>-->
+                                                    <!--<li>-->
+                                                        <!--<i class="fa fa-camera bg-purple"></i>-->
+                                                        <!--<div class="timeline-item">-->
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>-->
+
+                                                            <!--<h3 class="timeline-header"> 初筛结果：</h3>-->
+
+                                                            <!--<div class="timeline-body" id="">-->
+                                                                <!--<div class="row">-->
+                                                                    <!--<div class="col-sm-12">-->
+                                                                        <!--<a>疾病结果：</a>-->
+                                                                        <!--<br>-->
+                                                                        <!--<a>"三便"检查：</a>-->
+                                                                        <!--<br>-->
+                                                                        <!--<a>化验结果：</a>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<br>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                    <!--</li>-->
+                                                    <li class="time-label">
+                                                      <span class="bg-yellow">
+                                                        系统初诊
+                                                      </span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-camera bg-purple"></i>
+                                                        <div class="timeline-item">
+                                                            <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                                                            <h3 class="timeline-header"> 系统初诊：</h3>
+                                                            <div class="timeline-body">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12" id="huayan_chuzhen">
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <!-- END timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-clock-o bg-gray"></i>
+                                                    </li>
+                                                </ul>
+                                                {% end %}
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <!-- /.tab-pane -->
+                                        </div>
+                                        <!-- /.tab-content -->
+                                    </div>
+                                    <!-- /.nav-tabs-custom -->
+                                    <!-- Post -->
+                                    <!-- /.post -->
+                                    <!-- Post -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </section>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer" style="background-color:#3c8dbc;color:white">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.5.0
+        </div>
+        <strong>Copyright &copy; 2015-2016 ICT,CAS,CARCH.</strong> All rights
+        reserved.<strong>地址:海淀区中关村科学南路6号 孙毓钟.</strong> 电话.13911103406
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<!--<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>-->
+<!--&lt;!&ndash; Bootstrap 3.3.6 &ndash;&gt;-->
+<!--<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>-->
+<!--&lt;!&ndash; jQuery UI 1.11.4 &ndash;&gt;-->
+<!--<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>-->
+<!--&lt;!&ndash; Slimscroll &ndash;&gt;-->
+<!--<script src="static/ui/plugins/slimScroll/jquery.slimscroll.min.js"></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="static/ui/plugins/fastclick/fastclick.js"></script>-->
+<!--&lt;!&ndash; AdminLTE App &ndash;&gt;-->
+<!--<script src="static/ui/dist/js/app.min.js"></script>-->
+<!--&lt;!&ndash; AdminLTE for demo purposes &ndash;&gt;-->
+<!--<script src="static/ui/dist/js/demo.js"></script>-->
+<!--&lt;!&ndash; fullCalendar 2.2.5 &ndash;&gt;-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>-->
+<!--<script src="static/ui/plugins/fullcalendar/fullcalendar.min.js"></script>-->
+<!-- Page specific script -->
+<!--<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>-->
+<!--&lt;!&ndash; Bootstrap 3.3.6 &ndash;&gt;-->
+<!--<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>-->
+<!--&lt;!&ndash; jQuery UI 1.11.4 &ndash;&gt;-->
+<!--<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>-->
+<!--&lt;!&ndash; Slimscroll &ndash;&gt;-->
+<!--<script src="static/ui/plugins/slimScroll/jquery.slimscroll.min.js"></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="static/ui/plugins/fastclick/fastclick.js"></script>-->
+<!--&lt;!&ndash; AdminLTE App &ndash;&gt;-->
+<!--<script src="static/ui/dist/js/app.min.js"></script>-->
+<!--&lt;!&ndash; AdminLTE for demo purposes &ndash;&gt;-->
+<!--<script src="static/ui/dist/js/demo.js"></script>-->
+<!--&lt;!&ndash; fullCalendar 2.2.5 &ndash;&gt;-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>-->
+<!--<script src="static/ui/plugins/fullcalendar/fullcalendar.min.js"></script>-->
+<!--<script src="static/ui/dist/js/json2.js"></script>-->
+<!--<script src="static/layer/layer.js"></script>-->
+
+
+<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="static/ui/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="static/ui/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="static/ui/dist/js/demo.js"></script>
+<script src="static/ui/dist/js/json2.js"></script>
+<script src="static/layer/layer.js"></script>
+
+
+<!-- Page specific script -->
+
+<script>
+    function chooseSymptom(index) {
+        var btn_id = "#tg" + index;
+        var name = $(btn_id).text().trim();
+        var lastValue = $("#text_content").val();
+
+
+        lastValue.replace("，", ",");
+        lastValue.replace("；", ",");
+        lastValue.replace(" ", ",");
+
+        var symp_arr = lastValue.split(",");
+
+        if (symp_arr.indexOf(name) == -1) {
+            var newValue = lastValue + (lastValue == "" ? "" : ",") + name;
+            $("#text_content").val(newValue);//填充内容
+            $(btn_id).css("background", "#CD5C5C");
+            $(btn_id).css("color", "white");
+        }
+        else{
+            var new_text = "";
+            for (var i = 0; i < symp_arr.length; i++) {
+                if (symp_arr[i] != name) {
+                    new_text += symp_arr[i] + ",";
+                }
+            }
+            new_text = new_text.substring(0, new_text.length - 1);
+            $("#text_content").val(new_text);
+            $(btn_id).css("background", "#3c8dbc");
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        setInterval("flashOnTime()", 1 * 60000);
+    });
+    function flashOnTime() {
+        var url = "/async_doctor";
+        $.ajax(
+                {
+                    type: "post",
+                    async: "true",
+                    url: url,
+                    timeout: 1000,
+                    data: {"a":"1"},
+                    dataType: "json",
+                    success: function (datas) {
+                        //异步加载患者列表
+                        var pat_list_html = '<ul class="sidebar-menu " style="border-radius:4px;background-color:#f0f0f0;box-shadow:0px 2px 5px #f0f0f0;min-width:175px"> ';
+                        var p_ids = new array[datas.length];
+                        for(var j = 0; j < datas.legth; j++) {
+                            p_ids[j] = datas[j][0]["p_id"];
+                        }
+                        for(var i = 0; i < datas.length; i++) {
+                            pat_list_html += ' <li class="treeview" style="border:1px dotted #ccc; border-left:none;border-right:none;min-width:175px"><a href="#" id = '+ datas[i][0]["p_id"] + ' onclick="choosePatient(' + datas[i][0]["p_id"] + ',' + JSON.stringify(p_ids) + ')">'
+                                                    +'<span class="time" style="font-size:10px;color:#828282"><b style="color:#000;font-size:15px">'+
+                                                        datas[i][0]["p_name"] + '</b><br><i class="fa fa-clock-o"></i>'
+                                                     + datas[i][0]["p_date"] +
+                                                    '</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a></li></ul>';
+                        }
+                        $("#patient_list").html(pat_list_html);
+                    },
+                    error: function(datas) {
+
+                    }
+                }
+        );
+    }
+</script>
+
+<script>
+
+    function choosePatient(index, p_ids) {
+        var p_id = index;
+        for(var i = 0; i < p_ids.length; i++) {
+            $("#" + p_ids[i]).css("backgroundColor","#f0f0f0");
+
+            $("#" + p_ids[i]).mouseover(function(){
+
+                this.style.backgroundColor='#E8E8E8';
+            });
+            $("#" + p_ids[i]).mouseout(function(){
+
+                this.style.backgroundColor='#f0f0f0';
+            });
+        }
+        $("#"+index).css("backgroundColor","#D6D6D6");
+        $("#"+index).css("borderRadius","5px");
+        $("#"+index).mouseover(function(){
+            this.style.backgroundColor='#D6D6D6';
+        });
+        $("#"+index).mouseout(function(){
+            this.style.backgroundColor='#D6D6D6';
+        });
+        var url = "/select_patient";
+        $.ajax(
+                {
+                    type: "post",
+                    async: "false",
+                    url: url,
+                    timeout: 1000,
+                    data: {p_id: p_id},
+                    dataType: "json",
+                    success: function (datas) {
+                        $("#p_id").text(datas["p_id"]);
+                        $("#p_name").html('<a href="#">姓名：</a>' + datas["p_name"]);
+                        $("#p_phone").html('<a href="#">手机：</a>' + datas["p_phone"]);
+                        $("#p_sex").html('<a href="#">性别：</a>' + (datas["p_sex"] == 0 ? '女' : '男'));
+                        $("#p_age").html('<a href="#">年龄：</a>' + datas["p_age"] + '岁');
+                        $("#p_date").html('<a href="#">就诊时间：</a>' + datas["p_date"]);
+                        $("#p_info").html(datas["p_info"]);
+                        var model_names = datas["check_model"].split("\n");
+                        var model_results = datas["check_res"].split("\n");
+                        var model_reasons = datas["check_reason"].split("\n");
+                        var appen_str = '';
+                        for (var i = 0; i < model_names.length; i++) {
+                            appen_str += '<div class="row"> <div class="col-sm-12" style="border-radius:8px;width:96%;border:1px solid #4B0091;background:#FAF4FF;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px"> <a >模型名称：</a>' + model_names[i] +
+                                    '<br>  <a >模型结果：</a>' + model_results[i] +
+                                    '<br> <a>模型解释：</a>' + model_reasons[i] +
+                                    '</div> </div> <br>'+ '<a href="/patient_report/' + p_id + '" class="btn btn-primary">生 成 报 告</a>';
+                        }
+                        $("#addCheck").html("");
+                        $(appen_str).appendTo("#addCheck");
+
+                        var zd_names = datas["zd_model"].split("\n");
+                        var zd_results = datas["zd_res"].split("\n");
+                        var zd_reasons = datas["zd_reason"].split("\n");
+                        var append_str = '';
+                        var append_str1 = '';
+                        var final_str = '';
+                        var final_str1 = '';
+                        var final = '';
+                        var zy_str = '<b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-yellow"></i>专业模型:</b> <br>';
+                        var zh_str = '<b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-red"></i> 综合模型：</b> <br>';
+                        for (i = 0; i < zd_names.length; i++) {
+                            if(i <= zd_names.length-4){
+                                append_str += '<div class="row"> <div class="col-sm-12" style="border-radius:8px;width:96%;border:1px solid #ffcc00;background:#fffff7;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px"><a >' + (i+1) + '、模型名称：</a>' + zd_names[i] +
+                                            '<br>  <a >模型结果：</a>' + '<a class="btn-warning btn-xs" >' + zd_results[i] + '</a>' +
+                                            '<br> <a>模型解释：</a>' + zd_reasons[i] +
+                                            '</div> </div> <br>';
+                                final_str = zy_str + append_str ;
+                            }
+                            else{
+                                append_str1 += '<div class="row"> <div class="col-sm-12" style=" border-radius:8px;width:96%;border:1px solid #ffaad5;background:#FFECF5;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px"><a >' + (i+1) + '、模型名称：</a>' + zd_names[i] +
+                                            '<br>  <a >模型结果：</a>' + '<a class="btn-danger btn-xs">' + zd_results[i] + '</a>' +
+                                            '<br> <a>模型解释：</a>' + zd_reasons[i] +
+                                            '</div> </div> <br>';
+                                final_str1 = zh_str + append_str1 +  '<a href="/patient_report/' + p_id + '" class="btn btn-primary">生 成 报 告</a>';
+                            }
+                            final = final_str + final_str1;
+                        }
+                        $("#addZhenduan").html("");
+                        $(final).appendTo("#addZhenduan");
+                        var huayan_res = '';
+                        var huayan_dis = datas["化验结果"];
+                        if(huayan_dis != "") {
+                            for (var dis in huayan_dis) {
+                                huayan_res += '<div class="row"> <div class="col-sm-12" style=" border-radius:8px;width:96%;border:1px solid #004B97;background:#ECF5FF;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px">' + dis + ':' + huayan_dis[dis] + '<br>'+'</div></div><br>';
+                            }
+                            huayan_res += '<a href="/patient_report/' + p_id + '" class="btn btn-primary">查看详情</a>';
+                            $("#huayan_chuzhen").html(huayan_res);
+                        } else {
+                             $("#huayan_chuzhen").html("患者化验结果还未输入，请稍后再查看！");
+                        }
+
+                    },
+                    error: function (datas) {
+
+                    }
+                }
+        );
+    }
+
+</script>
+
+<script>
+    function chooseTigeType(type_id, tigejiancha) {
+        var symp_path = '<i class="fa fa-tag"></i>' + "体征分类 -> " + $("#tige" + type_id).text();
+        $("#tige_change").html(symp_path);
+        var tg_types = Object.keys(tigejiancha).sort();
+        for (var i = 0; i < tg_types.length; i++) {
+            var hidden_id = i + 1;
+            var hidden_div = "#bg" + hidden_id;
+            $(hidden_div).css("display", "none");
+        }
+        var show_div = "#bg" + type_id;
+        $(show_div).css("display", "block");
+
+    }
+
+    function submit_info() {
+        var zz = $("#p_info").text();
+        var tige = $("#text_content").val();
+        var error = 0;
+        if (tige == "") {
+            error = -1;
+            alert("请选择患者的体征！");
+        }
+        var p_id = $("#p_id").text();
+        if (p_id == "") {
+            alert("当前无患者等待就诊，操作无效！");
+            error = -1;
+        }
+        if (error != -1) {
+            var url = "/doctor";
+            var p_info = zz + "," + tige;
+            $.ajax({
+                type: "post",
+                async: false,
+                url: url,
+                data: {p_info: p_info, p_id: p_id},
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    $("#p_info").html(datas["p_info"]);
+                    var model_names = datas["check_model"].split("\n");
+                    var model_results = datas["check_res"].split("\n");
+                    var model_reasons = datas["check_reason"].split("\n");
+                    var appen_str = '';
+                    for (var i = 0; i < model_names.length; i++) {
+                        appen_str += '<div class="row"> <div class="col-sm-12" style="border-radius:8px;width:96%;border:1px solid #4B0091;background:#FAF4FF;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px"> <a >模型名称：</a>' + model_names[i] +
+                                '<br>  <a >模型结果：</a>' + model_results[i] +
+                                '<br> <a>模型解释：</a>' + model_reasons[i] +
+                                '</div> </div> <br>'+ '<a href="/patient_report/' + p_id + '" class="btn btn-primary">生 成 报 告</a>';
+                    }
+                    $("#addCheck").html("");
+                    $(appen_str).appendTo("#addCheck");
+
+                    var zd_names = datas["zd_model"].split("\n");
+                    var zd_results = datas["zd_res"].split("\n");
+                    var zd_reasons = datas["zd_reason"].split("\n");
+                    var append_str = '';
+                    var append_str1 = '';
+                    var final_str = '';
+                    var final_str1 = '';
+                    var final = '';
+                    var zy_str = '<b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-yellow"></i>专业模型:</b> <br>';
+                    var zh_str = '<b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-red"></i> 综合模型：</b> <br>';
+                    for (i = 0; i < zd_names.length; i++) {
+                        if(i <= zd_names.length-4){
+                            append_str += '<div class="row"> <div class="col-sm-12" style="border-radius:8px;width:96%;border:1px solid #ffcc00;background:#fffff7;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px"><a >' + (i+1) + '、模型名称：</a>' + zd_names[i] +
+                                            '<br>  <a >模型结果：</a>' + '<a class="btn-warning btn-xs">' + zd_results[i] + '</a>' +
+                                            '<br> <a>模型解释：</a>' + zd_reasons[i] +
+                                            '</div> </div> <br>';
+                            final_str = zy_str + append_str ;
+                        }
+                        else{
+                            append_str1 += '<div class="row"> <div class="col-sm-12" style=" border-radius:8px;width:96%;border:1px solid #ffaad5;background:#FFECF5;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px"><a >' + (i+1) + '、模型名称：</a>' + zd_names[i] +
+                                            '<br>  <a >模型结果：</a>' + '<a class="btn-danger btn-xs">' + zd_results[i] + '</a>' +
+                                            '<br> <a>模型解释：</a>' + zd_reasons[i] +
+                                            '</div> </div> <br>';
+                            final_str1 = zh_str + append_str1 +  '<a href="/patient_report/' + p_id + '" class="btn btn-primary">生 成 报 告</a>';
+                        }
+                        final = final_str + final_str1;
+                    }
+
+
+                    $("#addZhenduan").html("");
+                    $(final).appendTo("#addZhenduan");
+                    alert("分析成功，请重新查看分析流程中的最新结果！");
+                },
+                error: function (datas) {
+                }
+            });
+        }
+
+
+    }
+
+    function reset_info() {
+        $("#tg_content").val("");
+    }
+</script>
+
+
+</body>
+</html>

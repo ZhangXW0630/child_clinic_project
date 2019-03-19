@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{static_url('ui/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('layer/skin/layer.css')}}">
+    <link rel="stylesheet" href="{{static_url('layer/skin/layui.css')}}">
+</head>
+<body>
+    <div class="box-body">
+        <div class="form-group has-feedback">
+            <label for="hz_case_id" class="col-sm-2 control-label" style="cursor: pointer">病例编号</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="hz_case_id" placeholder="患者编号" readonly="readonly" value="4.0">
+            </div>
+            <input style="display: none" id="patientID" value="1">
+            <input style="display: none" id="isFinish" value="1">
+            <label for="hz_case_date" class="col-sm-2 control-label" style="cursor: pointer" onclick="">时间</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="hz_case_date" placeholder="时间" readonly="readonly" value="2017-03-22 11:13:55">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="hz_name" class="col-sm-2 control-label" style="cursor: pointer">姓名</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="hz_name" placeholder="姓名" readonly="readonly" value="王小山">
+            </div>
+            <label for="hz_num" class="col-sm-2 control-label" style="cursor: pointer" onclick="">手机号</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="hz_num" placeholder="手机号" readonly="readonly" value="15612341234">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="hz_sz" class="col-sm-2 control-label" style="cursor: pointer">身份证号</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="hz_sz" placeholder="身份证号" readonly="readonly" value="411243222522225553">
+            </div>
+            <label for="hz_sh" class="col-sm-2 control-label" style="cursor: pointer" onclick="">社保号</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="hz_sh" placeholder="社保号" readonly="readonly" value="12345677">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="hz_sex" class="col-sm-2 control-label" style="cursor: pointer">性别</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="hz_sex" placeholder="性别" readonly="readonly" value="男">
+            </div>
+            <label for="hz_age" class="col-sm-2 control-label" style="cursor: pointer" onclick="">年龄</label>
+            <div class="col-sm-3">
+            <input type="text" class="form-control" id="hz_age" placeholder="年龄" readonly="readonly" value="5">
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{{static_url('layer/layer.js')}}"></script>
+<script>
+
+</script>
+</html>

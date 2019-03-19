@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      {% import json %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>化验检测</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="style.css">
+	<link rel = "stylesheet" href="static/ui/css/maindoc.css">
+	<link rel="stylesheet" href="static/ui/css/jQueryUI/jquery-ui-1.10.3.custom.min.css">
+	
+
+
+    <!-- jQuery 2.2.3 -->
+    <script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+
+	
+    <!-- FastClick -->
+	
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<style>
+	hr{border-top-color:rgb(255,255,255);}
+	</style>
+
+
+  </head>
+  <div class="wrapper">
+      <header class="main-header">
+          <!-- Logo -->
+          <a href="http://www.ict.ac.cn/" class="logo">
+              <!-- mini logo for sidebar mini 50x50 pixels -->
+              <span class="logo-mini">康康助手</span>
+              <!-- logo for regular state and mobile devices -->
+              <span class="logo-lg"><img src="static/ui/dist/img/ICT1.png" style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+          </a>
+          <!-- Header Navbar: style can be found in header.less -->
+          <nav class="navbar navbar-static-top">
+              <!-- Sidebar toggle button-->
+              <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </a>
+              <div class="navbar-custom-menu">
+                  <ul class="nav navbar-nav">
+                      <!-- Messages: style can be found in dropdown.less-->
+                      <li class="dropdown messages-menu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <i class="fa fa-envelope-o"></i>
+                              <span class="label label-success">3</span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li class="header">您有3个新消息</li>
+                              <li>
+                                  <!-- inner menu: contains the actual data -->
+                                  <ul class="menu">
+                                      <li><!-- start message -->
+                                          <a href="#">
+                                              <div class="pull-left">
+                                                  <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                              </div>
+                                              <h4>王医生<small><i class="fa fa-clock-o"></i> 5 分钟前</small></h4>
+                                              <p>建议您进一步化验</p>
+                                          </a>
+                                      </li>
+                                      <!-- end message -->
+                                      <li>
+                                          <a href="#">
+                                              <div class="pull-left">
+                                                  <img src="static/ui/dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                                              </div>
+                                              <h4>张医生<small><i class="fa fa-clock-o"></i> 2 小时前</small></h4>
+                                              <p>建议您进一步检查</p>
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#">
+                                              <div class="pull-left">
+                                                  <img src="static/ui/dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                                              </div>
+                                              <h4>王护士<small><i class="fa fa-clock-o"></i> 今天</small>
+                                              </h4>
+                                              <p>您到化验室取结果</p>
+                                          </a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="footer"><a href="#">查看全部信息</a></li>
+                          </ul>
+                      </li>
+                      <!-- Notifications: style can be found in dropdown.less -->
+                      <li class="dropdown notifications-menu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <i class="fa fa-bell-o"></i>
+                              <span class="label label-warning">2</span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li class="header">您有2个提示</li>
+                              <li>
+                                  <!-- inner menu: contains the actual data -->
+                                  <ul class="menu">
+                                      <li>
+                                          <a href="#"><i class="fa fa-users text-aqua"></i> 验血报告已出</a>
+                                      </li>
+                                      <li>
+                                          <a href="#"><i class="fa fa-warning text-yellow"></i> 尿检报告已出</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                              <li class="footer"><a href="#">所有提示</a></li>
+                          </ul>
+                      </li>
+                      <!-- Tasks: style can be found in dropdown.less -->
+                      <li class="dropdown tasks-menu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <i class="fa fa-flag-o"></i><span class="label label-danger">2</span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li class="header">您有2个就诊进度</li>
+                              <li>
+                                  <!-- inner menu: contains the actual data -->
+                                  <ul class="menu">
+                                      <li><!-- Task item -->
+                                          <a href="#">
+                                              <h3>小儿内科就诊进程<small class="pull-right">20%</small></h3>
+                                              <div class="progress progress-xs">
+                                                  <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                      <span class="sr-only">20% 完成</span>
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </li>
+                                      <!-- end task item -->
+                                      <li><!-- Task item -->
+                                          <a href="#">
+                                              <h3>化验检测进程<small class="pull-right">90%</small></h3>
+                                              <div class="progress progress-xs">
+                                                  <div class="progress-bar progress-bar-green" style="width: 90%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                      <span class="sr-only">90% 完成</span>
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </li>
+                                      <!-- end task item -->
+                                      <!-- Task item -->
+                                      <!-- end task item -->
+                                      <!-- Task item -->
+                                      <!-- end task item -->
+                                  </ul>
+                              </li>
+                              <li class="footer"><a href="#">显示所有就诊进程</a></li>
+                          </ul>
+                      </li>
+                      <!-- User Account: style can be found in dropdown.less -->
+                      <li class="dropdown user user-menu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <img src="static/ui/dist/img/child-boy.png" class="user-image" alt="User Image">
+                              <span class="hidden-xs">{{patient["p_name"]}}</span>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <!-- User image -->
+                              <!-- 病人 image -->
+                              <li class="user-header">
+                                  <img src="static/ui/dist/img/child-boy.png" class="img-circle" alt="User Image">
+                                  <p>{{patient["p_name"]}} - 就诊信息<small>从2016年9月至今</small></p>
+                              </li>
+                              <!-- Menu Body -->
+                              <li class="user-body">
+                                  <div class="row">
+                                      <div class="col-xs-4 text-center"><a href="#">就诊医生</a></div>
+                                      <div class="col-xs-4 text-center"><a href="#">病例检查</a></div>
+                                      <div class="col-xs-4 text-center"><a href="/invitation">邀请好友</a></div>
+                                  </div>
+                                  <!-- /.row -->
+                              </li>
+                              <!-- Menu Footer-->
+                              <li class="user-footer">
+                                  <div class="pull-left">
+                                      <a href="#" class="btn btn-default btn-flat">个人信息</a>
+                                  </div>
+                                  <div class="pull-right">
+                                      <a href="/logout" class="btn btn-default btn-flat">退出</a>
+                                  </div>
+                              </li>
+                          </ul>
+                      </li>
+                      <!-- Control Sidebar Toggle Button -->
+                      <li><a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
+                  </ul>
+              </div>
+          </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar" style="background-image:url(static/ui/dist/img/xin.gif)">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="static/ui/dist/img/child-boy.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{patient["p_name"]}}</p>
+          {% if patient["p_sex"] == 1 %}
+          <a href="#"><i class="fa fa-circle text-success"></i> 男，{{patient["p_age"]}}岁</a>
+		  {% else %}
+          <a href="#"><i class="fa fa-circle text-success"></i> 女，{{patient["p_age"]}}岁</a>
+          {% end %}
+        </div>
+      </div>
+      <!-- search form -->
+      <div class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="搜索症状...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </div>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu ">
+          <li class="header"><label id="test"></label><br/>晴间多云</li>
+          <li><a href="/user_ui"><i class="fa fa-heartbeat text-red"></i> 患者诊断</a></li>
+          <li><a href="javascript:void(0);"  onclick="bingzhengluru()"><i class="fa fa-circle-o"></i> 血液学常规检验</a></li>
+          <li><a href="javascript:void(0);" onclick="fenxiliucheng()" ><i class="fa fa-circle-o"></i> 尿液分析</a></li>
+          <li><a href="javascript:void(0);" onclick="zhishibuchong()" ><i class="fa fa-circle-o"></i> 粪便检验</a></li>
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+      <script>
+      function bingzhengluru(){
+      <!-- <!--     $$('#myTab a[href="#activity"]').tab('show'); -->
+      <!-- 	$$("activity_1").addClass("active");$$("activity").addClass("active"); -->
+      <!-- 	$('#myTab a:first').tab('show')
+       -->
+      $('#myTab li:eq(0) a').tab('show')
+      $('#bingliceshi').click()
+      }
+      function fenxiliucheng(){
+      <!-- <!--     $$('#myTab a[href="#activity"]').tab('show'); -->
+      <!-- 	$$("activity_1").addClass("active");$$("activity").addClass("active"); -->
+          $('#myTab  li:eq(1) a').tab('show')
+          $('#bingliceshi').click()
+      }
+      function zhishibuchong(){
+      <!-- <!--     $$('#myTab a[href="#activity"]').tab('show'); -->
+      <!-- 	$$("activity_1").addClass("active");$$("activity").addClass("active"); -->
+          $('#myTab  li:eq(2) a').tab('show')
+          $('#bingliceshi').click()
+      }
+      function shiyongshuoming(){
+      <!-- <!--     $$('#myTab a[href="#activity"]').tab('show'); -->
+      <!-- 	$$("activity_1").addClass("active");$$("activity").addClass("active"); -->
+          $('#myTab  li:eq(0) a').tab('show')
+          $('#bingliceshi').click()
+      }
+      function anlikufenxi(){
+      <!-- <!--     $$('#myTab a[href="#activity"]').tab('show'); -->
+      <!-- 	$$("activity_1").addClass("active");$$("activity").addClass("active"); -->
+          $('#myTab  li:eq(0) a').tab('show')
+          $('#toanliku').click()
+      }
+      </script>
+  </div>
+  <div class="content-wrapper">
+      <div class="content-header">
+          <h1>化验检测<small>Current version 0.5.0</small></h1>
+          <ol class="breadcrumb">
+              <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+              <li class="active">化验诊断</li>
+          </ol>
+      </div>
+      <div class="content body">
+          <section data-spy = "scroll" data-target = "#scrollspy-components">
+              <p class="lead"><b><a href="#">基本信息</a></b>
+                  最常用的三大常规包括“血常规”、“尿常规”和“大便常规”。在无病理情况，三大常规值都处于正常范围，但当患了疾病，或身体受到某种(化学的、物理的、生物的、机械的)不良刺激和创伤时，机体内环境与外环境的平衡条件受到破坏，其正常值就发生变化了。
+              </p><hr>
+          </section>
+          <section data-spy = "scroll" data-target = "#scrollspy-components">
+              <div class="box box-solid">
+                  <div class="box box-primary">
+                      <div class="box-body">
+                          <label class="btn-primary" style="font-size:16px">&nbsp; 患 者 症 状&nbsp; </label>
+                          <div class="form-group has-warning">
+                              <textarea class="form-control" readonly="readonly">
+                                  {{patient["p_info"]}}
+                              </textarea>
+                          </div>
+                          <label class="btn-primary" style="font-size:16px">&nbsp; 系 统 诊 断 结 果&nbsp; </label>
+                          <div class="form-group has-warning">
+                              <textarea class="form-control" readonly="readonly">
+                                  {{zhenduan_res}}
+                              </textarea>
+                              <span class="help-block">以上是系统模型根据患者症状给出的诊断结果，还需要患者添加化验结果</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          <section data-spy = "scroll" data-target = "#scrollspy-components">
+              <div class="row">
+                  <!-- /.col -->
+                  <div class="col-md-12">
+                      <div class="nav-tabs-custom">
+                          <ul class="nav nav-tabs" id="myTab">
+                              <li class="active" id="activity_1"><a href="#activity" data-toggle="tab">血液学常规检验</a></li>
+                              <li id="activity_2"><a href="#timeline" data-toggle="tab">尿液分析</a></li>
+                              <li id="activity_3"><a href="#zhishibuchong" data-toggle="tab">粪便检验</a></li>
+                          </ul>
+                          <div class="tab-content">
+                              <div class="active tab-pane" id="activity">
+                                  <!-- Input Box of Bing Zheng XianbingShi, Tigejiancha-->
+                                  <div class="box box-primary">
+                                      <div class="box-header with-border">
+                                          <h3 class="box-title"><i class="fa fa-tag"></i>全血细胞分析<b style="color:red;font-size:16px">(蓝色：低于正常值；绿色：正常水平；红色：高于正常值)</b></h3>
+                                      </div>
+                                      <div id="canshu_3" style="display: block">
+                                          <div class="box-header with-border">
+                                              <h3 class="box-title">儿童红细胞参数</h3>
+                                          </div>
+                                          <div class="box-body">
+                                              <div class="form-horizontal">
+                                                  {% set canshu_dict = huayan[u"儿童红细胞参数"].values()[p_age_index] %}
+                                                  {% for ch_i in [0, 2, 4] %}
+                                                  <div class="form-group has-feedback">
+                                                      <label for="hongxibao{{ch_i}}" class="col-sm-2 control-label" id="label_hxb{{ch_i}}" style="cursor: pointer" onclick="show_shuoming('label_hxb{{ch_i}}')">{{canshu_dict.items()[ch_i][0]}}</label>
+                                                      <div class="col-sm-3">
+                                                          <input type="text" class="form-control" id="hongxibao{{ch_i}}" placeholder="{{canshu_dict.items()[ch_i][1]}}" onchange="checkCanshu('hongxibao{{ch_i}}')">
+                                                          <span  id="hongxibao{{ch_i}}ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                                          <span  id="hongxibao{{ch_i}}up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                                          <span  id="hongxibao{{ch_i}}down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+                                                      </div>
+                                                      <label for="hongxibao{{ch_i + 1}}" class="col-sm-2 control-label" id="label_hxb{{ch_i + 1}}" style="cursor: pointer" onclick="show_shuoming('label_hxb{{ch_i + 1}}')">{{canshu_dict.items()[ch_i + 1][0]}}</label>
+                                                      <div class="col-sm-3">
+                                                          <input type="text" class="form-control" id="hongxibao{{ch_i + 1}}" placeholder="{{canshu_dict.items()[ch_i + 1][1]}}" onchange="checkCanshu('hongxibao{{ch_i + 1}}')">
+                                                          <span  id="hongxibao{{ch_i + 1}}ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                                          <span  id="hongxibao{{ch_i + 1}}up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                                          <span  id="hongxibao{{ch_i + 1}}down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+                                                      </div>
+                                                  </div>
+                                                  {% end %}
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div id="canshu_0" style="display: block">
+                                          <div class="box-header with-border">
+                                              <h3 class="box-title">儿童白细胞计数分类参数</h3>
+                                          </div>
+                                          <div class="box-body">
+                                              <div class="form-horizontal">
+                                                  {% set canshu_dict = huayan[u"儿童白细胞计数分类参数"].values()[p_age_index] %}
+                                                  {% for ch_i in [0, 2, 4] %}
+                                                  <div class="form-group has-feedback">
+                                                      <label for="baixibaofenlei{{ch_i}}" class="col-sm-2 control-label" id="label_bxbfl{{ch_i}}" style="cursor: pointer" onclick="show_shuoming('label_bxbfl{{ch_i}}')">{{canshu_dict.items()[ch_i][0]}}</label>
+                                                      <div class="col-sm-3">
+                                                          <input type="text" class="form-control" id="baixibaofenlei{{ch_i}}" placeholder="{{canshu_dict.items()[ch_i][1]}}" onchange="checkCanshu('baixibaofenlei{{ch_i}}')">
+                                                          <span  id="baixibaofenlei{{ch_i}}ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                                          <span  id="baixibaofenlei{{ch_i}}up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                                          <span  id="baixibaofenlei{{ch_i}}down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+                                                      </div>
+									<label for="baixibaofenlei{{ch_i + 1}}" class="col-sm-2 control-label" id="label_bxbfl{{ch_i + 1}}" style="cursor: pointer" onclick="show_shuoming('label_bxbfl{{ch_i + 1}}')">{{canshu_dict.items()[ch_i + 1][0]}}</label>
+
+									<div class="col-sm-3">
+										<input type="text" class="form-control" id="baixibaofenlei{{ch_i + 1}}" placeholder="{{canshu_dict.items()[ch_i + 1][1]}}" onchange="checkCanshu('baixibaofenlei{{ch_i + 1}}')">
+									    <span  id="baixibaofenlei{{ch_i + 1}}ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                        <span  id="baixibaofenlei{{ch_i + 1}}up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                        <span  id="baixibaofenlei{{ch_i + 1}}down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+
+                                    </div>
+
+								</div>
+                                {% end %}
+
+                                <div class="form-group has-feedback">
+									<label for="baixibaofenlei6" class="col-sm-2 control-label" id="label_bxbfl6" style="cursor: pointer" onclick="show_shuoming('label_bxbfl6')">{{canshu_dict.items()[6][0]}}</label>
+
+									<div class="col-sm-3">
+										<input type="text" class="form-control" id="baixibaofenlei6" placeholder="{{canshu_dict.items()[6][1]}}" onchange="checkCanshu('baixibaofenlei6')">
+									    <span  id="baixibaofenlei6ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                        <span  id="baixibaofenlei6up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                        <span  id="baixibaofenlei6down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+
+                                    </div>
+
+								</div>
+							</div>
+						</div>
+						</div>
+
+                        <div id="canshu_2" style="display: block">
+						<div class="box-header with-border">
+							<h3 class="box-title">儿童白细胞计数参考范围</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-horizontal">
+                                {% set canshu_dict = huayan[u"儿童白细胞计数参考范围"].values()[p_age_index] %}
+								<div class="form-group has-feedback">
+									<label for="baixibaojishu0" class="col-sm-2 control-label" id="label_bxbjs0" style="cursor: pointer" onclick="show_shuoming('label_bxbjs0')">{{canshu_dict.items()[0][0]}}</label>
+
+									<div class="col-sm-3">
+										<input type="text" class="form-control" id="baixibaojishu0" placeholder="{{canshu_dict.items()[0][1]}}" onchange="checkCanshu('baixibaojishu0')">
+									    <span  id="baixibaojishu0ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                        <span  id="baixibaojishu0up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                        <span  id="baixibaojishu0down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+
+                                    </div>
+								</div>
+							</div>
+						</div>
+						</div>
+
+
+                        <div id="canshu_1" style="display: block">
+						<div class="box-header with-border">
+							<h3 class="box-title">儿童血小板参数</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-horizontal">
+                                {% set canshu_dict = huayan[u"儿童血小板参数"].values()[p_age_index] %}
+                                {% for ch_i in [0, 2] %}
+								<div class="form-group has-feedback">
+									<label for="xuexiaoban{{ch_i}}" class="col-sm-2 control-label"  id="label_xxb{{ch_i}}" style="cursor: pointer" onclick="show_shuoming('label_xxb{{ch_i}}')">{{canshu_dict.items()[ch_i][0]}}</label>
+
+									<div class="col-sm-3">
+                                        <input type="text" class="form-control" id="xuexiaoban{{ch_i}}" placeholder="{{canshu_dict.items()[ch_i][1]}}" onchange="checkCanshu('xuexiaoban{{ch_i}}')">
+									    <span  id="xuexiaoban{{ch_i}}ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                        <span  id="xuexiaoban{{ch_i}}up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                        <span  id="xuexiaoban{{ch_i}}down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+
+                                    </div>
+									<label for="xuexiaoban{{ch_i + 1}}" class="col-sm-2 control-label"  id="label_xxb{{ch_i + 1}}" style="cursor: pointer" onclick="show_shuoming('label_xxb{{ch_i + 1}}')">{{canshu_dict.items()[ch_i + 1][0]}}</label>
+
+									<div class="col-sm-3">
+                                        <input type="text" class="form-control" id="xuexiaoban{{ch_i + 1}}" placeholder="{{canshu_dict.items()[ch_i + 1][1]}}" onchange="checkCanshu('xuexiaoban{{ch_i + 1}}')">
+									    <span  id="xuexiaoban{{ch_i + 1}}ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                        <span  id="xuexiaoban{{ch_i + 1}}up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                        <span  id="xuexiaoban{{ch_i + 1}}down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+
+                                    </div>
+
+								</div>
+                                {% end %}
+
+                                <div class="form-group has-feedback">
+									<label for="xuexiaoban4" class="col-sm-2 control-label"  id="label_xxb4" style="cursor: pointer" onclick="show_shuoming('label_xxb4')">{{canshu_dict.items()[4][0]}}</label>
+
+									<div class="col-sm-3">
+										<input type="text" class="form-control" id="xuexiaoban4" placeholder="{{canshu_dict.items()[4][1]}}" onchange="checkCanshu('xuexiaoban4')">
+									    <span  id="xuexiaoban4ok" class="glyphicon glyphicon-ok-circle form-control-feedback" style="color:white;display:none"></span>
+                                        <span  id="xuexiaoban4up" class="glyphicon glyphicon-upload form-control-feedback" style="color:white;display:none" ></span>
+                                        <span  id="xuexiaoban4down" class="glyphicon glyphicon-download form-control-feedback" style="color:white;display:none"></span>
+
+                                    </div>
+
+								</div>
+							</div>
+						</div>
+						</div>
+
+
+
+						<!-- /.box-body -->
+						  <!-- general form elements -->
+
+					  </div>
+			  <!-- /.box -->
+
+	<!-- End of Input Box of Bing Zheng, XianbingShi-->			  
+					<!-- /.post -->
+				  </div>
+				  <!-- /.tab-pane -->
+				  <div class="tab-pane" id="timeline">
+					<!-- The timeline -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title"><i class="fa fa-tag"></i>尿液一般检验</h3>
+							<br>
+							<b style="color:red">不能仅根据一次检验结果决定诊断、治疗或排除诊断。</b>
+						</div>
+						<div class="box-body">
+							<select title="项目选择" size="1" name="example-basic">
+                                
+                                <option value="理学检验">理学检验</option>
+								<option value="化学检验">化学检验</option>
+								
+							</select> 
+							<select title="年龄选择" size="1" name="example-basic">
+                                
+                                <option value="1日">1日</option>
+								<option value="2~6日">2~6日</option>
+								<option value="14~23日">14~23日</option>
+                               
+									
+							</select> 
+							<button onclick="tijiao()">提交
+							</button>
+						</div>
+						<div class="box-header with-border">
+							<h3 class="box-title">理学检验</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">颜色和透明度或浑浊度</label>
+
+									<div class="col-sm-7">
+										<input type="text" class="form-control"  placeholder="淡黄色透明，颜色深浅受饮水量影响。">
+									</div>
+									
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">比重</label>
+
+									<div class="col-sm-7">
+										<input type="text" class="form-control" placeholder="正常范围为1.003~1.030，一般为1.015~1.025，波动为正常，固定为不正常">
+									</div>
+									
+									
+								</div>
+							</div>
+						</div>
+						
+				
+						<!-- /.box-body -->
+						  <!-- general form elements -->
+											
+					  </div>
+				  </div>
+				  <!-- /.tab-pane -->
+
+					<div class="tab-pane" id="zhishibuchong">
+						<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title"><i class="fa fa-tag"></i>粪便检验</h3>
+						
+						</div>
+						<div class="box-body">
+							<select title="项目选择" size="1" name="example-basic">
+                                
+                                <option value="外观性状">外观性状</option>
+								<option value="化学检查">化学检查</option>
+								
+							</select> 
+							<select title="年龄选择" size="1" name="example-basic">
+                                
+                                <option value="1日">1日</option>
+								<option value="2~6日">2~6日</option>
+								<option value="14~23日">14~23日</option>
+                               
+									
+							</select> 
+
+						</div>
+						<div class="box-header with-border">
+							<h3 class="box-title">外观性状</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">外观性状</label>
+
+									<div class="col-sm-7">
+										<input type="text" class="form-control"  placeholder="正常为褐色成形软便。">
+									</div>
+									
+								</div>
+								
+							</div>
+						</div>
+						<!-- /.box-body -->
+						  <!-- general form elements -->
+					  </div>
+					</div>
+				  <!-- /.tab-pane -->
+                    <button class="btn btn-success btn-block" onclick="generateReport()">生成我的诊断报告</button>
+				</div>
+				<!-- /.tab-content -->
+
+                <div class="box box-primary" id="div_shuoming" style="display: none">
+						<div class="box-header with-border">
+							<h3 class="box-title" id="suoxie" style="font-weight: 600"><i class="fa fa-tag"></i></h3>
+						</div>
+						<div class="box-body" id="ch_yiyi"></div>
+                 </div>
+			  </div>
+			  <!-- /.nav-tabs-custom -->
+					<!-- Post -->
+						<!-- /.post -->
+						<!-- Post -->
+			</div>
+			<!-- /.col -->
+		  </div>
+      <!-- /.row -->
+    </section>
+		
+	<!-- End of Main Content Body-->
+	</div>
+	
+		
+<!-- End of Main Document Contents-->
+</div>
+ <footer class="main-footer" style="background-color:#3c8dbc;color:white">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 0.0.1
+    </div>
+    <strong>Copyright &copy; 2015-2016 ICT,CAS,CARCH.</strong> All rights
+    reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong> 电话.13911103406
+  </footer>
+
+    <script src="static/ui/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="static/ui/dist/js/app.min.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="static/ui/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="static/ui/js/google-code-prettify/run_prettify.js"></script>
+    <script src="static/js/docs.js"></script>
+    <script src="static/ui/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <script src="static/layer/layer.js"></script>
+    <script src="static/js/json2.js"></script>
+    <script>
+        window.onload = function (){
+            var elements = $(".col-sm-3 .form-control");
+            elements.css("borderColor","#8891A5");
+            for (var i=0; i < elements.length; i++) {
+                elements[i].index=i;
+                elements[i].onclick = function() {
+                    for (var j=0; j < elements.length; j++) {
+                        elements[j].style.borderColor = "#8891A5";
+                        elements[j].style.boxShadow = "none";
+                    }
+                    this.style.borderColor = "#3c8dbc";
+                    this.style.boxShadow = "0px 2px 5px #3c8dbc";
+                };
+            }
+            getNowFormatDate();
+        }
+    </script>
+    <script>
+        function changeAges(huayan) {
+            var choosed_value = $("#age_select option:selected").text();
+            if(choosed_value != "选择") {
+
+                var hxb_canshu = huayan["儿童红细胞参数"][choosed_value];
+                for(var hxb_id = 0; hxb_id <= 5; hxb_id++) {
+                    var hxb_key = $("#label_hxb" + hxb_id).text();
+                    var hxb =  $("#hongxibao" + hxb_id);
+                    hxb.css("background","white");
+                    hxb.css("color","black");
+                    hxb.attr('placeholder', hxb_canshu[hxb_key]);
+                    hxb.val("");
+                }
+
+                var bxbjs_canshu = huayan["儿童白细胞计数参考范围"][choosed_value];
+                for(var bxbjs_id = 0; bxbjs_id < 1; bxbjs_id++) {
+                    var bxbjs_key = $("#label_bxbjs" + bxbjs_id).text();
+                    var bxbjs = $("#baixibaojishu" + bxbjs_id);
+                    bxbjs.attr('placeholder', bxbjs_canshu[bxbjs_key]);
+                    bxbjs.css("background","white");
+                    bxbjs.css("color","black");
+                    bxbjs.val("");
+                }
+
+                var bxbfl_canshu = huayan["儿童白细胞计数分类参数"][choosed_value];
+                for(var bxbfl_id = 0; bxbfl_id < 7; bxbfl_id++) {
+                    var bxbfl_key = $("#label_bxbfl" + bxbfl_id).text();
+                    var bxbfl =  $("#baixibaofenlei" + bxbfl_id);
+                    bxbfl.attr('placeholder', bxbfl_canshu[bxbfl_key]);
+                    bxbfl.css("background", "white");
+                    bxbfl.css("color","black");
+                    bxbfl.val("");
+                }
+
+                var xxb_canshu = huayan["儿童血小板参数"][choosed_value];
+                for(var xxb_id = 0; xxb_id < 5; xxb_id++) {
+                    var xxb_key = $("#label_xxb" + xxb_id).text();
+                    var xxb = $("#xuexiaoban" + xxb_id);
+                    xxb.attr('placeholder', xxb_canshu[xxb_key]);
+                    xxb.css("background", "white");
+                    xxb.css("color","black");
+                    xxb.val("");
+                }
+
+
+            }
+        }
+
+        function show_shuoming(id) {
+            var canshu = $("#" + id).text();
+            var url = "/huayan_ui";
+            $.ajax(
+                    {
+                        type: "post",
+                        async: false,
+                        url: url,
+                        data: {post_type:"shuoming",canshu: canshu},
+                        dataType: "json",
+                        timeout: 1000,
+                        success: function (datas) {
+                            $("#div_shuoming").css("display", "block");
+                            $("#suoxie").text(datas["缩写"] + ":" + datas["名称"]);
+                            $("#ch_yiyi").text(datas["临床意义"]);
+                        },
+                        error: function (datas) {
+                        }
+                    }
+            );
+        }
+
+        function checkCanshu(id) {
+            var age = $("#age_select option:selected").text();
+            var sex = $("#sex_select option:selected").text();
+            if(age == "请选择" || sex == "请选择") {
+                alert("请选择性别与年龄");
+            } else {
+                var input_val = $("#" + id).val();
+                var biaozhun = $("#" + id).attr("placeholder");
+                var bz_arr = biaozhun.split("~");
+                var iv = parseFloat(input_val);
+                var low = 0.0;
+                var high = 0.0;
+                if(bz_arr.length > 1) {
+                    low = parseFloat(bz_arr[0]);
+                    high = parseFloat(bz_arr[1]);
+                } else {
+                    low = bz_arr[0];
+                    high = bz_arr[0];
+                }
+
+                if (low <= iv && iv <= high) {
+                    $("#" + id).css("background", "#00a65a");
+                    $("#" + id).css("color", "white");
+                    $("#" + id + "ok").css("display", "block");
+                    $("#" + id + "down").css("display", "none");
+                    $("#" + id + "up").css("display", "none");
+
+                } else if (low > iv) {
+                    $("#" + id).css("background", "#3c8dbc");
+                    $("#" + id).css("color", "white");
+                    $("#" + id + "down").css("display", "block");
+                    $("#" + id + "ok").css("display", "none");
+                    $("#" + id + "up").css("display", "none");
+                } else if (iv > high) {
+                    $("#" + id).css("background", "#dd4b39");
+                    $("#" + id).css("color", "white");
+                    $("#" + id + "up").css("display", "block");
+                    $("#" + id + "ok").css("display", "none");
+                    $("#" + id + "down").css("display", "none");
+                } else {
+                    alert("输入的字符不合法，请重新输入！");
+                }
+            }
+        }
+
+    </script>
+  <script>
+      function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+		var weekday=new Array(7);
+		weekday[0]="星期天";
+		weekday[1]="星期一";
+		weekday[2]="星期二";
+		weekday[3]="星期三";
+		weekday[4]="星期四";
+		weekday[5]="星期五";
+		weekday[6]="星期六";
+
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate+ " " + weekday[date.getDay()]+ " " + date.getHours() + seperator2 + date.getMinutes()+ seperator2 + date.getSeconds();
+
+		document.getElementById('test').innerText=currentdate;
+		setTimeout("getNowFormatDate()",1000);
+	}
+  </script>
+
+  <script>
+        function generateReport() {
+                var hxb_canshu = {};
+                for(var hxb_id = 0; hxb_id <= 5; hxb_id++) {
+                    var hxb_key = $("#label_hxb" + hxb_id).text();
+                    var hxb =  $("#hongxibao" + hxb_id);
+                    hxb_canshu[hxb_key] = {};
+                    hxb_canshu[hxb_key]["正常值"] = hxb.attr('placeholder');
+                    hxb_canshu[hxb_key]["实际值"]= hxb.val();
+                }
+                var bxbjs_canshu = {};
+                for(var bxbjs_id = 0; bxbjs_id < 1; bxbjs_id++) {
+                    var bxbjs_key = $("#label_bxbjs" + bxbjs_id).text();
+                    var bxbjs = $("#baixibaojishu" + bxbjs_id);
+                    bxbjs_canshu[bxbjs_key] = {};
+                    bxbjs_canshu[bxbjs_key]["正常值"] = bxbjs.attr('placeholder');
+                    bxbjs_canshu[bxbjs_key]["实际值"] = bxbjs.val() != "" ? bxbjs.val() : "未输入";
+                }
+                var bxbfl_canshu = {};
+                for(var bxbfl_id = 0; bxbfl_id < 7; bxbfl_id++) {
+                    var bxbfl_key = $("#label_bxbfl" + bxbfl_id).text();
+                    var bxbfl = $("#baixibaofenlei" + bxbfl_id);
+                    bxbfl_canshu[bxbfl_key] = {};
+                    bxbfl_canshu[bxbfl_key]["正常值"] = bxbfl.attr('placeholder');
+                    bxbfl_canshu[bxbfl_key]["实际值"] = bxbfl.val();
+                }
+                var xxb_canshu = {};
+                for(var xxb_id = 0; xxb_id < 5; xxb_id++) {
+                    var xxb_key = $("#label_xxb" + xxb_id).text();
+                    var xxb = $("#xuexiaoban" + xxb_id);
+                    xxb_canshu[xxb_key] = {};
+                    xxb_canshu[xxb_key]["正常值"] = xxb.attr('placeholder');
+                    xxb_canshu[xxb_key]["实际值"] = xxb.val();
+                }
+                var p_url = "/generate_report";
+                $.ajax(
+                        {
+                            type: "post",
+                            async: false,
+                            url: p_url,
+                            data: {"儿童红细胞参数": JSON.stringify(hxb_canshu), "儿童白细胞计数参考范围": JSON.stringify(bxbjs_canshu), "儿童白细胞计数分类参数": JSON.stringify(bxbjs_canshu), "儿童血小板参数": JSON.stringify(xxb_canshu)},
+                            dataType: "json",
+                            timeout: 1000,
+                            success: function (datas) {
+                                window.location.href = "/patient_report/" + datas["p_id"];
+                            },
+                            error: function (datas) {
+								alert(datas);
+							}
+                        }
+                );
+        }
+    </script>
+  <body class="skin-blue-light fixed" data-spy="scroll" data-target="#scrollspy">
+  </body>
+</html>

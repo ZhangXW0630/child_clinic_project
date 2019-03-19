@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>医生端</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="{{static_url('ui/bootstrap/css/bootstrap.min.css')}}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{static_url('ui/css/font-awesome.min.css')}}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{{static_url('ui/css/ionicons.min.css')}}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{static_url('ui/plugins/datatables/dataTables.bootstrap.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{static_url('ui/dist/css/AdminLTE.min.css')}}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{{static_url('ui/dist/css/skins/_all-skins.min.css')}}">
+  <link rel="stylesheet" href="{{static_url('ui/plugins/iCheck/all.css')}}">
+  <link rel="stylesheet" href="{{static_url('ui/plugins/colorpicker/bootstrap-colorpicker.min.css')}}">
+   <link rel="stylesheet" href="{{static_url('ui/plugins/select2/select2.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('layer/skin/layer.css')}}">
+        <link rel="stylesheet" href="{{static_url('layer/skin/layui.css')}}">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #head1,#head2,#footer {
+            background: -webkit-linear-gradient(#9BC78F, #385C2E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#9BC78F, #385C2E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#9BC78F, #385C2E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#9BC78F, #385C2E); /* 标准的语法（必须放在最后） */
+        }
+        #jiandang,#yingyong{
+            background: -webkit-linear-gradient(#D2D9C3, #A5B37E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#D2D9C3, #A5B37E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#D2D9C3, #A5B37E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#D2D9C3, #A5B37E); /* 标准的语法（必须放在最后） */
+        }
+        #jiandang:hover,#yingyong:hover{
+            color: #fff;
+            background: -webkit-linear-gradient(#E3E7DA, #C2CBAE); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#E3E7DA, #C2CBAE); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#E3E7DA, #C2CBAE); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#E3E7DA, #C2CBAE); /* 标准的语法（必须放在最后） */
+
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        input[type="number"] {
+            -moz-appearance:textfield;
+        }
+        input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+            -webkit-appearance: none !important;
+        }
+         .color-palette {
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+        }
+
+        .color-palette-set {
+            margin-bottom: 15px;
+        }
+
+        .color-palette span {
+            display: none;
+            font-size: 12px;
+        }
+
+        .color-palette:hover span {
+            display: block;
+        }
+
+        .color-palette-box h4 {
+            position: absolute;
+            top: 100%;
+            left: 25px;
+            margin-top: -40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+            display: block;
+            z-index: 7;
+        }
+
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .linetext {
+            font-size: 12px;
+            font-family: SimSun;
+            fill: #0000FF;
+            fill-opacity: 1.0;
+        }
+
+        .nodetext {
+            font-size: 12px;
+            font-family: SimSun;
+            fill: #000000;
+        }
+
+        path.link {
+            fill: none;
+            stroke: #666;
+            stroke-width: 1.5px;
+        }
+        path.link.title {
+            fill: none;
+            stroke: #A14C08;
+            stroke-width: 1.5px;
+        }
+        path.link.content {
+            fill: none;
+            stroke: #175469;
+            stroke-width: 1.5px;
+        }
+        marker#licensing {
+            fill: green;
+        }
+
+        path.link.symptom {
+            stroke-width: "2";
+        }
+
+        path.link.include {
+            stroke-width: "2";
+            color: #0c0c0c;
+        }
+
+        path.link.visted {
+            stroke-width: "2";
+            fill:none;
+        }
+
+        path {
+            stroke-width: "2";
+        }
+
+        path.link.disease {
+            stroke-dasharray: 0, 2 1;
+        }
+
+        circle.node.symptom {
+            font-size: 12px;
+            fill: #84cc30;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.disease {
+            font-size: 12px;
+            fill: #f3a331;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.visted {
+            font-size: 12px;
+            fill: #f3331f;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.accessory {
+            font-size: 12px;
+            fill: #73f3cd;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.all {
+            font-size: 12px;
+            fill: #f3837f;
+            stroke-width: 1.5px;
+        }
+        circle.node.liugan.name {
+            font-size: 12px;
+            fill: #f3a331;
+            stroke-width: 1px;
+        }
+        circle.node.liugan.title {
+            font-size: 12px;
+            fill: #73f3cd;
+            stroke-width: 1px;
+        }
+        circle.node.examine {
+            font-size: 12px;
+            fill: #80cc17;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.examine.more {
+            font-size: 12px;
+            fill: #ff6983;
+            stroke-width: 1px;
+        }
+
+        circle.node.examine.result {
+            font-size: 12px;
+            fill: #ff681a;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level0 {
+            font-size: 12px;
+            fill: #f3a331;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level1 {
+            font-size: 12px;
+            fill: #84cc30;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level2 {
+            font-size: 12px;
+            fill: #ff681a;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level3 {
+            font-size: 12px;
+            fill: #ff6983;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level4 {
+            font-size: 12px;
+            fill: #73f3cd;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level5 {
+            font-size: 12px;
+            fill: #9e98f3;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level6 {
+            font-size: 12px;
+            fill: #eef304;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level7 {
+            font-size: 12px;
+            fill: #f3341c;
+            stroke-width: 1.5px;
+        }
+
+        circle {
+            fill: #80cc17;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        svg.default {
+            border: 1.5px solid;
+            float: left;
+        }
+
+        svg.left {
+            border: 2px solid;
+            color: #ebc722;
+            float: left;
+        }
+
+        svg.right {
+            border: 2px solid;
+            color: #ebc722;
+            float: right;
+        }
+
+        svg.center {
+            margin: auto;
+            color: #385C2E;
+            text-align: center;
+            border: 2px solid;
+        }
+
+        text.disease {
+            font: 20px solid;
+            color: #f3a331;
+            pointer-events: none;
+        }
+
+        text.symptom {
+            font: 14px sans-serif;
+            pointer-events: none;
+        }
+
+        text.visted {
+            font: 18px sans-serif;
+            stroke: #8B4113;
+            fill: #8B4113;
+            stroke-width: 1px;
+            pointer-events: none;
+        }
+
+        text.shadow {
+            stroke: #fff;
+            stroke-width: 3px;
+            stroke-opacity: .8;
+        }
+        .link {
+            fill: none;
+            stroke: #666;
+            stroke-width: 1.5px;
+        }
+
+        #licensing {
+            fill: green;
+        }
+
+        .link.licensing {
+            stroke: green;
+        }
+
+        .link.resolved {
+            stroke-dasharray: 0,2 1;
+        }
+
+        text {
+            font: 12px Microsoft YaHei;
+            pointer-events: none;
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+        }
+        text.node.photo {
+            stroke:blue;
+            stroke-width: 1px;
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-green-light sidebar-mini">
+{% import json %}
+<div class="wrapper">
+
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">康康助手</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img src="static/ui/dist/img/ICT1.png" style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" id="head2">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="static/ui/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <p>
+
+                                    <small>Member since Nov. 2016</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="/invitation">邀请好友</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+
+            <div class="sidebar" id="scrollspy">
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="nav sidebar-menu">
+                <li class="header"></li>
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-user-md text-green"></i> <span>疾病预诊</span>
+                    <span class="pull-right-container">
+                      <span class="label label-success pull-right">2</span>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li class="active"> <a href="/doctor_home?category=0"> &nbsp;&nbsp;<i class="fa fa-stethoscope text-green"></i> <span>儿科学预诊</span></a></li>
+                    <li> <a href="/doctor_home?category=1"> &nbsp;&nbsp;<i class="fa fa-stethoscope text-green"></i> <span>皮肤病预诊</span></a></li>
+                  </ul>
+                </li>
+                <li><a href="/liugan" > <i class="fa fa-user-md text-red"></i> <span>流感治疗</span></a></li>
+                <li><a href="/xy_search_home" > <i class="fa fa-medkit text-blue"></i> <span>知识查询</span></a></li>
+                <li><a href="/knowledge_graph_home" > <i class="fa fa-medkit text-blue"></i> <span>知识图谱</span></a></li>
+                <li><a href="/zy_model" > <i class="fa fa-medkit text-blue"></i> <span>成人腹泻(中医)</span></a></li>
+                <li><a href="/xy_jiuzhen" > <i class="fa fa-dashboard text-purple"></i> <span>测试工具</span></a></li>
+                <li><a href="/yaopin_search_home" > <i class="fa fa-medkit text-blue"></i> <span>药品查询</span></a></li>
+                <li><a href="/skin_search_home"> <i class="fa fa-medkit text-blue"></i> <span>皮肤病查询</span></a></li>
+                <li><a href="http://118.190.158.2/ylyx/index.html" > <i class="fa fa-image text-blue"></i> <span>医学影像</span></a></li>
+                <li><a href="/usersGuide" > <i class="fa fa-sticky-note text-yellow"></i> <span>使用说明</span><span class="label label-danger pull-right" ><i class="fa fa-star"></i></span></a></li>
+            </ul>
+            </div>
+            <!-- search form -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                流感治疗知识图谱
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active"><a href="/doctor_home"><i class="fa fa-dashboard"></i> 首页</a></li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-md-12">
+                    <div class="box box-success" style="border-radius:8px">
+                        <div class="box-body">
+                            <svg id="liugan_graph"
+                                         style="height: 500px; width: 100%; text-align: center; overflow:scroll;border-radius:8px"></svg>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-12">
+                    <div class="box box-success">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-history text-blue"></i><b>流感预防</b></h3>
+                        </div>
+                        <div class="box-body" id="showTable" style="overflow-x:auto">
+                            <div class="col-md-9">
+                                <div id="myCarousel" class="carousel slide">
+                                <!-- 轮播（Carousel）指标 -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                                    </ol>
+                                    <!-- 轮播（Carousel）项目 -->
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <ul class="timeline timeline-inverse">
+                                                    <li class="time-label">
+                                                        <span class="bg-red">
+                                                          流感相关知识
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
+                                                            <h3 class="timeline-header"><a href="#">典型的临床症状是：急起高热、全身疼痛、显著乏力和轻度呼吸道症状。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">传播途径：其主要通过空气中的飞沫、人与人之间的接触或与被污染物品的接触传播。</a>
+                                                            </h3>
+                                                        </div>
+                                                    </li>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">高发期：秋冬季节是其高发期。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                        <div class="item">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <ul class="timeline timeline-inverse">
+                                                    <li class="time-label">
+                                                        <span class="bg-red">
+                                                          流感预防
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
+                                                            <h3 class="timeline-header"><a href="#">1.保持室内空气流通，流行高峰期避免去人群聚集场所。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">2.咳嗽、打喷嚏时应使用纸巾等，避免飞沫传播。</a>
+                                                            </h3>
+                                                        </div>
+                                                    </li>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">3.经常彻底洗手，避免脏手接触口、眼、鼻。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">4.流行期间如出现流感样症状及时就医，并减少接触他人，尽量居家休息。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">5.流感患者应呼吸道隔离1周或至主要症状消失。患者用具及分泌物要彻底消毒。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">6.加强户外体育锻炼，提高身体抗病能力。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">7.秋冬气候多变，注意加减衣服。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">8、与流感患者有明确接触者：①儿童、青壮年，身体强壮者可用下方：金银花、大青叶、薄荷、生甘草，水煎服，每日一副，连服5天。②老年体弱者可用下方：党参、苏叶、荆芥，水煎服，每日一副，连服5天。</a></h3>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <ul class="timeline timeline-inverse">
+                                                    <li class="time-label">
+                                                        <span class="bg-red">
+                                                          流感预防
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
+                                                            <h3 class="timeline-header"><a href="#">1.保持室内空气流通，流行高峰期避免去人群聚集场所。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">2.咳嗽、打喷嚏时应使用纸巾等，避免飞沫传播。</a>
+                                                            </h3>
+                                                        </div>
+                                                    </li>
+                                                    <!-- END timeline item -->
+                                                    <!-- timeline item -->
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">3.经常彻底洗手，避免脏手接触口、眼、鼻。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">4.流行期间如出现流感样症状及时就医，并减少接触他人，尽量居家休息。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">5.流感患者应呼吸道隔离1周或至主要症状消失。患者用具及分泌物要彻底消毒。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">6.加强户外体育锻炼，提高身体抗病能力。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">7.秋冬气候多变，注意加减衣服。</a></h3>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-comments bg-yellow"></i>
+                                                        <div class="timeline-item">
+                                                            <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+                                                            <h3 class="timeline-header"><a href="#">8、与流感患者有明确接触者：①儿童、青壮年，身体强壮者可用下方：金银花、大青叶、薄荷、生甘草，水煎服，每日一副，连服5天。②老年体弱者可用下方：党参、苏叶、荆芥，水煎服，每日一副，连服5天。</a></h3>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 轮播（Carousel）导航 -->
+                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color:red"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="color:red"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="{{ static_url('images/liugan.jpg') }}" style="height:200px;width:100%;min-width:200px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer" id="footer" style="color:white">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 3.4.0
+        </div>
+        <strong>Copyright &copy; 2015-2018 ICT,CAS,CARCH.</strong> All rights
+        reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong> 电话.13911103406
+    </footer>
+
+</div>
+<!-- ./wrapper -->
+
+
+
+<script src="{{static_url('ui/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{{static_url('ui/bootstrap/js/bootstrap.min.js')}}"></script>
+<!-- DataTables -->
+<script src="{{static_url('ui/plugins/datatables/jquery.dataTables1.min.js')}}"></script>
+<script src="{{static_url('ui/plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+<!-- SlimScroll -->
+<script src="{{static_url('ui/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{static_url('ui/plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{static_url('ui/dist/js/app.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{static_url('ui/dist/js/demo.js')}}"></script>
+<script src="{{static_url('layer/layui.js')}}"></script>
+<script src="{{static_url('layer/layer.js')}}"></script>
+<!-- Page specific script -->
+<script src="{{static_url('d3/d3.v3.min.js')}}"></script>
+
+<script>
+    $(function () {
+        var url_liugan_graph = "/liugan";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url_liugan_graph,
+            data: {"page": 1},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                console.log(datas);
+                add_all_examine_disease(datas[1]["nodes"], datas[1]["edges"], "liugan_graph", "center", "hmm");
+            },
+            error: function (datas) {
+                layer.alert("初始化数据失败！");
+            }
+        });
+
+    });
+    function add_all_examine_disease(nodes, links, id, style, mark_flag) {
+        var w = 1000, h = 500;
+        var linkDistance = 50;
+        var text_font_size = 15;
+        var class_name;
+        if (style === "left") class_name = "left";
+        else if (style === "right") class_name = "right";
+        else if (style === "center") class_name = "center";
+        var force = d3.layout.force()
+            .nodes(d3.values(nodes))
+            .links(d3.values(links))
+            .size([w, h])
+            .linkDistance(linkDistance)
+            .charge(-300)
+            .on("tick", tick)
+            .start();
+
+        //定义缩放函数
+        var zoom = d3.behavior.zoom()
+            .scaleExtent([1, 10])
+            .on("zoom", zoomed);
+
+        //定义拖拽
+        var drag = d3.behavior.drag()
+            .origin(function (d) {
+                return d;
+            })
+            .on("dragstart", dragstarted)
+            .on("drag", dragged)
+            .on("dragend", dragended);
+
+        //定义画布信息
+        var svg = d3.select("#" + id)
+            .attr("viewBox", "0,0,500,800")
+            .attr("class", class_name)
+            .attr("id", id)
+            .call(zoom)
+            .on('dblclick.zoom', function (d) {
+                layer.open({
+                    type: 2,
+                    title: "症状穴位知识图谱",
+                    closeBtn: 1,
+                    shadeClose: false,
+                    shade: 0.3,
+                    maxmin: true,
+                    area: ['95%', '95%'],
+                    anim: 2,
+                    content: '/knowledge_zoom?disease_name=' + disease_name + "&&mark_flag=" + mark_flag,
+                    end: function () {
+                    }
+                });
+            });
+
+        //(2)创建一个cintainer，用于保存zoom的结果，用于控制界面
+        var container = svg.append("svg:g");
+        //(1)创建箭头
+        container.append("svg:defs").selectAll("marker")
+            .data(["mark_end_" + mark_flag])
+            .enter().append("svg:marker")
+            .attr("id", String)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 15)
+            .attr("refY", -1.5)
+            .attr("markerWidth", 8)
+            .attr("markerHeight", 8)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M0,-5L10,0L0,5")
+            .attr('fill','#74745D');
+
+        //(2)根据连线类型引用上面创建的标记
+        var path = container.append("g").selectAll("path")
+            .data(force.links())
+            .enter().append("svg:path")
+            .attr("id", function (d, i) {
+                return "path" + i;
+            })
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "link visted";
+                if(d.source.ID==="0"){
+                    return "link visted title";
+                }
+                return "link visted content";
+                //return "link " + d.type;
+            })
+            .attr("marker-end", function (d) {
+                return "url(#mark_end_" + mark_flag + ")";
+            });
+
+        //首先生长text，绑定nodes节点
+        var text = container.append("g").selectAll("text")
+            .data(force.nodes())
+            .enter().append("svg:text")
+            .attr("x", function (d) {
+                if (d.ID === "0")
+                    return 20;
+                return text_font_size;
+            })
+            .attr("y", ".31em")
+            .attr("class", function (d) {
+                if (d.ID === "0")
+                    return "text visted";
+                return "node " + d.type;
+            })
+            .text(function (d) {
+                return d.name+" : "+d.content;
+            });
+
+        var circle = container.append("g").selectAll("circle")
+            .data(force.nodes())
+            .enter().append("svg:circle")
+            .attr("r", function(d){
+                if(d.ID=== "0"){
+                    return 18;
+                }else if(d.ID.indexOf(".")==-1){
+                    return 14;
+                }else{
+                    return 10;
+                }
+            })
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "node visted";
+                if (d.type === "disease")
+                    return "node " + d.type;
+                if(d.ID=== "0")
+                    return "node liugan name";
+                if(d.ID.indexOf(".")==-1)
+                    return "node liugan title";
+                if (d.times == "1") {
+                    return "node examine";
+                } else {
+                    return "node examine more";
+                }
+            })
+            .on("click", function (d, i) {
+                if (d.type === "disease") {
+                    var content = "疾病名称: " + d.name + "</br>"
+                        + "疾病定义：" + d.definition;
+                    layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                } else if (d.s_type == "辅助检查") {
+                    layer.open({
+                        type: 2,
+                        title: '具有此化验检测的疾病',
+                        closeBtn: 1,
+                        shadeClose: false,
+                        shade: 0.3,
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['60%', '90%'],
+                        anim: 2,
+                        content: '/examine_disease?examine_name=' + d.name,
+                        end: function () {
+                        }
+                    });
+                } else {
+                    var content = "节点名称: " + d.name + "</br>"
+                        + "节点类型：" + d.s_type + "</br>"
+                        + "节点状态：" + d.state + "</br>"
+                        + "节点值：" + d.value + "</br>"
+                        + "触发条件：" + d.condition;
+                    layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                }
+            })
+            .on("mouseover", function (d, i) {
+                //显示连接线上的文字
+                text.style("fill-opacity", function (edge) {
+                    if (edge.source === d || edge.target === d) {
+                        return 1.0;
+                    }
+                });
+            })
+            .on("mouseout", function (d, i) {
+                //隐去连接线上的文字
+                text.style("fill-opacity", function (edge) {
+                    if (edge.source === d || edge.target === d) {
+                        return 0.0;
+                    }
+                });
+            })
+            .call(drag);
+
+        //放大函数
+        function zoomed() {
+            container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        function tick() {
+            path.attr("d", function (d) {
+                var dx = d.target.x - d.source.x,//增量
+                    dy = d.target.y - d.source.y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+                return "M" + d.source.x + ","
+                    + d.source.y + "A" + dr + ","
+                    + dr + " 0 0,1 " + d.target.x + ","
+                    + d.target.y;
+            });
+            circle.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            text.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+        }
+
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();
+            d3.select(this).classed("dragging", true);
+            force.start();
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
+        }
+
+        function dragended(d) {
+            d3.select(this).classed("dragging", false);
+        }
+    }
+</script>
+
+
+<script>
+    function check_DCRelation() {
+        var caseIDs = $("#hz_case_id").val();
+        var url = "/doctor_share_case";
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: {caseIDs:caseIDs},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                if(datas == "error") {
+                    layer.alert("您输入的医生姓名或手机号错误，请重新输入！");
+                } else {
+                    layer.alert("邀请成功！");
+                }
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

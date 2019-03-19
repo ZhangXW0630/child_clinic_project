@@ -1,0 +1,2610 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>医生端</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="{{ static_url('ui/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/font-awesome.min.css') }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/ionicons.min.css') }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/datatables/dataTables.bootstrap.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/AdminLTE.min.css') }}">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/iCheck/all.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('layer/skin/layer.css') }}">
+    <link rel="stylesheet" href="{{ static_url('layer/skin/layui.css') }}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #head1, #head2, #footer {
+            background: -webkit-linear-gradient(#9BC78F, #385c2e); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#9BC78F, #385C2E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#9BC78F, #385C2E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#9BC78F, #385C2E); /* 标准的语法（必须放在最后） */
+        }
+
+        #jiandang, #yingyong {
+            background: -webkit-linear-gradient(#D2D9C3, #A5B37E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#D2D9C3, #A5B37E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#D2D9C3, #A5B37E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#D2D9C3, #A5B37E); /* 标准的语法（必须放在最后） */
+        }
+
+        #jiandang:hover, #yingyong:hover {
+            color: #fff;
+            background: -webkit-linear-gradient(#E3E7DA, #C2CBAE); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#E3E7DA, #C2CBAE); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#E3E7DA, #C2CBAE); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#E3E7DA, #C2CBAE); /* 标准的语法（必须放在最后） */
+
+        }
+
+        #shangchuan {
+            opacity: 0;
+            filter: alpha(opacity=0);
+            height: 95px;
+            width: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+        }
+
+    </style>
+</head>
+<body class="hold-transition skin-green-light sidebar-mini">
+{% import json %}
+<div class="wrapper">
+
+    <input type="text" class="form-control" id="moban_name" readonly="readonly"
+           value="{{ current_case.get(u'name', u'')}}" style="display: none">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">康康助手</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img src="{{ static_url('ui/dist/img/ICT1.png') }}"
+                                       style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" id="head2">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <!--<li class="dropdown messages-menu">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                    <!--<i class="fa fa-envelope-o"></i>-->
+                    <!--<span class="label label-success">4</span>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu">-->
+                    <!--<li class="header">You have 4 messages</li>-->
+                    <!--<li>-->
+                    <!--&lt;!&ndash; inner menu: contains the actual data &ndash;&gt;-->
+                    <!--<ul class="menu">-->
+                    <!--<li>&lt;!&ndash; start message &ndash;&gt;-->
+                    <!--<a href="#">-->
+                    <!--<div class="pull-left">-->
+                    <!--<img src="{{static_url('ui/dist/img/user2-160x160.jpg')}}" class="img-circle"-->
+                    <!--alt="User Image">-->
+                    <!--</div>-->
+                    <!--<h4>-->
+                    <!--Support Team-->
+                    <!--<small><i class="fa fa-clock-o"></i> 5 mins</small>-->
+                    <!--</h4>-->
+                    <!--<p>Why not buy a new awesome theme?</p>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash; end message &ndash;&gt;-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<div class="pull-left">-->
+                    <!--<img src="{{static_url('ui/dist/img/user3-128x128.jpg')}}" class="img-circle"-->
+                    <!--alt="User Image">-->
+                    <!--</div>-->
+                    <!--<h4>-->
+                    <!--AdminLTE Design Team-->
+                    <!--<small><i class="fa fa-clock-o"></i> 2 hours</small>-->
+                    <!--</h4>-->
+                    <!--<p>Why not buy a new awesome theme?</p>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<div class="pull-left">-->
+                    <!--<img src="{{static_url('ui/dist/img/user4-128x128.jpg')}}" class="img-circle"-->
+                    <!--alt="User Image">-->
+                    <!--</div>-->
+                    <!--<h4>-->
+                    <!--Developers-->
+                    <!--<small><i class="fa fa-clock-o"></i> Today</small>-->
+                    <!--</h4>-->
+                    <!--<p>Why not buy a new awesome theme?</p>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<div class="pull-left">-->
+                    <!--<img src="{{static_url('ui/dist/img/user3-128x128.jpg')}}" class="img-circle"-->
+                    <!--alt="User Image">-->
+                    <!--</div>-->
+                    <!--<h4>-->
+                    <!--Sales Department-->
+                    <!--<small><i class="fa fa-clock-o"></i> Yesterday</small>-->
+                    <!--</h4>-->
+                    <!--<p>Why not buy a new awesome theme?</p>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<div class="pull-left">-->
+                    <!--<img src="{{static_url('ui/dist/img/user4-128x128.jpg')}}" class="img-circle"-->
+                    <!--alt="User Image">-->
+                    <!--</div>-->
+                    <!--<h4>-->
+                    <!--Reviewers-->
+                    <!--<small><i class="fa fa-clock-o"></i> 2 days</small>-->
+                    <!--</h4>-->
+                    <!--<p>Why not buy a new awesome theme?</p>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="footer"><a href="#">See All Messages</a></li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash; Notifications: style can be found in dropdown.less &ndash;&gt;-->
+                    <!--<li class="dropdown notifications-menu">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                    <!--<i class="fa fa-bell-o"></i>-->
+                    <!--<span class="label label-warning">10</span>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu">-->
+                    <!--<li class="header">You have 10 notifications</li>-->
+                    <!--<li>-->
+                    <!--&lt;!&ndash; inner menu: contains the actual data &ndash;&gt;-->
+                    <!--<ul class="menu">-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<i class="fa fa-users text-aqua"></i> 5 new members joined today-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<i class="fa fa-warning text-yellow"></i> Very long description here that-->
+                    <!--may not fit into the-->
+                    <!--page and may cause design problems-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<i class="fa fa-users text-red"></i> 5 new members joined-->
+                    <!--</a>-->
+                    <!--</li>-->
+
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<i class="fa fa-shopping-cart text-green"></i> 25 sales made-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#">-->
+                    <!--<i class="fa fa-user text-red"></i> You changed your username-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="footer"><a href="#">View all</a></li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash; Tasks: style can be found in dropdown.less &ndash;&gt;-->
+                    <!--<li class="dropdown tasks-menu">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                    <!--<i class="fa fa-flag-o"></i>-->
+                    <!--<span class="label label-danger">9</span>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu">-->
+                    <!--<li class="header">You have 9 tasks</li>-->
+                    <!--<li>-->
+                    <!--&lt;!&ndash; inner menu: contains the actual data &ndash;&gt;-->
+                    <!--<ul class="menu">-->
+                    <!--<li>&lt;!&ndash; Task item &ndash;&gt;-->
+                    <!--<a href="#">-->
+                    <!--<h3>-->
+                    <!--Design some buttons-->
+                    <!--<small class="pull-right">20%</small>-->
+                    <!--</h3>-->
+                    <!--<div class="progress xs">-->
+                    <!--<div class="progress-bar progress-bar-aqua" style="width: 20%"-->
+                    <!--role="progressbar" aria-valuenow="20" aria-valuemin="0"-->
+                    <!--aria-valuemax="100">-->
+                    <!--<span class="sr-only">20% Complete</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash; end task item &ndash;&gt;-->
+                    <!--<li>&lt;!&ndash; Task item &ndash;&gt;-->
+                    <!--<a href="#">-->
+                    <!--<h3>-->
+                    <!--Create a nice theme-->
+                    <!--<small class="pull-right">40%</small>-->
+                    <!--</h3>-->
+                    <!--<div class="progress xs">-->
+                    <!--<div class="progress-bar progress-bar-green" style="width: 40%"-->
+                    <!--role="progressbar" aria-valuenow="20" aria-valuemin="0"-->
+                    <!--aria-valuemax="100">-->
+                    <!--<span class="sr-only">40% Complete</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash; end task item &ndash;&gt;-->
+                    <!--<li>&lt;!&ndash; Task item &ndash;&gt;-->
+                    <!--<a href="#">-->
+                    <!--<h3>-->
+                    <!--Some task I need to do-->
+                    <!--<small class="pull-right">60%</small>-->
+                    <!--</h3>-->
+                    <!--<div class="progress xs">-->
+                    <!--<div class="progress-bar progress-bar-red" style="width: 60%"-->
+                    <!--role="progressbar" aria-valuenow="20" aria-valuemin="0"-->
+                    <!--aria-valuemax="100">-->
+                    <!--<span class="sr-only">60% Complete</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash; end task item &ndash;&gt;-->
+                    <!--<li>&lt;!&ndash; Task item &ndash;&gt;-->
+                    <!--<a href="#">-->
+                    <!--<h3>-->
+                    <!--Make beautiful transitions-->
+                    <!--<small class="pull-right">80%</small>-->
+                    <!--</h3>-->
+                    <!--<div class="progress xs">-->
+                    <!--<div class="progress-bar progress-bar-yellow" style="width: 80%"-->
+                    <!--role="progressbar" aria-valuenow="20" aria-valuemin="0"-->
+                    <!--aria-valuemax="100">-->
+                    <!--<span class="sr-only">80% Complete</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash; end task item &ndash;&gt;-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="footer">-->
+                    <!--<a href="#">View all tasks</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="user-image"
+                                 alt="User Image">
+                            <span class="hidden-xs">{{ current_doctor.get(u'name', u'')}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="img-circle"
+                                     alt="User Image">
+
+                                <p>
+                                    {{ current_doctor.get(u'name', u'')}}
+                                    <small>Member since Nov. 2016</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="/invitation">邀请好友</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{ current_doctor.get(u'name', u'')}}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <div class="sidebar" id="scrollspy">
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="nav sidebar-menu">
+                    <li class="header"></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user-md text-green"></i> <span>疾病预诊</span>
+                            <span class="pull-right-container">
+                          <span class="label label-success pull-right">2</span>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="active"><a href="/doctor_home?category=0"> &nbsp;&nbsp;<i
+                                    class="fa fa-stethoscope text-green"></i> <span>儿科学预诊</span></a></li>
+                            <li><a href="/doctor_home?category=1"> &nbsp;&nbsp;<i
+                                    class="fa fa-stethoscope text-green"></i> <span>皮肤病预诊</span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/xy_search_home"> <i class="fa fa-medkit text-blue"></i> <span>知识查询</span></a></li>
+                    <li><a href="/knowledge_graph_home"> <i class="fa fa-medkit text-blue"></i> <span>知识图谱</span></a>
+                    </li>
+                    <li><a href="/zy_model"> <i class="fa fa-medkit text-blue"></i> <span>成人腹泻(中医)</span></a></li>
+                    <li><a href="/xy_jiuzhen"> <i class="fa fa-dashboard text-purple"></i> <span>测试工具</span></a></li>
+                    <li><a href="/yaopin_search_home"> <i class="fa fa-medkit text-blue"></i> <span>药品查询</span></a></li>
+                    <li><a href="/skin_search_home"> <i class="fa fa-medkit text-blue"></i> <span>皮肤病查询</span></a></li>
+                    <li><a href="http://118.190.158.2/ylyx/index.html" > <i class="fa fa-image text-blue"></i> <span>医学影像</span></a></li>
+                    <li><a href="/usersGuide"> <i class="fa fa-sticky-note text-yellow"></i> <span>使用说明</span><span
+                            class="label label-danger pull-right"><i class="fa fa-star"></i></span></a></li>
+                </ul>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-fire text-red"></i> <span>热门分类</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% for remen_index, remen_type in enumerate(remen.keys()) %}
+                        {% set remen_type_id = 10 + remen_index + 1 %}
+                        <li class="treeview">
+                            <a style="cursor:pointer" id="remen{{ remen_type_id }}"><i
+                                    class="fa fa-tags text-red"></i> {{ remen_type }} </a>
+                            <ul class="treeview-menu">
+                                {% for word_index, word in enumerate(remen.get(remen_type)) %}
+                                {% set word_id = remen_type_id * 71 + word_index + 1 %}
+                                <li><a id="{{ word_id }}" style="cursor:pointer"
+                                       onclick="inputSypmtom('{{ word_id }}')"><i
+                                        class="fa fa-tag text-red"></i> {{ word }}</a></li>
+                                {% end %}
+                            </ul>
+                        </li>
+                        {% end %}
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-book text-blue"></i> <span>系统分类</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% for xitong_index, xitong_type in enumerate(xitong.keys()) %}
+                        {% set xitong_type_id = 10000 + xitong_index + 1 %}
+                        <li class="treeview">
+                            <a style="cursor:pointer" id="xitong{{ xitong_type_id }}"><i
+                                    class="fa fa-tags text-red"></i> {{ xitong_type }} </a>
+                            <ul class="treeview-menu">
+                                {% for xt_word_index, xt_word in enumerate(xitong.get(xitong_type)) %}
+                                {% set xt_word_id = xitong_type_id * 7 + xt_word_index + 1 %}
+                                <li><a id="{{ xt_word_id }}" style="cursor:pointer"><i
+                                        class="fa fa-tags text-red"></i>{{ xt_word }}</a>
+                                    <ul class="treeview-menu">
+                                        {% for xt_sym_index, xt_sym in enumerate(xitong.get(xitong_type).get(xt_word)) %}
+                                        {% set xt_sym_id = xt_word_id * 71 + xt_sym_index + 1 %}
+                                        <li><a id="{{ xt_sym_id }}" style="cursor:pointer"
+                                               onclick="inputSypmtom('{{ xt_sym_id }}')"><i
+                                                class="fa fa-tag text-red"></i>{{ xt_sym }}</a></li>
+                                        {% end %}
+                                    </ul>
+                                </li>
+                                {% end %}
+                            </ul>
+                        </li>
+                        {% end %}
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-child text-yellow"></i> <span>体格检查</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% for tg_index, tg_type in enumerate(sorted(tige.keys())) %}
+                        {% set tg_type_id = 1000000 + tg_index + 1 %}
+                        <li class="treeview">
+                            <a style="cursor:pointer" id="remen{{ tg_type_id }}"><i
+                                    class="fa fa-tags text-red"></i> {{ tg_type[2:] }} </a>
+                            <ul class="treeview-menu">
+                                {% for tg_word_index, tg_word in enumerate(tige.get(tg_type)) %}
+                                {% set tg_word_id = tg_type_id * 37 + tg_word_index + 1 %}
+                                <li><a id="{{ tg_word_id }}" style="cursor:pointer"
+                                       onclick="inputSypmtom('{{ tg_word_id }}')"><i
+                                        class="fa fa-tag text-red"></i>{{ tg_word }}</a></li>
+                                {% end %}
+                            </ul>
+                        </li>
+                        {% end %}
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                病例详情
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/doctor_home"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li class="active">医生</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- /.col -->
+
+                <div class="col-md-12">
+                    <div class="box box-success" style="border-radius:8px">
+                        <input id="textarea_label" style="display: none;" value="-1">
+
+                        <div class="box-header with-border">
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px" onclick="editCase({{json.dumps(current_case.get(u'doctorRole'))}})">-->
+                            <!--<i class="fa fa-edit text-blue"></i> 编辑-->
+                            <!--</a>-->
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"
+                               onclick="editCase_cx(1)">
+                                <i class="fa fa-plus text-red"></i> 追加复诊病例
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"
+                               onclick="create_new_casse_confim()">
+                                <i class="fa fa-file-o text-yellow"></i> 以此为模版创建新病例
+                            </a>
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px" onclick="inviteDoctor()">-->
+                            <!--<i class="fa fa-users text-green"></i> 共享-->
+                            <!--</a>-->
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px">-->
+                            <!--<i class="fa fa-envelope text-yellow"></i> 记录-->
+                            <!--</a>-->
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"
+                               onclick="loadSystemPredict()">
+                                <i class="fa fa-plus-square text-green"></i> 疾病预诊
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"
+                               onclick="cx_upload({{ current_doctor.get(u'doctorID', u'')}})">
+                                <i class="fa fa-upload text-purple"></i> 附件上传
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"
+                               onclick="scan({{ current_doctor.get(u'doctorID', u'')}})">
+                                <i class="fa fa-edit text-blue"></i> 识别
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"
+                               onclick="openHuayanIFream('hz_hy', 2)">
+                                <i class="fa fa-hourglass-half text-red"></i> 化验检测
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;" onclick="medicine()">
+                                <i class="fa fa-medkit text-green"></i> 选择药物
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;" onclick="show_report('{{ current_case.get(u'caseID', u'') }}')">
+                                <i class="fa fa-print text-yellow"></i> 病例报告
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px; display: none;"
+                               onclick="doctor_comments({{ current_doctor.get(u'doctorID', u'')}})">
+                                <i class="fa fa-comments text-yellow"></i> 添加意见
+                            </a>
+                            <a href="/doctor_home" class="btn btn-app" style="min-width:60px;height:45px;padding:5px">
+                                <i class="fa fa-rotate-left text-green" onclick="upload()"></i> 返回主页
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;float:right"
+                               onclick="saveCase_cx('{{ current_case.get(u'doctorRole', u'')}}')">
+                                <i class="fa fa-save text-blue"></i> 保存病例
+                            </a>
+                            <a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;float:right"
+                               onclick="confimCase_cx('{{ current_case.get(u'doctorRole', u'')}}')">
+                                <i class="fa fa-check-circle-o text-red"></i> 确认病例
+                            </a>
+                        </div>
+                        <div class="box-body">
+                            {% if is_finish != 1 %}
+                            <input id="save_case_flag" class="col-sm-2 control-label"
+                                   style="cursor: pointer;display: none" value="3">
+                            <div class="form-horizontal" id="blxq">
+                                <div class="box box-success"
+                                     style="border-radius:8px;border-color:#a5b37e;margin-bottom:10px">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">患者个人信息</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为患者的基本个人信息</small>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-feedback">
+                                            <input type="hidden" id="category" value="{{ category }}"/>
+                                            <label for="hz_case_id" class="col-sm-2 control-label"
+                                                   style="cursor: pointer">病例编号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_case_id"
+                                                       placeholder="患者编号" readonly="readonly"
+                                                       value="
+                                                               {{ unicode(current_case.get(u'caseFirstID')) + u'.' + unicode(current_case.get(u'caseSecondID'))}}">
+                                            </div>
+                                            <input style="display: none" id="patientID"
+                                                   value="{{ current_case.get(u'patientID')}}">
+                                            <input style="display: none" id="caseID"
+                                                   value="{{ current_case.get(u'caseID')}}">
+                                            <input style="display: none" id="isFinish"
+                                                   value="{{ current_case.get(u'isFinish')}}">
+                                             <input style="display: none" id="predictionResults"
+                                                   value="{{ current_case.get(u'predictionResults')}}">
+
+
+
+                                            <label for="hz_case_date" class="col-sm-2 control-label"
+                                                   style="cursor: pointer" onclick="">时间</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_case_date"
+                                                       placeholder="时间" readonly="readonly"
+                                                       value="{{ current_case.get(u'caseDate', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_name" class="col-sm-2 control-label" style="cursor: pointer">姓名</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_name" placeholder="姓名"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'name', u'')}}">
+                                            </div>
+                                            <label for="hz_num" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">手机号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_num" placeholder="手机号"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'telephone', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_sz" class="col-sm-2 control-label" style="cursor: pointer">身份证号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_sz" placeholder="身份证号"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'identityCardNum', u'')}}">
+                                            </div>
+                                            <label for="hz_sh" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">社保号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_sh" placeholder="社保号"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'socialSecurityNum', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_sex" class="col-sm-2 control-label" style="cursor: pointer">性别</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_sex" placeholder="性别"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'sex', u'')}}">
+                                            </div>
+                                            <label for="hz_age" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">年龄</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_age" placeholder="年龄"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'age', u'')}}">
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="modify_person({{ current_case.get(u'patientID', u'')}})">
+                                                修改患者个人信息
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box box-warning" style="border-radius:8px;margin-bottom:10px">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">患者症状信息</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为患者的主诉、现病史、体格检查等信息</small>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-error">
+                                            <label for="hz_zs" class="col-sm-2 control-label"
+                                                   style="cursor: pointer">主诉</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="hz_zs" placeholder="主诉"
+                                                       value="{{ current_case.get(u'chiefComplaint', u'')}}"
+                                                       onfocus="changeTextArea('hz_zs')">
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="symptom_select('hz_zs', {{ currentOnlineID }})">点选
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_xb" class="col-sm-2 control-label" style="cursor: pointer">现病史</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_xb"
+                                                          placeholder="现病史"
+                                                          onfocus="changeTextArea('hz_xb')">{{ current_case.get(u'HPI', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="symptom_select('hz_xb', {{ currentOnlineID }})">点选
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_tg" class="col-sm-2 control-label" style="cursor: pointer">体格检查</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_tg"
+                                                          placeholder="体格检查"
+                                                          onfocus="changeTextArea('hz_tg')">{{ current_case.get(u'physicalExamination', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="symptom_select('hz_tg', {{ currentOnlineID }})">点选
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_fz" class="col-sm-2 control-label" style="cursor: pointer">治疗史</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_fz"
+                                                          placeholder="治疗史">{{ current_case.get(u'auxInfo', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger " onclick="previous_treatment()">点选</button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <div class="col-sm-1">
+                                            </div>
+                                            <div class="col-sm-10" style="padding:0" id="treatment_list">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_hy" class="col-sm-2 control-label" style="cursor: pointer">化验检测</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_hy"
+                                                          placeholder="化验检测"
+                                                          onfocus="changeTextArea('hz_hy')">{{ current_case.get(u'chemicalExamination', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="huayan_detail({{ current_case.get(u'caseFirstID', u'') }},
+                                                            {{ current_case.get(u'caseSecondID', u'')}})"
+                                                    id="huayan_detail">详情
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box box-success"
+                                     style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">诊断与治疗</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为医生诊断、治疗方案、系统预测等信息</small>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-success">
+                                            <label for="hz_dp" class="col-sm-2 control-label" style="cursor: pointer">系统预测</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" style="display:none" class="form-control" rows="3" id="hz_xy">{{ current_case.get(u'predictionResults') }}</textarea>
+                                                <textarea type="text" class="form-control" rows="3" id="hz_dp"
+                                                          placeholder="系统预测结果" >{{ current_case.get(u'disease_prob', u'')}}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_xy">
+                                                    {% for zs in current_case.get(u'predictionResults', u'').replace(',', "，").split('，') %}
+                                                    <button type="button" class="btn bg-olive btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="search_graph_for_case('{{ zs }}')">"{{ zs }}"知识图谱
+                                                    </button>
+                                                    {% end %}
+                                                </div>
+
+                                                {% if category == 1 %}
+                                                <div class="col-sm-12" style="padding:0" id="skin_pic">
+                                                    {% for zs in current_case.get(u'predictionResults', u'').replace(',', "，").split('，') %}
+                                                    <span style="width: 150px; cursor:pointer"><img
+                                                            src="/static/images/skin_images_jpg/{{ zs }}.jpg"
+                                                            width="100"
+                                                            onclick="show_big_skin_images('/static/images/skin_images_jpg/{{ zs }}.jpg', '{{ zs }}')"></span>
+                                                    {% end %}
+                                                </div>
+                                                {% end %}
+
+                                            </div>
+                                        </div>
+                                        {#                                        <div class="form-group has-success">#}
+                                        {#                                            <label class="col-sm-2 control-label" style="cursor: pointer"></label>#}
+                                        {#                                            <div class="col-sm-8">#}
+                                        {#                                                <div class="input-group" style="margin-bottom: 20px">#}
+                                        {#                                                    <input type="text" id="search_hmm_all_graph_body"#}
+                                        {#                                                           class="form-control input-lg"#}
+                                        {#                                                           style="border-radius:8px"#}
+                                        {#                                                           placeholder=" 请您输入要查询的疾病图谱的名称..."><span#}
+                                        {#                                                        class="btn btn-success input-group-addon"#}
+                                        {#                                                        style="border-radius:8px"#}
+                                        {#                                                        onclick="search_graph_for_case('hmm_all_graph_body')">搜索</span>#}
+                                        {#                                                </div>#}
+                                        {#                                            </div>#}
+                                        {#                                        </div>#}
+                                        {#                                        </div>#}
+                                        <div class="form-group has-success">
+                                            <label for="hz_ys" class="col-sm-2 control-label" style="cursor: pointer">医生诊断</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_ys"
+                                                          placeholder="医生诊断">{{ current_case.get(u'differentialDiagnosis', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger " onclick="doctor_diagnose()">点选</button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_zlfa" class="col-sm-2 control-label" style="cursor: pointer">治疗方案</label>
+                                            <div class="col-sm-8">
+                                                {% set treatment_arr = current_case.get(u'treatment', u'').split("\n") %}
+                                                {% set treatment_str = "" %}
+                                                {% for treat in treatment_arr %}
+                                                {% if treat.find("(")==0 %}
+                                                {% set treat = " " + " " + " " + " " + treat %}
+                                                {% end %}
+                                                {% if treat.find("[")==0 %}
+                                                {% set treat = " " + " " + " " + " " + " " + " " + " " + " " +treat %}
+                                                {% end %}
+                                                {% set treatment_str += treat+ '\n' %}
+                                                {% end %}
+                                                <textarea class="form-control" rows="3" id="hz_zlfa"
+                                                          placeholder="治疗方案">{{ treatment_str }}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_zlfa">
+                                                    {% set i = 1 %}
+                                                    {% for key, value  in current_case[u"treatment_dict"].items() %}
+
+
+                                                    {% set treatment_arr = value.split("\n") %}
+                                                    {% set treatment_str = "" %}
+                                                    {% for treat in treatment_arr %}
+                                                    {% if treat.find("(")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + treat %}
+                                                    {% end %}
+                                                    {% if treat.find("[")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + " " + " " + " " + " " +treat %}
+                                                    {% end %}
+                                                    {% set treatment_str += treat+ '\n' %}
+                                                    {% set treatment_str = treatment_str.replace("\n", "<br/>") %}
+                                                    {% end %}
+
+                                                    <input type="text" id="zl_{{ i }}" name="message"
+                                                           style="display:none" value="{{ key + " " + treatment_str }}">
+                                                    <button type="button" class="btn bg-olive btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="show_info('zl_{{ i }}')"> {{ key }}
+                                                    </button>
+                                                    {% set i = i + 1 %}
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                            <button id="zl_total" style="display:none"></button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_yw" class="col-sm-2 control-label" style="cursor: pointer">药物推荐</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_yw"
+                                                          placeholder="药物推荐">{{ current_case.get(u'recommend_medicine', u'')}}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_yw">
+                                                    {% set i = 1 %}
+                                                    {% for key, value  in current_case[u"medicine_dict"].items() %}
+
+
+                                                    {% set treatment_arr = value.split("\n") %}
+                                                    {% set treatment_str = "" %}
+                                                    {% for treat in treatment_arr %}
+                                                    {% if treat.find("(")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + treat %}
+                                                    {% end %}
+                                                    {% if treat.find("[")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + " " + " " + " " + " " +treat %}
+                                                    {% end %}
+                                                    {% set treatment_str += treat+ '\n' %}
+                                                    {% set treatment_str = treatment_str.replace("\n", "<br/>") %}
+                                                    {% end %}
+
+
+                                                    <input type="text" id="yw_{{ i }}" name="message"
+                                                           style="display:none" value="{{ treatment_str }}">
+                                                    <button type="button" class="btn bg-olive btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="show_info('yw_{{ i }}')"> {{ key }}
+                                                    </button>
+                                                    {% set i = i + 1 %}
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                            <button id="yw_total" style="display:none"></button>
+                                        </div>
+
+                                        <div class="form-group has-warning" style="display: none">
+                                            <label for="hz_bz" class="col-sm-2 control-label" style="cursor: pointer">备注意见</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="2" id="hz_bz"
+                                                          placeholder="备注意见">{{ current_case.get(u'doctorComment', u'')}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="box box-success "
+                                     style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">附件与下载</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为上传的附件信息及下载删除</small>
+                                    </div>
+                                    <div class="box-body">
+                                        {% if len(appendix_list) !=0 %}
+                                        <table id="appendix_table" class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>病例编号</th>
+                                                <th>附件名称</th>
+                                                <th>附件类型</th>
+                                                <th>附件简介</th>
+                                                <th>上传时间</th>
+                                                <th>附件下载</th>
+                                                <th>附件删除</th>
+                                                <th>附件识别</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for appendix in appendix_list %}
+                                            <tr id=u'appendix_' +
+                                                    {{ unicode(appendix.get(u'caseFirstID')) + u'_' + unicode(appendix.get(u'caseSecondID'))}}>
+                                                <td>
+                                                    {{ unicode(appendix.get(u'caseFirstID')) + u'.' + unicode(appendix.get(u'caseSecondID'))}}</td>
+                                                <td>{{ appendix.get(u"name")}}</td>
+                                                <td>{{ appendix.get(u"type")}}</td>
+                                                <td>{{ appendix.get(u"abstract")}}</td>
+                                                <td>{{ appendix.get(u"upload_time")}}</td>
+                                                <td><a href="/download?appendix_path={{ appendix.get(u'path')}}"><i
+                                                        class="fa  fa-cloud-download fa-lg"></i> 下载</a></td>
+                                                {% if appendix.get(u'doctorManage') == 1 %}
+                                                <td><a onclick="deleteappendix_confim('
+                                                        {{ appendix.get(u'appendixID')}}', '
+                                                        {{ appendix.get(u"name")}}')" style="cursor: pointer"><i
+                                                        class="fa fa-trash-o fa-lg"></i> 删除</a></td>
+                                                {% else %}
+                                                　　　　　　　
+                                                <td><a onclick="nopermission( '{{ appendix.get(u"name")}}')"
+                                                       style="cursor: pointer" disabled="true"> 没有权限</a></td>
+                                                {% end %}
+                                                <td><a onclick="scan_attachment('{{ appendix.get(u'appendixID')}}')"
+                                                       style="cursor: pointer"><i class="fa fa-edit fa-lg"></i> 识别</a>
+                                                </td>
+                                            </tr>
+                                            {% end %}
+                                            </tbody>
+                                        </table>
+                                        {% else %}
+                                        暂无医生上传附件，请使用右上方上传按钮上传附件。
+                                        {% end %}
+                                    </div>
+                                </div>
+                                <div class="box box-warning direct-chat direct-chat-warning "
+                                     style="border-radius:8px;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">意见</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为医生的意见</small>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <!-- Conversations are loaded here -->
+                                        <div class="direct-chat-messages" id="comments_all">
+                                            <!-- Message. Default to the left -->
+                                            {% for comment in comment_all %}
+                                            {% if int(comment[u'doctorID']) != int(currentOnlineID) %}
+                                            <div class="direct-chat-msg">
+                                                <div class="direct-chat-info clearfix">
+                                                    <span class="direct-chat-name pull-left">{{ comment[u'doctorName']}}</span>
+                                                    <span class="pull-left">&nbsp&nbsp&nbsp</span>
+                                                    <span class="direct-chat-timestamp pull-left">{{ comment[u'commentTime']}}</span>
+                                                </div>
+                                                <!-- /.direct-chat-info -->
+                                                <img class="direct-chat-img"
+                                                     src="{{ static_url('ui/dist/img/user3-128x128.jpg') }}"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
+                                                <div class="col-sm-7 ">
+                                                </div>
+                                                <div class="col-sm-5 direct-chat-text  ">
+                                                    {{ comment[u'doctorComment']}}
+                                                </div>
+                                                <!-- /.direct-chat-text -->
+                                            </div>
+                                            {% else %}
+                                            <!-- /.direct-chat-msg -->
+                                            <!-- Message to the right -->
+                                            <div class="direct-chat-msg right">
+                                                <div class="direct-chat-info clearfix">
+                                                    <span class="direct-chat-name pull-right">{{ comment[u'doctorName']}}</span>
+                                                    <span class="pull-right">&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <span class="direct-chat-timestamp pull-right">{{ comment[u'commentTime']}}</span>
+                                                </div>
+                                                <!-- /.direct-chat-info -->
+                                                <img class="direct-chat-img"
+                                                     src="{{ static_url('ui/dist/img/user3-128x128.jpg') }}"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
+                                                <!--<div class="col-sm-7 ">-->
+                                                <!--You better believe it!-->
+                                                <!--</div>-->
+                                                <div class=" col-sm-5 direct-chat-text right " style="float: right">
+                                                    {{ comment[u'doctorComment']}}
+                                                </div>
+                                                <!-- /.direct-chat-text -->
+                                            </div>
+                                            {% end %}
+                                            {% end %}
+                                            <!-- /.direct-chat-msg -->
+
+                                        </div>
+                                        <!--/.direct-chat-messages-->
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <form action="#" method="post">
+                                            <div class="input-group">
+                                                <!--<div class="col-sm-5"></div>-->
+                                                <input type="text" id="message" name="message" placeholder="请输入您的评论"
+                                                       class="col-sm-5 form-control" style="float: right">
+                                                <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-warning btn-flat"
+                                                                onclick="send_comment()">发送</button>
+                                                      </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.box-footer-->
+                                </div>
+                                <div class="box-footer">
+                                    <button class="btn btn-success btn-block"
+                                            onclick="saveCase_cx('{{ current_case.get(u'doctorRole', u'')}}')">保 存 病 例
+                                    </button>
+                                </div>
+                            </div>
+                            {% else %}
+                            <input id="save_case_flag" class="col-sm-2 control-label"
+                                   style="cursor: pointer;display: none" value="4">
+                            <div class="form-horizontal" id="blxq">
+                                <div class="box box-success"
+                                     style="border-radius:8px;border-color:#a5b37e;margin-bottom:10px">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">患者个人信息</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为患者的基本个人信息</small>
+
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-feedback">
+                                            <input type="hidden" id="category" value="{{ category }}"/>
+                                            <label for="hz_case_id" class="col-sm-2 control-label"
+                                                   style="cursor: pointer">病例编号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_case_id"
+                                                       placeholder="患者编号" readonly="readonly"
+                                                       value="
+
+                                                               {{ unicode(current_case.get(u'caseFirstID')) + u'.' + unicode(current_case.get(u'caseSecondID'))}}">
+                                            </div>
+                                            <input style="display: none" id="patientID"
+                                                   value="{{ current_case.get(u'patientID')}}">
+                                            <input style="display: none" id="isFinish"
+                                                   value="{{ current_case.get(u'isFinish')}}">
+                                            <label for="hz_case_date" class="col-sm-2 control-label"
+                                                   style="cursor: pointer" onclick="">时间</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_case_date"
+                                                       placeholder="时间" readonly="readonly"
+                                                       value="{{ current_case.get(u'caseDate', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_name" class="col-sm-2 control-label" style="cursor: pointer">姓名</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_name" placeholder="姓名"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'name', u'')}}">
+                                            </div>
+                                            <label for="hz_num" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">手机号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_num" placeholder="手机号"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'telephone', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_sz" class="col-sm-2 control-label" style="cursor: pointer">身份证号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_sz" placeholder="身份证号"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'identityCardNum', u'')}}">
+                                            </div>
+                                            <label for="hz_sh" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">社保号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_sh" placeholder="社保号"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'socialSecurityNum', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_sex" class="col-sm-2 control-label" style="cursor: pointer">性别</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_sex" placeholder="性别"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'sex', u'')}}">
+                                            </div>
+                                            <label for="hz_age" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">年龄</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_age" placeholder="年龄"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'age', u'')}}">
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="modify_person({{ current_case.get(u'patientID', u'')}})">
+                                                修改患者个人信息
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box box-warning " style="border-radius:8px;margin-bottom:10px">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">患者症状信息</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为患者的主诉、现病史、体格检查等信息</small>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-error">
+                                            <label for="hz_zs" class="col-sm-2 control-label"
+                                                   style="cursor: pointer">主诉</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="hz_zs" placeholder="主诉"
+                                                       readonly="readonly"
+                                                       value="{{ current_case.get(u'chiefComplaint', u'')}}"
+                                                       onfocus="changeTextArea('hz_zs')">
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="symptom_select('hz_zs', {{ currentOnlineID }})">点选
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_xb" class="col-sm-2 control-label" style="cursor: pointer">现病史</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_xb"
+                                                          placeholder="现病史" readonly="readonly"
+                                                          onfocus="changeTextArea('hz_xb')">{{ current_case.get(u'HPI', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="symptom_select('hz_xb', {{ currentOnlineID }})">点选
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_tg" class="col-sm-2 control-label" style="cursor: pointer">体格检查</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_tg"
+                                                          placeholder="体格检查" readonly="readonly"
+                                                          onfocus="changeTextArea('hz_tg')">{{ current_case.get(u'physicalExamination', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="symptom_select('hz_tg', {{ currentOnlineID }})">点选
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_fz" class="col-sm-2 control-label" style="cursor: pointer">治疗史</label>
+                                            <div class="col-sm-8">
+                                               <textarea type="text" class="form-control" rows="3" id="hz_fz"
+                                                         placeholder="治疗史"
+                                                         readonly="readonly">{{ current_case.get(u'auxInfo', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger " onclick="previous_treatment()">点选</button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <div class="col-sm-1">
+                                            </div>
+                                            <div class="col-sm-10" style="padding:0" id="treatment_list">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="hz_hy" class="col-sm-2 control-label" style="cursor: pointer">化验检测</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_hy"
+                                                          placeholder="化验检测" readonly="readonly"
+                                                          onfocus="openHuayanIFream('hz_hy', 1)">{{ current_case.get(u'chemicalExamination', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="huayan_detail({{ current_case.get(u'caseFirstID', u'') }},
+                                                            {{ current_case.get(u'caseSecondID', u'')}})"
+                                                    id="huayan_detail">详情
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box box-success "
+                                     style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">诊断与治疗</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为医生诊断、治疗方案、系统预测等信息</small>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-success">
+                                            <label for="hz_xy" class="col-sm-2 control-label" style="cursor: pointer">系统预测</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" style="display:none" class="form-control" rows="3" id="hz_xy">{{ current_case.get(u'predictionResults') }}</textarea>
+                                                <textarea type="text" class="form-control" rows="3" id="hz_dp"
+                                                          placeholder="系统预测结果"
+                                                          readonly="readonly">{{ current_case.get(u'disease_prob', u'')}}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_xy">
+                                                    {% for zs in current_case.get(u'predictionResults', u'').replace(',', "，").split('，') %}
+                                                    <button type="button" class="btn bg-olive btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="search_graph_for_case('{{ zs }}')">"{{ zs }}"知识图谱
+                                                    </button>
+                                                    {% end %}
+                                                </div>
+                                                {% if category == 1 %}
+                                                <div class="col-sm-12" style="padding:0" id="skin_pic">
+                                                    {% for zs in current_case.get(u'predictionResults', u'').replace(',', "，").split('，') %}
+                                                    <span style="width: 150px; cursor:*"><img
+                                                            src="/static/images/skin_images_jpg/{{ zs }}.jpg"
+                                                            width="100"
+                                                            onclick="show_big_skin_images('/static/images/skin_images_jpg/{{ zs }}.jpg', '{{ zs }}')"></span>
+                                                    {% end %}
+                                                </div>
+                                                {% end %}
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="model_detail({{ current_case.get(u'caseFirstID', u'') }},
+                                                            {{ current_case.get(u'caseSecondID', u'')}})"
+                                                    id="model_detail">详情
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_ys" class="col-sm-2 control-label" style="cursor: pointer">医生诊断</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_ys"
+                                                          placeholder="医生诊断"
+                                                          readonly="readonly">{{ current_case.get(u'differentialDiagnosis', u'')}}</textarea>
+                                            </div>
+                                            <button class="btn btn-danger " onclick="doctor_diagnose()">点选</button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_zlfa" class="col-sm-2 control-label" style="cursor: pointer">治疗方案</label>
+                                            <div class="col-sm-8">
+                                                {% set treatment_arr = current_case.get(u'treatment', u'').split("\n") %}
+                                                {% set treatment_str = "" %}
+                                                {% for treat in treatment_arr %}
+                                                {% if treat.find("(")==0 %}
+                                                {% set treat = " " + " " + " " + " " + treat %}
+                                                {% end %}
+                                                {% if treat.find("[")==0 %}
+                                                {% set treat = " " + " " + " " + " " + " " + " " + " " + " " +treat %}
+                                                {% end %}
+                                                {% set treatment_str += treat+ '\n' %}
+                                                {% set treatment_str = treatment_str.replace("\n", "<br/>") %}
+                                                {% end %}
+                                                <textarea class="form-control" rows="3" id="hz_zlfa" placeholder="治疗方案"
+                                                          readonly="readonly">{{ treatment_str }}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_zlfa">
+                                                    {% set i = 1 %}
+                                                    {% for key, value  in current_case[u"treatment_dict"].items() %}
+
+
+                                                    {% set treatment_arr = value.split("\n") %}
+                                                    {% set treatment_str = "" %}
+                                                    {% for treat in treatment_arr %}
+                                                    {% if treat.find("(")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + treat %}
+                                                    {% end %}
+                                                    {% if treat.find("[")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + " " + " " + " " + " " +treat %}
+                                                    {% end %}
+                                                    {% set treatment_str += treat+ '\n' %}
+                                                    {% set treatment_str = treatment_str.replace("\n", "<br/>") %}
+                                                    {% end %}
+
+                                                    <input type="text" id="zl_{{ i }}" name="message"
+                                                           style="display:none" value="{{ key + " " + treatment_str }}">
+                                                    <button type="button" class="btn bg-olive btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="show_info('zl_{{ i }}')"> {{ key }}
+                                                    </button>
+                                                    {% set i = i + 1 %}
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                            <button id="zl_total" style="display:none"></button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_yw" class="col-sm-2 control-label" style="cursor: pointer">药物推荐</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_yw"
+                                                          placeholder="药物推荐"
+                                                          readonly="readonly">{{ current_case.get(u'recommend_medicine', u'')}}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_yw">
+                                                    {% set i = 1 %}
+                                                    {% for key, value  in current_case[u"medicine_dict"].items() %}
+
+
+                                                    {% set treatment_arr = value.split("\n") %}
+                                                    {% set treatment_str = "" %}
+                                                    {% for treat in treatment_arr %}
+                                                    {% if treat.find("(")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + treat %}
+                                                    {% end %}
+                                                    {% if treat.find("[")==0 %}
+                                                    {% set treat = " " + " " + " " + " " + " " + " " + " " + " " +treat %}
+                                                    {% end %}
+                                                    {% set treatment_str += treat+ '\n' %}
+                                                    {% end %}
+                                                    <input type="text" id="yw_{{ i }}" name="message"
+                                                           style="display:none" value="{{ treatment_arr }}">
+                                                    <button type="button" class="btn bg-olive btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="show_info('yw_{{ i }}')"> {{ key }}
+                                                    </button>
+                                                    {% set i = i + 1 %}
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                            <button id="yw_total" style="display:none"></button>
+                                        </div>
+
+                                        <div class="form-group has-warning" style="display: none">
+                                            <label for="hz_bz" class="col-sm-2 control-label" style="cursor: pointer">备注意见</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="2" id="hz_bz"
+                                                          placeholder="备注意见" readonly="readonly"></textarea>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="box box-success "
+                                     style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">附件与下载</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为上传的附件信息及下载删除</small>
+                                    </div>
+                                    <div class="box-body">
+                                        {% if len(appendix_list) !=0 %}
+                                        <table id="appendix_table" class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>病例编号</th>
+                                                <th>附件名称</th>
+                                                <th>附件类型</th>
+                                                <th>附件简介</th>
+                                                <th>上传时间</th>
+                                                <th>附件下载</th>
+                                                <th>附件删除</th>
+                                                <th>附件识别</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for appendix in appendix_list %}
+                                            <tr id=u'appendix_' +
+                                                    {{ unicode(appendix.get(u'caseFirstID')) + u'_' + unicode(appendix.get(u'caseSecondID'))}}>
+                                                <td>
+                                                    {{ unicode(appendix.get(u'caseFirstID')) + u'.' + unicode(appendix.get(u'caseSecondID'))}}</td>
+                                                <td>{{ appendix.get(u"name")}}</td>
+                                                <td>{{ appendix.get(u"type")}}</td>
+                                                <td>{{ appendix.get(u"abstract")}}</td>
+                                                <td>{{ appendix.get(u"upload_time")}}</td>
+                                                <td><a href="/download?appendix_path={{ appendix.get(u'path')}}"><i
+                                                        class="fa  fa-cloud-download fa-lg"></i> 下载</a></td>
+                                                {% if appendix.get(u'doctorManage') == 1 %}
+                                                <td><a onclick="deleteappendix_confim('
+                                                        {{ appendix.get(u'appendixID')}}', '
+                                                        {{ appendix.get(u"name")}}')" style="cursor: pointer"><i
+                                                        class="fa fa-trash-o fa-lg"></i>删除</a></td>
+                                                {% else %}
+                                                　　　　　　　
+                                                <td><a onclick="nopermission( '{{ appendix.get(u"name")}}')"
+                                                       style="cursor: pointer" disabled="true">没有权限</a></td>
+                                                {% end %}
+                                                <td><a onclick="scan_attachment('{{ appendix.get(u'appendixID')}}', '
+                                                        {{ appendix.get(u"name")}}')" style="cursor: pointer"><i
+                                                        class="fa fa-edit fa-lg"></i> 识别</a></td>
+                                            </tr>
+                                            {% end %}
+                                            </tbody>
+                                        </table>
+                                        {% else %}
+                                        暂无医生上传附件，请使用右上方上传按钮上传附件。
+                                        {% end %}
+                                    </div>
+                                </div>
+                                <div class="box box-warning direct-chat direct-chat-warning"
+                                     style="border-radius:8px;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">意见</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为医生的意见</small>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <!-- Conversations are loaded here -->
+                                        <div class="direct-chat-messages" id="comments_all">
+                                            <!-- Message. Default to the left -->
+                                            {% for comment in comment_all %}
+                                            {% if int(comment[u'doctorID']) != int(currentOnlineID) %}
+                                            <div class="direct-chat-msg">
+                                                <div class="direct-chat-info clearfix">
+                                                    <span class="direct-chat-name pull-left">{{ comment[u'doctorName']}}</span>
+                                                    <span class="pull-left">&nbsp&nbsp&nbsp</span>
+                                                    <span class="direct-chat-timestamp pull-left">{{ comment[u'commentTime']}}</span>
+                                                </div>
+                                                <!-- /.direct-chat-info -->
+                                                <img class="direct-chat-img"
+                                                     src="{{ static_url('ui/dist/img/user3-128x128.jpg') }}"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
+                                                <div class="col-sm-7 ">
+                                                </div>
+                                                <div class="col-sm-5 direct-chat-text  ">
+                                                    {{ comment[u'doctorComment']}}
+                                                </div>
+                                                <!-- /.direct-chat-text -->
+                                            </div>
+                                            {% else %}
+                                            <!-- /.direct-chat-msg -->
+                                            <!-- Message to the right -->
+                                            <div class="direct-chat-msg right">
+                                                <div class="direct-chat-info clearfix">
+                                                    <span class="direct-chat-name pull-right">{{ comment[u'doctorName']}}</span>
+                                                    <span class="pull-right">&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <span class="direct-chat-timestamp pull-right">{{ comment[u'commentTime']}}</span>
+                                                </div>
+                                                <!-- /.direct-chat-info -->
+                                                <img class="direct-chat-img"
+                                                     src="{{ static_url('ui/dist/img/user3-128x128.jpg') }}"
+                                                     alt="message user image"><!-- /.direct-chat-img -->
+                                                <!--<div class="col-sm-7 ">-->
+                                                <!--You better believe it!-->
+                                                <!--</div>-->
+                                                <div class=" col-sm-5 direct-chat-text " style="float: right">
+                                                    {{ comment[u'doctorComment']}}
+                                                </div>
+
+                                                <!-- /.direct-chat-text -->
+                                            </div>
+                                            {% end %}
+                                            {% end %}
+                                            <!-- /.direct-chat-msg -->
+
+                                        </div>
+                                        <!--/.direct-chat-messages-->
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <form action="#" method="post">
+                                            <!--<div class="col-sm-5"></div>-->
+                                            <div class="input-group">
+
+                                                <input type="text" id="message" name="message" placeholder="请输入您的评论"
+                                                       class="col-sm-5 form-control" style="float: right">
+                                                <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-warning btn-flat"
+                                                                onclick="send_comment()">发送</button>
+                                                      </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.box-footer-->
+                                </div>
+                                <div class="box-footer">
+                                    <button class="btn btn-success btn-block"
+                                            onclick="saveCase_cx('{{ current_case.get(u'doctorRole', u'')}}')">保 存 病 例
+                                    </button>
+                                </div>
+                            </div>
+                            {% end %}
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-md-12">
+                    <div class="box box-success" style="border-radius:8px">
+                        <div class="box-body">
+                            <table id="case_table" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>病例编号</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>年龄</th>
+                                    <th>手机号</th>
+                                    <th>主诉</th>
+                                    <th>就诊医生</th>
+                                    <th>时间</th>
+                                    <th>查看</th>
+                                </tr>
+                                </thead>
+                                {% set clomun_num = len(patient_cases) %}
+                                {% if is_finish == 0 %}
+                                <tbody>
+                                {% for case in patient_cases %}
+                                {% if case != current_case %}
+                                <tr id=
+                                        {{ unicode(case.get(u'caseFirstID')) + u'_' + unicode(case.get(u'caseSecondID'))}}>
+                                    <td>
+                                        {{ unicode(case.get(u'caseFirstID')) + u'.' + unicode(case.get(u'caseSecondID'))}}</td>
+                                    <td>{{ case.get(u"name")}}</td>
+                                    <td>{{ case.get(u"sex")}}</td>
+                                    <td>{{ case.get(u"age")}}岁</td>
+                                    <td>{{ case.get(u"telephone")}}</td>
+                                    <td>{{ case.get(u"chiefComplaint")}}</td>
+                                    <td>{{ case.get(u"zhuzhi")}}</td>
+                                    <td>{{ case.get(u"caseDate")}}</td>
+                                    <td><a onclick="newviewCase({{ case.get(u'caseFirstID')}},
+                                            {{ case.get(u'caseSecondID')}},{{ category }})"
+                                           style="cursor: pointer">查看</a></td>
+                                </tr>
+                                {% end %}
+                                {% end %}
+                                </tbody>
+                                {% else %}
+                                <tbody>
+
+                                {% for case in patient_cases %}
+                                {% if case == current_case %}
+                                <tr style="color: white; background-color: green" id=
+                                        {{ unicode(case.get(u'caseFirstID')) + u'_' + unicode(case.get(u'caseSecondID'))}}>
+                                    <td>
+                                        {{ unicode(case.get(u'caseFirstID')) + u'.' + unicode(case.get(u'caseSecondID'))}}</td>
+                                    <td>{{ case.get(u"name")}}</td>
+                                    <td>{{ case.get(u"sex")}}</td>
+                                    <td>{{ case.get(u"age")}}岁</td>
+                                    <td>{{ case.get(u"telephone")}}</td>
+                                    <td>{{ case.get(u"chiefComplaint")}}</td>
+                                    <td>{{ case.get(u"zhuzhi")}}</td>
+                                    <td>{{ case.get(u"caseDate")}}</td>
+                                    <td><a onclick="newviewCase({{ case.get(u'caseFirstID')}},
+                                            {{ case.get(u'caseSecondID')}}, {{ category }})" style="cursor: pointer">查看</a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr id=
+                                        {{ unicode(case.get(u'caseFirstID')) + u'_' + unicode(case.get(u'caseSecondID'))}}>
+                                    <td>
+                                        {{ unicode(case.get(u'caseFirstID')) + u'.' + unicode(case.get(u'caseSecondID'))}}</td>
+                                    <td>{{ case.get(u"name")}}</td>
+                                    <td>{{ case.get(u"sex")}}</td>
+                                    <td>{{ case.get(u"age")}}岁</td>
+                                    <td>{{ case.get(u"telephone")}}</td>
+                                    <td>{{ case.get(u"chiefComplaint")}}</td>
+                                    <td>{{ case.get(u"zhuzhi")}}</td>
+                                    <td>{{ case.get(u"caseDate")}}</td>
+                                    <td><a onclick="newviewCase({{ case.get(u'caseFirstID')}},
+                                            {{ case.get(u'caseSecondID')}}, {{ category }})" style="cursor: pointer">查看</a>
+                                    </td>
+                                </tr>
+                                {% end %}
+                                {% end %}
+                                </tbody>
+                                {% end %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer" id="footer" style="color:white">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.5.0
+        </div>
+        <strong>Copyright &copy; 2015-2016 ICT,CAS,CARCH.</strong> All rights
+        reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong> 电话.13911103406
+    </footer>
+
+</div>
+
+
+<script src='{{ static_url("ui/plugins/jQuery/jquery-2.2.3.min.js") }}'></script>
+<!-- Bootstrap 3.3.6 -->
+<script src='{{ static_url("ui/bootstrap/js/bootstrap.min.js") }}'></script>
+<!-- DataTables -->
+<script src="{{ static_url('ui/plugins/datatables/jquery.dataTables1.min.js') }}"></script>
+<script src="{{ static_url('ui/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<!-- SlimScroll -->
+<script src="{{ static_url('ui/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ static_url('ui/plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ static_url('ui/dist/js/app.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ static_url('ui/dist/js/demo.js') }}"></script>
+<script src="{{ static_url('layer/layer.js') }}"></script>
+<script src="{{ static_url('layer/layui.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $("#case_table").DataTable({
+            "searching": false,
+            "ordering": false,
+            "iDisplayLength": 5
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var patientID = $("#patientID").val();
+        var hz_case_date = $("#hz_case_date").val();
+        var url = "/diagnosis_history";
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: {patientID: patientID, date_time: hz_case_date},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                var status = datas["status"];
+                var data = datas["data"];
+                if (status == 1) {
+                    var head = '<table class="layui-table" lay-even><thead><tr><th lay-data="{width:80}">姓名</th> <th lay-data="{width:80}">就诊时间</th> <th lay-data="{width:80}">主诉</th><th lay-data="{width:80}">现病史</th><th lay-data="{width:80}">系统预诊</th><th lay-data="{width:80}">查看病例报告</th></tr></thead><tbody>';
+                    var cur;
+                    {#alert(data.length)#}
+                    for (var i = 0; i < data.length; i++) {
+                        var cur_data = data[i];
+                        cur = '<tr sstyle="color: white; background-color: green">'
+                            + ' <td>' + $("#hz_name").val() + '</td>'
+                            + ' <td>' + cur_data["caseDate"] + '</td>'
+                            + ' <td>' + cur_data["chiefComplaint"] + '</td>'
+                            + ' <td>' + cur_data["HPI"] + '</td>'
+                            + ' <td>' + cur_data["predictionResults"] + '</td>'
+                            + ' <td> <a onclick="show_report(' + cur_data["caseID"]
+                            + ')"style="cursor: pointer">查看</a></td></tr>';
+                        head = head + cur;
+                    }
+                    head = head + '</tbody></table>'
+                    $(head).appendTo("#treatment_list");
+                } else {
+                }
+            },
+            error: function (datas) {
+            }
+        });
+    });
+
+    var category = $("#category").val();
+
+    function viewCase(caseFirstID, caseSecondID, num) {
+        for (var i = 0; i < num; i++) {
+            $('#' + caseFirstID + '_' + i).css("backgroundColor", "white");
+            $('#' + caseFirstID + '_' + i).css("color", "black");
+        }
+        $('#' + caseFirstID + '_' + caseSecondID).css("backgroundColor", "green");
+        $('#' + caseFirstID + '_' + caseSecondID).css("color", "white");
+        var url = "/doctor_view_case";
+        var url = "/doctor_case/81?caseFirstID=" + caseFirstID + "&caseSecondID=" + caseSecondID + "&category=" + category;
+        local.href("/doctor_case/81?caseFirstID=203&caseSecondID=0&category=1");
+        http://localhost
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: {caseFirstID: caseFirstID, caseSecondID: caseSecondID},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                $("#hz_case_id").val(datas["caseFirstID"] + "." + datas["caseSecondID"]);
+                $('#hz_case_id').attr("readonly", "readonly");
+                $("#hz_case_date").val(datas["caseDate"]);
+                $('#hz_case_date').attr("readonly", "readonly");
+                $('#patientID').val(datas["patientID"]);
+                $('#isFinish').val(datas["isFinish"]);
+                $("#hz_name").val(datas["name"]);
+                $('#hz_name').attr("readonly", "readonly");
+                $("#hz_sex").val(datas["sex"]);
+                $('#hz_sex').attr("readonly", "readonly");
+                $("#hz_age").val(datas["age"]);
+                $('#hz_age').attr("readonly", "readonly");
+                $("#hz_num").val(datas["telephone"]);
+                $('#hz_num').attr("readonly", "readonly");
+                $("#hz_sz").val(datas["identityCardNum"]);
+                $('#hz_sz').attr("readonly", "readonly");
+                $("#hz_sh").val(datas["socialSecurityNum"]);
+                $('#hz_sh').attr("readonly", "readonly");
+                $("#hz_zs").val(datas["chiefComplaint"]);
+                $('#hz_zs').attr("readonly", "readonly");
+                $("#hz_xb").val(datas["HPI"]);
+                $('#hz_xb').attr("readonly", "readonly");
+                $("#hz_tg").val(datas["physicalExamination"]);
+                $('#hz_tg').attr("readonly", "readonly");
+                $("#hz_hy").val(datas["chemicalExamination"]);
+                $('#hz_hy').attr("readonly", "readonly");
+                $("#hz_xy").val(datas["predictionResults"]);
+                $('#hz_xy').attr("readonly", "readonly");
+                $("#hz_ys").val(datas["differentialDiagnosis"]);
+                $('#hz_ys').attr("readonly", "readonly");
+                $("#hz_zlfa").val(datas["treatment"]);
+                $('#hz_zlfa').attr("readonly", "readonly");
+                var hzfz_str = datas["auxInfo"];
+                var hzfz_arr = [];
+                hzfz_arr = hzfz_str.split('***');
+                $("#hz_fz").val(hzfz_arr[-1]);
+                console.log(hzfz_arr);
+//                $("#hz_fz").val(datas["auxInfo"]);
+                $('#hz_fz').attr("readonly", "readonly");
+                $("#hz_yw").val(datas["auxInfo"]);
+                $('#hz_yw').attr("readonly", "readonly");
+                $("#hz_bz").val(datas["doctorComment"]);
+                $('#hz_bz').attr("readonly", "readonly");
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+    function newviewCase(caseFirstID, caseSecondID, category) {
+        var patientID = $("#patientID").val();
+        var url = "/doctor_case/" + patientID +"?caseFirstID=" + caseFirstID + "&caseSecondID=" + caseSecondID + "&category=" + category;
+        window.location.href = url;
+    }
+
+    function editCase(role) {
+        if (role == "主治医生") {
+            $('#hz_name').removeAttr("readonly");
+            $('#hz_sex').removeAttr("readonly");
+            $('#hz_age').removeAttr("readonly");
+            $('#hz_num').removeAttr("readonly");
+            $('#hz_sz').removeAttr("readonly");
+            $('#hz_sh').removeAttr("readonly");
+            $('#hz_zs').removeAttr("readonly");
+            $('#hz_xb').removeAttr("readonly");
+            $('#hz_tg').removeAttr("readonly");
+            $('#hz_hy').removeAttr("readonly");
+            $('#hz_xy').removeAttr("readonly");
+            $('#hz_ys').removeAttr("readonly");
+            $('#hz_zlfa').removeAttr("readonly");
+            $('#hz_fz').removeAttr("readonly");
+            $('#hz_bz').removeAttr("readonly");
+            $('#hz_yw').removeAttr("readonly");
+        } else {
+            $('#hz_bz').removeAttr("readonly");
+        }
+    }
+
+
+    function editCase_cx(flag) {
+        if (flag == 1) {
+            $('#hz_zs').removeAttr("readonly");
+            $('#hz_xb').removeAttr("readonly");
+            $('#hz_tg').removeAttr("readonly");
+            $('#hz_hy').removeAttr("readonly");
+            $('#hz_xy').removeAttr("readonly");
+            $('#hz_ys').removeAttr("readonly");
+            $('#hz_zlfa').removeAttr("readonly");
+            $('#hz_fz').removeAttr("readonly");
+            $('#hz_bz').removeAttr("readonly");
+            $('#hz_yw').removeAttr("readonly");
+            $('#hz_zlfa').val('');
+            $('#hz_fz').val('');
+            $('#hz_xy').val('');
+            $('#hz_yw').val('');
+        } else {
+            $('#hz_name').removeAttr("readonly");
+            $('#hz_sex').removeAttr("readonly");
+            $('#hz_age').removeAttr("readonly");
+            $('#hz_num').removeAttr("readonly");
+            $('#hz_sz').removeAttr("readonly");
+            $('#hz_sh').removeAttr("readonly");
+            $('#hz_zs').removeAttr("readonly");
+            $('#hz_xb').removeAttr("readonly");
+            $('#hz_tg').removeAttr("readonly");
+            $('#hz_hy').removeAttr("readonly");
+            $('#hz_xy').removeAttr("readonly");
+            $('#hz_ys').removeAttr("readonly");
+            $('#hz_zlfa').removeAttr("readonly");
+            $('#hz_fz').removeAttr("readonly");
+            $('#hz_bz').removeAttr("readonly");
+            $('#hz_yw').removeAttr("readonly");
+            $('#hz_zlfa').val('');
+            $('#hz_fz').val('');
+            $('#hz_xy').val('');
+            $('#hz_yw').val('');
+            $('#btn_xy').css('display', 'none');
+            $('#btn_yw').css('display', 'none');
+            $('#btn_zlfa').css('display', 'none');
+            $('#save_case_flag').val(flag);
+        }
+        var ui = document.getElementById("model_detail");
+        ui.style.display = "none";
+
+    }
+
+    function create_new_casse_confim() {
+        layer.confirm('确定以此病例为模板创建全新首诊病例？' + '</br>' + '选择<span style="color:#ff1936"> "确认" </span>您可以编辑任何信息', {
+            btn: ['确定', '取消'], //按钮
+            shade: false //不显示遮罩
+        }, function () {
+            layer.closeAll();
+            $('#save_case_flag').val(2);
+            editCase_cx(2);
+
+        }, function () {
+
+        });
+    }
+
+    function saveCase(role, process_finished) {
+        {#alert(process_finished);#}
+        var case_info = {};
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $("#hz_case_id").val().split('.')[1];
+        case_info["caseDate"] = $('#hz_case_date').val();
+        case_info["patientID"] = $('#patientID').val();
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["chemicalExamination"] = $('#hz_hy').val();
+        case_info["predictionResults"] = $('#hz_xy').val();
+        case_info["differentialDiagnosis"] = $('#hz_ys').val();
+        case_info["treatment"] = $('#hz_zlfa').val();
+        case_info["auxInfo"] = $('#hz_fz').val();
+        {#        case_info["treatment"] = $('#zl_total').text();#}
+        {#        case_info["recommend_medicine"] = $('#yw_total').text();#}
+        case_info["recommend_medicine"] = $('#hz_yw').val();
+        case_info["doctorComment"] = $('#hz_bz').val();
+        case_info["isFinish"] = process_finished;
+        case_info["doctorRole"] = role;
+        case_info["isNew"] = 1;
+        var url = "/doctor_save_case";
+        {#        var category = $("#category").val();#}
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                location.href = "/doctor_case/" + datas["patientID"] + '?caseFirstID=' + datas["caseFirstID"] + '&caseSecondID=' + datas["caseSecondID"] + '&category=' + category;
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+    function saveCase_confim(role, save_flag, process_finished) {
+
+//         layer.confirm('您是否确认保存此 <span style="background-color:#9BC78F;color:#000;border-color:#8DBD7F"> ' +  '复诊</span>病例信息？', {
+        layer.confirm('您是否确认保存此病例信息？', {
+            btn: ['确认保存', '继续编辑'], //按钮
+            shade: false, //不显示遮罩
+            skin: 'layer-layer-lan',
+        }, function () {
+            if (save_flag == 3) {
+                update_case(process_finished);
+                var case_info = {};
+                case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+                case_info["caseSecondID"] = $("#hz_case_id").val().split('.')[1];
+                case_info["patientID"] = $('#patientID').val();
+                location.href = "/doctor_case/" + case_info["patientID"] + '?caseFirstID=' + case_info["caseFirstID"] + '&caseSecondID=' + case_info["caseSecondID"] + '&process_finished=' + process_finished + '&category=' + category;
+            }
+            else {
+                saveCase(role, process_finished);
+            }
+            if (process_finished == 0) {
+                $('#save_case_flag').val(4);
+            }
+            layer.closeAll();
+        }, function () {
+        });
+    }
+
+    function saveCase_cx(role) {
+        role = '主治医生';
+        var saveCase_flag = $('#save_case_flag').val();
+        var doctor_zhenduan = $('#hz_ys').val();
+        var process_finished = 0;
+        if (saveCase_flag == 1) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+        }
+        else if (saveCase_flag == 2) {
+            newCase_confim(role, process_finished);
+        }
+        else if (saveCase_flag == 3) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+        }
+        else {
+            layer.msg('您目前没有处于编辑状态，请编辑后再保存！', {
+                time: 5000,
+                btn: ['确定']
+            });
+        }
+    }
+
+    function confimCase_cx(role) {
+        role = '主治医生';
+        var saveCase_flag = $('#save_case_flag').val();
+        var process_finished = 1;
+        if (saveCase_flag == 1) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+
+        }
+        else if (saveCase_flag == 2) {
+            newCase_confim(role, process_finished);
+
+        }
+        else if (saveCase_flag == 3) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+        }
+        else {
+            layer.msg('您目前没有处于编辑状态，请编辑后再保存！', {
+                time: 5000,
+                btn: ['确定']
+            });
+        }
+    }
+
+    function newCase(role, process_finished) {
+        var doctor_zhenduan = $('#hz_ys').val();
+        var case_info = {};
+        case_info["name"] = $("#hz_name").val();
+        case_info["telephone"] = $("#hz_num").val();
+        case_info["identityCardNum"] = $("#hz_sz").val();
+        case_info["socialSecurityNum"] = $("#hz_sh").val();
+        case_info["sex"] = $("#hz_sex").val();
+        case_info["age"] = $("#hz_age").val();
+        case_info["caseDate"] = "";
+        case_info["patientID"] = "";
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["chemicalExamination"] = $('#hz_hy').val();
+        case_info["predictionResults"] = $('#hz_xy').val();
+        case_info["differentialDiagnosis"] = $('#hz_ys').val();
+        case_info["treatment"] = $('#hz_zlfa').val();
+//        alert($('#zl_total').text());
+        {#        case_info["treatment"] = $('#zl_total').text();#}
+        case_info["auxInfo"] = $('#hz_fz').val();
+        case_info["recommend_medicine"] = $('#hz_yw').val();
+        case_info["doctorComment"] = $('#hz_bz').val();
+        case_info["isFinish"] = process_finished;
+        case_info["isNew"] = 1;
+        case_info["doctorRole"] = role;
+        var url = "/build_patient";
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                location.href = "/doctor_case/" + datas["patientID"] + '?caseFirstID=' + datas["caseFirstID"] + '&caseSecondID=' + datas["caseSecondID"] + '&category=' + category;
+
+            },
+            error: function (datas) {
+
+            }
+        });
+    }
+
+    function newCase_confim(role, process_finished) {
+        layer.confirm('您是否确认保存此病例信息？', {
+            btn: ['确认保存', '继续编辑'], //按钮
+            shade: false //不显示遮罩
+        }, function () {
+            newCase(role, process_finished);
+            $('#save_case_flag').val(4);
+            layer.closeAll();
+        }, function () {
+        });
+    }
+
+
+    function inviteDoctor() {
+
+        var index = layer.open({
+            type: 1,
+            title: '请输入验证信息',
+            content: '<div class="col-md-12">' +
+            '<div class="box box-warning" style="border-radius:8px">' +
+            '<div class="box-body">' +
+            '<div class="form-horizontal">' +
+            ' <div class="form-group has-feedback"> ' +
+            '<label for="hz_name" class="col-sm-3 control-label"  style="cursor: pointer" >姓名</label> ' +
+            '<div class="col-sm-9"> ' +
+            '<input type="text" class="form-control" id="cx_username" placeholder="姓名" >' +
+            '</div> ' +
+            '</div>' +
+            '<div class="form-group has-feedback"> ' +
+            '<label for="hz_num" class="col-sm-3 control-label"  style="cursor: pointer" onclick="">手机号</label> ' +
+            '<div class="col-sm-9"> ' +
+            '<input type="text" class="form-control" id="cx_telephone" placeholder="手机号" >' +
+            '</div> ' +
+            '</div>' +
+            '<div class="form-group has-feedback"> ' +
+            '<div class="col-sm-3"></div> ' +
+            '<div class="col-sm-6"> ' +
+            '<button class="btn btn-block btn-success" onclick="confirmInvite()">' + '确定' + '</button>' +
+            '</div> ' +
+            '<div class="col-sm-3"></div> ' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        });
+
+    }
+
+    function confirmInvite() {
+        var uasename = $("#cx_username").val();
+        var telephone = $("#cx_telephone").val();
+        var caseIDs = $("#hz_case_id").val();
+        if (uasename == "" || telephone == "") {
+            layer.alert("请输入医生姓名和手机号！");
+        } else {
+            layer.closeAll();
+            var url = "/doctor_share_case";
+            $.ajax({
+                type: "post",
+                async: true,
+                url: url,
+                data: {name: uasename, telephone: telephone, caseIDs: caseIDs},
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    if (datas == "error") {
+                        layer.alert("您输入的医生姓名或手机号错误，请重新输入！");
+                    } else {
+                        layer.alert("邀请成功！");
+                    }
+                },
+                error: function (datas) {
+
+                }
+            });
+        }
+    }
+
+    function changeTextArea(id) {
+        $("#textarea_label").val(id);
+    }
+
+    function inputSypmtom(sypm_id) {
+        var textAreaID = $("#textarea_label").val();
+        if (textAreaID != "-1") {
+            if ($("#" + textAreaID).attr("readonly") != "readonly") {
+                var curSypm = $("#" + sypm_id).text();
+                var lastStr = $("#" + textAreaID).val();
+                var new_text = "";
+                lastStr.replace("，", ",");
+                lastStr.replace("；", ",");
+                lastStr.replace(" ", ",");
+                lastStr.replace("\n", ",");
+                var symp_arr = lastStr.split(",");
+
+                if (symp_arr.indexOf(curSypm) == -1) {
+                    var newValue = lastStr + (lastStr == "" ? "" : ",") + curSypm;
+                    $("#" + textAreaID).val(newValue);//填充内容
+
+                }
+                else {
+                    for (var i = 0; i < symp_arr.length; i++) {
+                        if (symp_arr[i] != curSypm) {
+                            new_text += symp_arr[i] + ",";
+                        }
+                    }
+                    new_text = new_text.substring(0, new_text.length - 1);
+                    $("#" + textAreaID).val(new_text);
+                }
+            }
+        }
+
+    }
+
+    function openHuayanIFream(hz_hy, flag) {
+        var caseFirstID = $('#hz_case_id').val().split('.')[0];
+        var caseSecondID = $("#hz_case_id").val().split('.')[1];
+        var patientID = $('#patientID').val();
+        if (flag == 1) {
+            if ($("#" + hz_hy).attr("readonly") != "readonly") {
+                layer.open({
+                    type: 2,
+                    title: '请输入患者的化验检测信息。',
+                    closeBtn: 1,
+                    shadeClose: false,
+                    scrollbar: true,
+                    shade: 0.3,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['75%', '600px'],
+                    anim: 2,
+                    content: '/doctor_huayan_case?patientID=' + patientID + '&caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+                });
+            }
+        }
+        else {
+            layer.open({
+                type: 2,
+                title: '请输入患者的化验检测信息。',
+                closeBtn: 1,
+                shadeClose: false,
+                scrollbar: true,
+                shade: 0.3,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['75%', '600px'],
+                anim: 2,
+                content: '/doctor_huayan_case?patientID=' + patientID + '&caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+                end: function () {
+                    var hz_hy_content = $('#hz_hy').val();
+                    update_case(-1);
+                    layer.alert('您输入的化验检测信息如下：' + hz_hy_content, +'\n您可以在 “患者症状信息下面查看。”');
+                },
+            });
+        }
+
+    }
+
+    function loadSystemPredict() {
+        var case_info = {};
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $('#hz_case_id').val().split('.')[1];
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["category"] = $('#category').val();
+        var url = "/doctor_predict_case";
+        var zl_object;
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 60000,
+            success: function (datas) {
+                console.log(datas);
+                if (datas == "error") {
+                    layer.alert("系统出错，请重试");
+                } else {
+                    location.reload();
+                }
+            },
+            error: function (datas) {
+                console.log("数据传输失败" + datas);
+            }
+        });
+        console.log("zl_object:" + zl_object);
+    }
+
+    function update_case(process_finished) {
+        var doctor_zhenduan = $('#hz_ys').val();
+        var case_info = {};
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $("#hz_case_id").val().split('.')[1];
+        case_info["caseDate"] = $('#hz_case_date').val();
+        case_info["patientID"] = $('#patientID').val();
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["chemicalExamination"] = $('#hz_hy').val();
+        case_info["predictionResults"] = $('#hz_xy').val();
+        case_info["differentialDiagnosis"] = $('#hz_ys').val();
+//        case_info["treatment"] = $('#hz_zlfa').val();
+        case_info["treatment"] = $('#zl_total').text();
+//        case_info["auxInfo"] = $('#hz_fz').val();
+
+//        case_info["auxInfo"]+='\n***\n';
+        case_info["auxInfo"] = $('#hz_fz').val();
+        case_info["recommend_medicine"] = $('#hz_yw').val();
+        case_info["doctorComment"] = $('#hz_bz').val();
+//        if (process_finished != -1){
+//            case_info["isFinish"] = process_finished;
+//        }
+        case_info["isFinish"] = process_finished;
+        case_info["doctorRole"] = '主治医生';
+        var url = "/doctor_update_case";
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 10000,
+            success: function (datas) {
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+    function save_loadSystemPredict() {
+        var case_info = {};
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $('#hz_case_id').val().split('.')[1];
+        case_info["category"] = $("#category").val();
+        var url = "/doctor_predict_case";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 10000,
+            success: function (datas) {
+                if (datas == "error") {
+                } else {
+//                   layer.alert('预测成功！您可以在<span style="color:#181aff"> “诊断与治疗” </span>下面的 <span style="color:#ff2240">“系统预测”</span>中查看');
+                    $('#hz_xy').val(datas["疾病名称"]);
+                    $('#hz_zlfa').val(datas['治疗方案']);
+//                    $('#hz_fz').val(datas['用药推荐']);
+                    update_case(-1);
+                }
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+    function cx_upload(doctorID) {
+        layer.open({
+            type: 2,
+            title: '请选择您要上传的附件......',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '450px'],
+            anim: 2,
+            content: '/cx_shangchuan?doctorID=' + doctorID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function downloadappendix(path) {
+        var url = "/download";
+        var data = {};
+        data['appendix_path'] = JSON.stringify(path);
+        $.ajax({
+            type: "get",
+            async: true,
+            url: url,
+            data: data,
+            dataType: "json",
+            timeout: 10000,
+            success: function (datas) {
+                if (datas == "error") {
+                    layer.alert("下载失败！");
+                } else {
+                    layer.alert("加载成功！");
+                }
+            },
+            error: function (datas) {
+            }
+        });
+        alert(path);
+    }
+
+    function deleteappendix(appendixID) {
+        var url = "/deleteappendix";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"appendixID": appendixID},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                location.reload()
+            },
+            error: function (datas) {
+                location.reload()
+            }
+        });
+    }
+
+    function nopermission(filename) {
+        layer.alert('您不是 <span style="color:#ff1936">“ ' + filename + ' ”</span>   上传者，没有权限删除此附件！');
+    }
+
+    function deleteappendix_confim(appendixID, filename) {
+        layer.confirm('确定删除附件 <span style="color:#ff1936">“ ' + filename + ' ” </span> ?', {
+            btn: ['删除', '取消'], //按钮
+            shade: false //不显示遮罩
+        }, function () {
+            deleteappendix(appendixID);
+            layer.closeAll();
+        }, function () {
+        });
+    }
+
+    function scan_attachment(appendixID) {
+        layer.open({
+            type: 2,
+            title: '以下是附件内容',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '450px'],
+            anim: 2,
+            content: '/scan_content?appendixID=' + appendixID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function scan(doctorID) {
+        layer.open({
+            type: 2,
+            title: '请上传需要识别的文件：',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '450px'],
+            anim: 2,
+            content: '/scan?doctorID=' + doctorID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function medicine(caseFirstID, caseSecondID, disease_name) {
+        var hz_xy = $('#hz_xy').val();
+        if (hz_xy == '') {
+            save_loadSystemPredict();
+        }
+        var hz_zs = $('#hz_zs').val();
+        var hz_xbs = $('#hz_xb').val();
+        var hz_xy = $('#hz_xy').val();
+        var hz_tg = $("#hz_tg").val();
+
+        layer.open({
+            type: 2,
+            title: '药物选择',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['950px', '420px'],
+            anim: 2,
+            content: '/doctor_case_medicine?hz_zs=' + hz_zs + '&hz_xy=' + hz_xy + '&hz_xbs=' + hz_xbs + '&hz_tg=' + hz_tg,
+            end: function () {
+                update_case(-1);
+            }
+        });
+    }
+
+    function doctor_comments(doctorID) {
+        var hz_xy = $('#hz_xy').val();
+        var caseFirstID = $('#hz_case_id').val().split('.')[0];
+        var caseSecondID = $("#hz_case_id").val().split('.')[1];
+        layer.open({
+            type: 2,
+            title: '交流与评论',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '250px'],
+            anim: 2,
+            content: '/doctor_comments?caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID + '&doctorID=' + doctorID,
+            end: function (datas) {
+            }
+        });
+    }
+
+    function send_comment() {
+        var url = '/doctor_save_comments';
+        var caseFirstID = $('#hz_case_id').val().split('.')[0];
+        var caseSecondID = $("#hz_case_id").val().split('.')[1];
+        var comments = $('#message').val();
+        if (comments != '') {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: url,
+                data: {comments: comments, caseFirstID: caseFirstID, caseSecondID: caseSecondID},
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    var message = '<div class="direct-chat-msg right">' +
+                        '<div class="direct-chat-info clearfix">' +
+                        ' <span class="direct-chat-name pull-right">' + datas['doctorName'] + '</span>' +
+                        '<span class="pull-right">&nbsp&nbsp&nbsp&nbsp&nbsp</span>' +
+                        ' <span class="direct-chat-timestamp pull-right">' + datas['comment_time'] + '</span>' +
+                        '</div>' +
+                        '<img class="direct-chat-img" src="{{static_url("ui/dist/img/user3-128x128.jpg")}}" alt="message user image">' +
+                        '<div class=" col-sm-5 direct-chat-text " style="float: right">' + datas['doctorComment'] + '</div>' +
+                        '</div>';
+                    $('#comments_all').append(message);
+                    $("#comments_all").animate({"scrollTop": $('#comments_all')[0].scrollHeight}, "slow");
+                },
+                error: function (datas) {
+                    layer.alert("评论添加失败！", clearTimeout(1000));
+                }
+            });
+            $('#message').val('');
+        }
+        else {
+            layer.msg('请您现输入评论内容！', {
+                time: 5000,
+                btn: ['确定']
+            });
+        }
+
+    }
+
+    function cancel() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+    function modify_person(patientID) {
+        layer.open({
+            type: 2,
+            title: '请您修改信息后保存......',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '330px'],
+            anim: 2,
+            content: '/modify_person?patientID=' + patientID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function model_detail(caseFirstID, caseSecondID) {
+        layer.open({
+            type: 2,
+            title: '系统预测详情',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '700px'],
+            anim: 2,
+            content: '/model_detail?caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function huayan_detail(caseFirstID, caseSecondID) {
+        layer.open({
+            type: 2,
+            title: '化验检测详情',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['700px', '600px'],
+            anim: 2,
+            content: '/huayan_detail?caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function doctor_diagnose() {
+        var hz_ys = $('#hz_ys').val();
+        layer.open({
+            type: 2,
+            title: '化验检测详情',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['600px', '400px'],
+            anim: 2,
+            content: '/disease_subclass?hz_ys=' + hz_ys,
+            end: function () {
+                update_case(0);
+            }
+        });
+    }
+
+    function symptom_select(parent_id, doctor_id) {
+        var moban_name = $('#moban_name').val();
+        {#        var category = $("#category").val();#}
+        layer.open({
+            type: 2,
+            title: '症状选择',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '600px'],
+            anim: 2,
+            content: '/symptom_select?parent_id=' + parent_id + '&moban_name=' + moban_name + '&doctor_id=' + doctor_id + '&category=' + category,
+            end: function () {
+                update_case(0);
+            }
+        });
+    }
+
+    function previous_treatment() {
+        var moban_name = $('#moban_name').val();
+        layer.open({
+            type: 2,
+            title: '症状选择',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '400px'],
+            anim: 2,
+            content: '/previous_treatment?moban_name=' + moban_name,
+            end: function () {
+                update_case(0);
+            }
+        });
+    }
+
+    function search_graph_for_case(graph_name) {
+
+        layer.open({
+            type: 2,
+            title: '相关知识图谱',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['80%', '90%'],
+            anim: 2,
+            content: '/search_graph_for_doctor?graph_name=' + graph_name + '&category=' + category,
+            end: function () {
+            }
+        });
+    }
+
+</script>
+<script>
+    function blreport() {
+        layer.open({
+            type: 2,
+            title: '诊断报告',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['80%', '90%'],
+            anim: 2,
+            content: '/diagnosis_report',
+            end: function () {
+            }
+        });
+    }
+
+    function show_info(id) {
+        var content = $("#" + id).val();
+        layer.alert(content);
+    }
+
+    function show_big_skin_images(path, disease) {
+        layer.photos({
+            photos: {
+                "data": [{
+                    "alt": disease + " 的临床医学图片",
+                    "src": path
+                }]
+            }
+        });
+    }
+
+    function show_report(caseID) {
+        layer.open({
+            type: 2,
+            title: '历史诊断报告',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['80%', '90%'],
+            anim: 2,
+            content: '/diagnosis_history_report?caseID=' + caseID,
+            end: function () {
+            }
+        });
+    }
+</script>
+</body>
+</html>

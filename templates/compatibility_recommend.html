@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>中医配伍推荐</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="{{ static_url('ui/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/font-awesome.min.css') }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/ionicons.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/AdminLTE.min.css') }}">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('layer/css/layui.css') }}" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="{{ static_url('acupuncture/xuewei_kg.css') }}">
+</head>
+<body class="hold-transition skin-green-light sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">针医堂</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b> 针 医 堂</b></span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" id="head2">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ current_doctor.get(u'name', u'')}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                                <p>
+                                    {{ current_doctor.get(u'name', u'')}}
+                                    <small>Member since Nov. 2018</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="/invitation">邀请好友</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/xuewei/logout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar" style="border-right:2px dotted #A5B37E;">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{ current_doctor["name"] }}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+
+            <div class="side" file="side.html"></div>
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                中医穴位
+                <small>穴位，学名腧穴，指人体经络线上特殊的点区部位，中医可以通过针灸或者推拿、点按、艾灸刺激相应的经络点治疗疾病。</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/xuewei/case_index"><i class="fa fa-dashboard"></i> 首页</a></li>
+
+                <li class="active">中医配伍推荐</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- COLOR PALETTE -->
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-md-12">
+                    <div class="box box-success" style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                        <div class="box-header with-border" style="border-radius:8px 8px 0 0;cursor: pointer;border-bottom:1px solid #A5B37E;" id="jb_name">
+                            <div class="layui-form">
+                                    <div class="layui-form-item">
+                                        <button type="button" class="btn bg-olive btn-flat" id="total_classify"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px;display:none">{{dis_names}}
+                                        </button>
+                                        <div class="layui-inline">
+                                            <div class="layui-input-inline">
+                                                <select name="modules" lay-verify="required" lay-search=""  lay-filter="jb_classify">
+                                                    <!--<option value="">直接选择或搜索选择</option>-->
+                                                    {% for symptom in part2symptom%}
+                                                        <option value="{{symptom}}">{{symptom}}</option>
+                                                    {% end %}
+                                                </select>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="jb_btns">
+
+                                </div>
+                        </div>
+                        <div class="box-body">
+                            <div id="pw_type" class="col-sm-12" style="border-bottom:1px solid #A5B37E;">
+                            </div>
+                            <div id="pw_content" class="col-sm-12">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box -->
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+    <div class="footer"></div>
+
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="{{ static_url('ui/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{{ static_url('ui/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ static_url('ui/plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ static_url('ui/dist/js/app.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ static_url('ui/dist/js/demo.js') }}"></script>
+<script src="{{static_url('d3/d3.v3.min.js')}}"></script>
+<script src="{{ static_url('layer/layer.js') }}"></script>
+<script src="{{ static_url('layer/layui.js') }}" charset="utf-8"></script>
+<script src="{{ static_url('js/echarts.min.js') }}"></script>
+
+<!--<script src="{{ static_url('acupuncture/xuewei_kg.js') }}"></script>-->
+<script>
+
+    $(function(){
+        $('.side').load('/xuewei/side?side_id=4');
+        $('.footer').load('/xuewei/footer');
+
+    });
+    $(document).ready(function () {
+
+    });
+
+    layui.use(['layer','form', 'laypage', 'element'], function () {
+        var layer = layui.layer, laypage = layui.laypage, element = layui.element(),form=layui.form();
+        form.on('select(jb_classify)', function(data){
+		  	console.log(data.value);
+		  	$('#pw_type').html("");
+            $('#pw_content').html("");
+		  	$.ajax({
+                type: "post",
+                async: false,
+                url: "/xuewei/compatibility_recommend",
+                data: {},
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    owns_arr=datas["owns"];
+                    //console.log(owns_arr);
+                    $('#xxglplp').html("");
+                    for(var classify_item in datas["total"]){
+                        if(classify_item==data.value){
+                            //console.log(datas["total"][classify_item]);
+                            var classify_btns_str=''
+                            for(var classify_i of datas["total"][classify_item]){
+                                if($.inArray(classify_i,datas["owns"])<0){
+                                    classify_btns_str+='<button type="button" class="btn bg-default btn-flat" disabled="disabled" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">'+classify_i+'</button>';
+                                }else{
+                                    classify_btns_str+='<button type="button" class="btn bg-olive btn-flat"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">'+classify_i+'</button>';
+                                }
+                            }
+                            $('#jb_btns').html(classify_btns_str);
+                        }
+                    }
+                },
+                error: function (datas) {
+                    layer.alert("数据请求出错!");
+                }
+            });
+            //点选按钮start：
+            var jb_btns = $(".bg-olive");
+            //console.log(jb_btns.length);
+            for(var ii=0;ii<jb_btns.length;ii++){
+                jb_btns[ii].index = ii;
+                jb_btns[ii].onclick = function(){
+
+                    for(var jj=0;jj<jb_btns.length;jj++)
+                    {
+                        jb_btns[jj].className = "btn bg-olive btn-flat";
+                    }
+                    this.className = "btn bg-teal btn-flat";
+                    if($(this).text()=="失眠"){
+                         var pw_str='';
+                        var peiwu_data=["按部配伍","按经配伍","按特定穴位配伍"];
+                        for (var pw_item of peiwu_data) {
+                            pw_str += '<a class="btn btn-primary btn-xs" style="margin:10px;font-size:16px">' + pw_item + '</a>';
+                        }
+                        $('#pw_type').html(pw_str);
+                        var btns = $("#pw_type a");
+                        btns.each(function (index,elem) {
+                            var peiwu_type = $(this).text();
+                            $(elem).click(function () {
+                                $('#pw_content').html("");
+                                btns.removeClass("btn-warning");
+                                btns.addClass("btn-primary");
+                                $(this).removeClass("btn-primary");
+                                $(this).addClass("btn-warning");
+                                var pw_content_str='';
+                                if(peiwu_type=="按部配伍"){
+                                    pw_content_str+='<img src="{{ static_url("pw_images/abpw.png") }}" style="width:100%;height:100%" alt="'+peiwu_type+'" />';
+                                }else if(peiwu_type=="按经配伍"){
+                                    pw_content_str+='<img src="{{ static_url("pw_images/ajpw.png") }}" style="width:100%;height:100%" alt="'+peiwu_type+'" />';
+                                }else{
+                                    pw_content_str+='<b>暂无内容</b>';
+                                }
+
+                                $('#pw_content').html(pw_content_str);
+                            });
+                            if(index==0){
+                                $(elem).click();
+                            }
+                        });
+                    }else{
+                        $('#pw_type').html("");
+                        $('#pw_content').html("");
+                        layer.alert("数据待补充！");
+                    }
+                }
+            }
+		});
+    });
+
+</script>
+
+
+</body>
+</html>

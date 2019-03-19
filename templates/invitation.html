@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>邀请</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="static/ui/plugins/iCheck/square/blue.css">
+  <style>
+		
+		.login_Submit{ width:100%; margin:10px;height:40px; text-align:center; line-height:40px; background:#ffb5b5; color:#fff; border:none; border-radius:5px; cursor:pointer}
+		.login_Submit:hover{ background:#027742}
+		.login_static{ display:none}
+  </style>
+
+  
+</head>
+<body class="hold-transition login-page" style="background-color:white">
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" style="background-color:#3c8dbc;max-height:50px">
+				<div class="navbar-header"  >
+
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					&nbsp;&nbsp;&nbsp;<img src="static/ui/dist/img/ICT1.png" style="height:45px;width:40px;padding-top:4px">
+
+				</div>
+				<div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1" >
+				<div align="center">
+
+					<a href="#" style="color:white;font-family:楷体;font-size:35px;text-align:center"><b> 康康助手(儿科)</b></a>
+
+					<ul class="nav navbar-nav navbar-right " >
+						<img src="static/ui/dist/img/hospital.png" style="height:50px;width:60px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+					</ul>
+				</div>
+
+				</div>
+			</nav>
+			<div style="padding-bottom:9px;margin:80px 80px 20px;border-bottom:1px solid #eee">
+
+			</div>
+		</div>
+	</div>
+	<div class="row" style="background:url(static/ui/dist/img/login_bg.jpg) no-repeat;background-position:82% 10%;">
+		<div class="col-sm-2 col-md-2" >
+		</div>
+		<div class="col-sm-10 col-md-10">
+			<div class="login_box">
+				<div class="login_warp">					
+					<div class="login-box" > 
+					  <div class="login-box-body" style="border-radius:5px">												
+						<div class="login_static" style="display:block">
+						<hr>
+						  <div class="form-group has-feedback">
+							<input id="userName" type="text" class="form-control" placeholder="您的手机号码">
+							<span class="glyphicon glyphicon-phone form-control-feedback"></span>
+						  </div>
+						  <div class="form-group has-feedback">
+							<input id="ynum" type="text" class="form-control" placeholder="邀请码">
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						  </div>
+						  
+						  
+						  
+						  <div class="row">
+							  <div class="col-xs-2" >
+							  </div>
+							  <div class="col-xs-8" style="text-align:center; ">
+								
+								<button id="invitation" name="" type="submit" class="login_Submit" onclick="generate_code()">生 成 邀 请 码</button>
+							  </div>
+							   <div class="col-xs-2" >
+							  </div>
+						  </div>
+						</div>
+						
+						
+							
+
+					  </div>
+					  <!-- /.login-box-body -->
+					</div>
+
+					<!-- /.login-box -->									
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+	  <div id="footer" class="container">
+		  <nav class="navbar navbar-default navbar-fixed-bottom">
+			  <div class="navbar-inner navbar-content-center">
+				  <p class="text-muted credit" style="padding: 10px;background-color:#3c8dbc;color:white;text-align:center" >
+					 中国科学院计算技术研究所&nbsp;&nbsp;<img src="static/ui/dist/img/carch.png" style="height:30px;width:30px">计算机体系结构国家重点实验室&nbsp;孙毓忠.电话.13911103406
+				  </p>
+			  </div>
+		  </nav>
+	  </div>
+</div>
+
+<!-- jQuery 2.2.3 -->
+<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="static/ui/plugins/iCheck/icheck.min.js"></script>
+ <script>
+	
+	$( function(){
+        var typeFlag="0";
+        var a= $(".login_switch li");
+        a.click(
+            function(){
+                a.removeClass("active");
+                var b=$(this);
+                b.addClass("active");
+                var c=$(".login_static");
+				
+                if(c.hide().eq(b.index()).length!=0){
+                    typeFlag = (typeFlag == "0") ? typeFlag="1":typeFlag="0";
+                }
+                c.hide().eq(b.index()).show();
+                var index = b.index();
+				
+            }
+        );
+     })
+
+
+	</script>
+	<script>
+        function refresh_image() {
+            location.href = "/login";
+        }
+
+        function jsLogin(){
+            var userType = $(".login_switch li.active").index();
+            var user_phone;
+            var user_password;
+            var input_image_code;
+            var real_image_code;
+            var error = 0;
+            if(userType == 0) {
+                //患者用户
+                user_phone = $("#userName").val();
+                user_password = $("#password").val();
+                input_image_code =  $("#input_code1").val().toLowerCase();
+                real_image_code = $("#verification_code1").text().toLowerCase();
+            } else {
+                //医生用户
+                user_phone = $("#mobilePhone").val();
+                user_password = $("#password2").val();
+                input_image_code =  $("#input_code2").val().toLowerCase();
+                real_image_code = $("#verification_code2").text().toLowerCase();
+            }
+            if(user_phone == "" || user_phone == "") {
+                error = -1;
+                alert("用户名或密码不能为空!");
+            }
+            if(error != -1 && input_image_code != real_image_code) {
+                error = -1;
+                alert("验证码错误,请重新输入!");
+                refresh_image();
+            }
+            if(error != -1) {
+                var url = "/login";
+                $.ajax({
+                    type : "post",
+                    async : false,
+                    url : url,
+                    data:{user_phone : user_phone, user_password : user_password, user_type : userType},
+                    dataType: "json",
+                    timeout : 1000,
+                    success : function(datas) {
+                        if(datas["status"] == "success") {
+                            if(datas["user_type"] == 0) {
+                                location.href = "/user_ui";
+                            } else {
+                                location.href = "/doctor";
+                            }
+                        } else {
+                            alert("用户名或者密码输入错误,请重新输入!");
+                            refresh_image();
+                        }
+                    },
+                    error : function(res) {
+                    }
+                });
+            }
+
+        }
+
+    </script>
+	 <script>
+         function refresh_image() {
+		    var url = "/sync_flash_image";
+		    $.ajax({
+		        type : "post",
+                async : false,
+                url : url,
+                data:{},
+                dataType: "json",
+                timeout : 1000,
+                success : function(datas) {
+                    var userType = $(".login_switch li.active").index();
+                    if(userType == 0) {
+                        $("#verify_image1").attr("src", datas["image_path"]);
+                        $("#verification_code1").html(datas["image_code"]);
+                        $("#input_code1").val("");
+                    } else {
+                        $("#verify_image2").attr("src", datas["image_path"]);
+                        $("#verification_code2").html(datas["image_code"]);
+                        $("#input_code2").val("");
+                    }
+                },
+                error : function(res) {
+                }
+		    });
+		}
+    </script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+<script>
+	function generate_code() {
+		var tel = $("#userName").val();
+		var error = 0;
+		if(tel == "") {
+			error = -1;
+			alert("请输入您的手机号");
+		}
+		if(error != -1) {
+			var url = "/invitation";
+			$.ajax({
+				type : "post",
+				async : false,
+				url : url,
+				data:{user_phone : tel},
+				dataType: "json",
+				timeout : 1000,
+				success : function(datas) {
+                    if(datas["status"] == "fail") {
+                        alert("您输入的手机号无效！");
+                    } else {
+                        $("#ynum").val(datas["yqm"]);
+                    }
+				},
+				error : function(res) {
+				}
+			});
+		}
+
+	}
+</script>
+</body>
+</html>

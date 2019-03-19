@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>医生端</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="{{ static_url('ui/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/font-awesome.min.css') }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/ionicons.min.css') }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/datatables/dataTables.bootstrap.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/AdminLTE.min.css') }}">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/iCheck/all.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('layer/skin/layer.css') }}">
+    <link rel="stylesheet" href="{{ static_url('layer/skin/layui.css') }}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #head1, #head2, #footer {
+            background: -webkit-linear-gradient(#9BC78F, #385c2e); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#9BC78F, #385C2E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#9BC78F, #385C2E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#9BC78F, #385C2E); /* 标准的语法（必须放在最后） */
+        }
+
+        #jiandang, #yingyong {
+            background: -webkit-linear-gradient(#D2D9C3, #A5B37E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#D2D9C3, #A5B37E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#D2D9C3, #A5B37E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#D2D9C3, #A5B37E); /* 标准的语法（必须放在最后） */
+        }
+
+        #jiandang:hover, #yingyong:hover {
+            color: #fff;
+            background: -webkit-linear-gradient(#E3E7DA, #C2CBAE); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#E3E7DA, #C2CBAE); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#E3E7DA, #C2CBAE); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#E3E7DA, #C2CBAE); /* 标准的语法（必须放在最后） */
+
+        }
+
+        #shangchuan {
+            opacity: 0;
+            filter: alpha(opacity=0);
+            height: 95px;
+            width: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+        }
+
+    </style>
+</head>
+<body class="hold-transition skin-green-light sidebar-mini">
+{% import json %}
+<div class="wrapper">
+
+    <input type="text" class="form-control" id="moban_name" readonly="readonly"
+           value="{{ current_case.get(u'name', u'')}}" style="display: none">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">针医堂</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b> 针 医 堂</b></span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" id="head2">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="user-image"
+                                 alt="User Image">
+                            <span class="hidden-xs">{{ current_doctor.get(u'name', u'')}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="img-circle"
+                                     alt="User Image">
+
+                                <p>
+                                    {{ current_doctor.get(u'name', u'')}}
+                                    <small>Member since Nov. 2016</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="/invitation">邀请好友</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/xuewei/logout" class="btn btn-default btn-flat">退出</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar" style="border-right:2px dotted #A5B37E;">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{{ static_url('ui/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{ current_doctor.get(u'name', u'')}}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <div class="side" file="side.html"></div>
+
+
+
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                病例详情
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/xuewei/case_index"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li class="active">医生</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- /.col -->
+
+                <div class="col-md-12">
+                    <div class="box box-success" style="border-radius:8px;border-color:#a5b37e">
+                        <input id="textarea_label" style="display: none;" value="-1">
+
+                        <div class="box-header with-border">
+
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"-->
+                               <!--onclick="editCase_cx(1)">-->
+                                <!--<i class="fa fa-plus text-red"></i> 追加复诊病例-->
+                            <!--</a>-->
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"-->
+                               <!--onclick="loadSystemPredict()">-->
+                                <!--<i class="fa fa-plus-square text-green"></i> 中医预诊-->
+                            <!--</a>-->
+
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"-->
+                               <!--onclick="openHuayanIFream('hz_hy', 2)">-->
+                                <!--<i class="fa fa-hourglass-half text-red"></i> 化验检测-->
+                            <!--</a>-->
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;" onclick="medicine()">-->
+                                <!--<i class="fa fa-medkit text-green"></i> 中药处方-->
+                            <!--</a>-->
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;" onclick="show_report('{{ current_case.get(u'caseID', u'') }}')">-->
+                                <!--<i class="fa fa-print text-yellow"></i> 病例报告-->
+                            <!--</a>-->
+                             <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;">-->
+                                <!--<i class="fa fa-comments text-blue"></i> 机理验证-->
+                            <!--</a>-->
+                            <!--</a>-->
+                             <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;"-->
+                               <!--onclick="saveCase_cx2('{{ current_case.get(u'caseID', u'0')}}')">-->
+                                <!--<i class="fa fa-save text-blue"></i> 保存病例-->
+                            <!--</a>-->
+                            <!--<a href="/xuewei/case_index" class="btn btn-app" style="min-width:60px;height:45px;padding:5px">-->
+                                <!--<i class="fa fa-rotate-left text-green" ></i> 返回主页-->
+                            <!--</a>-->
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;float:right"-->
+                               <!--onclick="saveCase_cx('{{ current_case.get(u'doctorRole', u'')}}')">-->
+                                <!--<i class="fa fa-save text-blue"></i> 保存病例-->
+                            <!--</a>-->
+                            <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;float:right"-->
+                               <!--onclick="confimCase_cx('{{ current_case.get(u'doctorRole', u'')}}')">-->
+                                <!--<i class="fa fa-check-circle-o text-red"></i> 确认病例-->
+                            <!--</a>-->
+                        </div>
+                        <div class="box-body">
+                            <input type="hidden" id="caseID" value="{{current_case.get(u'caseID', u'0')}}">
+                            <input type="hidden" id="hz_case_id" value="{{current_case.get(u'caseFirstID', u'0')}}.{{current_case.get(u'caseSecondID', u'0')}}">
+                            <input id="save_case_flag" class="col-sm-2 control-label"
+                                   style="cursor: pointer;display: none" value="3">
+                            <div class="form-horizontal" id="blxq">
+                                <!--<div class="box box-success"-->
+                                     <!--style="border-radius:8px;border-color:#a5b37e;margin-bottom:10px"></div>-->
+                                 <div class="box box-success" style="border-radius:8px;border-color:#a5b37e;margin-bottom:10px">
+                                    <div class="box-header with-border" data-widget="collapse" style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">个人信息</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为基本个人信息</small>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-feedback">
+                                            <input type="hidden" id="category" value="{{ category }}"/>
+                                            <label for="hz_case_id" class="col-sm-2 control-label"
+                                                   style="cursor: pointer">病例编号</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_case_id"
+                                                       placeholder="患者编号" readonly="readonly"
+                                                       value="
+                                                               {{ unicode(current_case.get(u'caseFirstID')) + u'.' + unicode(current_case.get(u'caseSecondID'))}}">
+                                            </div>
+                                            <input style="display: none" id="patientID"
+                                                   value="{{ current_case.get(u'patientID')}}">
+                                            <input style="display: none" id="caseID"
+                                                   value="{{ current_case.get(u'caseID')}}">
+                                            <input style="display: none" id="isFinish"
+                                                   value="{{ current_case.get(u'isFinish')}}">
+                                             <input style="display: none" id="predictionResults"
+                                                   value="{{ current_case.get(u'predictionResults')}}">
+                                            <label for="hz_case_date" class="col-sm-2 control-label"
+                                                   style="cursor: pointer" onclick="">就诊时间</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_case_date" placeholder="如:2018-01-01" value="{{ current_case.get(u'case_date', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_name" class="col-sm-2 control-label" style="cursor: pointer">姓名</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_name" placeholder="姓名"
+                                                       value="{{ current_case.get(u'name', u'')}}">
+                                            </div>
+                                            <label class="col-sm-2 control-label" style="cursor: pointer">性别</label>
+                                            <div class="col-sm-3" id="hz_sex" style="padding-top:6px">
+                                                <!--<input type="text" class="form-control" id="hz_sex" placeholder="性别"-->
+                                                       <!--value="{{ current_case.get(u'sex', u'')}}">-->
+                                                {% if current_case.get(u'sex', u'')=='男' %}
+                                                <input type="radio" name="sex" checked="checked" value="男">男
+                                                <input type="radio" name="sex" value="女">女
+                                                {% else %}
+                                                <input type="radio" name="sex" value="男">男
+                                                <input type="radio" name="sex" checked="checked" value="女">女
+                                                {% end %}
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_age" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">年龄</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_age" placeholder="年龄"
+                                                       value="{{ current_case.get(u'age', u'')}}">
+                                            </div>
+                                            <label for="hz_job" class="col-sm-2 control-label" style="cursor: pointer">职业</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_job" placeholder="职业"
+                                                       value="{{ current_case.get(u'job', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_height" class="col-sm-2 control-label" style="cursor: pointer">身高</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_height" placeholder="身高"
+                                                       value="{{ current_case.get(u'height', u'')}}">
+                                                <span class="form-control-feedback " style="font-size:16px"> cm</span>
+                                            </div>
+                                            <label for="hz_weight" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">体重</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_weight" placeholder="体重"
+                                                       value="{{ current_case.get(u'weight', u'')}}">
+                                                <span class="form-control-feedback " style="font-size:16px"> kg</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_address" class="col-sm-2 control-label" style="cursor: pointer">家庭住址</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_address" placeholder="家庭住址"
+                                                       value="{{ current_case.get(u'address', u'')}}">
+                                            </div>
+                                            <label for="hz_num" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">联系方式</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="hz_num" placeholder="联系方式"
+                                                       value="{{ current_case.get(u'telephone', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_anamnesis" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">既往病史</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="hz_anamnesis" placeholder="既往病史"
+                                                       value="{{ current_case.get(u'family_history', u'')}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label for="hz_family_history" class="col-sm-2 control-label" style="cursor: pointer"
+                                                   onclick="">家族病史</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="hz_family_history" placeholder="家族病史"
+                                                       value="{{ current_case.get(u'family_history', u'')}}">
+                                            </div>
+
+                                            <!--<button class="btn btn-danger "
+                                                    onclick="modify_person({{ current_case.get(u'patientID', u'')}})">
+                                                修改患者个人信息
+                                            </button>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box box-warning" style="border-radius:8px;margin-bottom:10px">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">症状信息</h3>
+                                        <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px;float:right" onclick="file_upload({{ current_doctor.get(u'doctorID', u'')}})">-->
+                                            <!--<i class="fa fa-upload text-purple"></i> 附件上传-->
+                                        <!--</a>-->
+                                        <!--<small style="margin-left:10px">点击标题部分可收缩，该部分为患者的主诉、现病史、体格检查等信息</small>-->
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-error">
+                                            <label for="first_symptom" class="col-sm-2 control-label"
+                                                   style="cursor: pointer">主症</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="first_symptom" placeholder="主症"
+                                                       value="{{ current_case.get(u'first_symptom', u'')}}"
+                                                       onfocus="changeTextArea('first_symptom')" oninput="firstSymptomChange({{ current_doctor["doctorID"] }})">
+                                            </div>
+                                            <button class="btn btn-danger "
+                                                    onclick="symptom_select('first_symptom', '主症',{{ current_doctor["doctorID"] }})">点选
+                                            </button>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="second_symptom" class="col-sm-2 control-label" style="cursor: pointer">兼症</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="second_symptom"
+                                                          placeholder="兼症"
+                                                          onfocus="changeTextArea('second_symptom')">{{ current_case.get(u'second_symptom', u'')}}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_jianzheng">
+                                                    {% for jz in current_case.get(u'first_symptom', u'').replace(',', "，").split('，') %}
+                                                    {% if jz!='' %}
+                                                    <button type="button" class="btn bg-orange btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="symptom_select('second_symptom','{{ jz }}',{{ current_doctor['doctorID'] }})">{{ jz }}的兼症
+                                                    </button>
+                                                    {% end %}
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                            <!--<button class="btn btn-danger "-->
+                                                    <!--onclick="symptom_select('second_symptom', {{ current_doctor["doctorID"] }})">点选-->
+                                            <!--</button>-->
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="look" class="col-sm-2 control-label" style="cursor: pointer">舌象</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="look"
+                                                          placeholder="舌象"
+                                                          onfocus="changeTextArea('look')">{{ current_case.get(u'look', u'')}}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_look">
+                                                    {% for sx in current_case.get(u'first_symptom', u'').replace(',', "，").split('，') %}
+                                                    {% if sx!='' %}
+                                                    <button type="button" class="btn bg-orange btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="symptom_select('look','{{ sx }}',{{ current_doctor["doctorID"] }})">{{ sx }}的舌象
+                                                    </button>
+                                                    {% end %}
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                            <!--<button class="btn btn-danger "-->
+                                                    <!--onclick="symptom_select('look', {{ current_doctor["doctorID"] }})">点选-->
+                                            <!--</button>-->
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="pulse" class="col-sm-2 control-label" style="cursor: pointer">脉象</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="pulse"
+                                                  placeholder="脉象"
+                                                  onfocus="changeTextArea('pulse')">{{ current_case.get(u'pulse', u'')}}</textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_pulse">
+                                                    {% for mx in current_case.get(u'first_symptom', u'').replace(',', "，").split('，') %}
+                                                    {% if mx!='' %}
+                                                    <button type="button" class="btn bg-orange btn-flat"
+                                                            style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                            onclick="symptom_select('pulse','{{ mx }}',{{ current_doctor["doctorID"] }})">{{ mx }}的脉象
+                                                    </button>
+                                                    {% end %}
+                                                    {% end %}
+                                                </div>
+                                            </div>
+                                            <!--<button class="btn btn-danger "-->
+                                                    <!--onclick="symptom_select('pulse', {{ current_doctor["doctorID"] }})">点选-->
+                                            <!--</button>-->
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="onset_time" class="col-sm-2 control-label" style="cursor: pointer">发病时间</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="onset_time"
+                                                  placeholder="发病时间，如：2018-01-01">{{ current_case.get(u'onset_time', u'')}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="medicine_history" class="col-sm-2 control-label" style="cursor: pointer">用药史</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="medicine_history"
+                                                  placeholder="用药史">{{ current_case.get(u'medicine_history', u'')}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-warning">
+                                            <label for="therapy_history" class="col-sm-2 control-label" style="cursor: pointer">治疗史</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="therapy_history"
+                                                  placeholder="治疗史">{{ current_case.get(u'therapy_history', u'')}}</textarea>
+                                            </div>
+                                        </div>
+                                            <!--<button class="btn btn-danger " onclick="previous_treatment()">点选</button>-->
+                                        <div class="form-group has-feedback">
+                                            <label class="col-sm-2 control-label" style="cursor: pointer;color:#f39c12">附件上传</label>
+                                            <div class="col-sm-3">
+                                                <input type="button" class="form-control" value="如化验单、检查报告等" onclick="file_upload({{ current_doctor.get(u'doctorID', u'')}})" style="margin:5px 5px 5px 0px;font-size:14px;color:black;border-color:#f39c12;">
+                                                <span class="form-control-feedback fa fa-upload text-white" style="line-height:44px;width:60px"></span>
+                                                <!--<a class="btn btn-app" style="min-width:60px;height:45px;padding:5px"-->
+                                                   <!--onclick="file_upload({{ current_doctor.get(u'doctorID', u'')}})">-->
+                                                    <!--<i class="fa fa-upload text-purple"></i> 附件上传-->
+                                                <!--</a>-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="box-footer">
+                                        <div class="col-sm-5">
+                                        </div>
+                                        <div class="col-sm-2" style="padding-left:5px;float:center;font-size:16px">
+                                            <button class="btn btn-success" onclick="diagnose('{{ current_case.get(u'caseID', u'0')}}')">诊治方案</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box box-success collapsed-box" style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;" id="zzfa_content">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-plus" id="zzfa_icon"></i>
+                                        <h3 class="box-title">诊治方案</h3>
+                                        <!--<small style="margin-left:10px">点击标题部分可收缩，该部分为医生诊断、治疗方案、系统预测等信息</small>-->
+                                    </div>
+                                    <div class="box-body" id="zzfa_body">
+                                        <div class="form-group has-success">
+                                            <label for="disease_zy" class="col-sm-2 control-label" style="cursor: pointer">中医病名</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="disease_zy" placeholder="中医病名" >{{ current_case.get(u'disease_zy',u'') }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="disease_xy" class="col-sm-2 control-label" style="cursor: pointer">西医病名</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="disease_xy" placeholder="西医病名" >{{ current_case.get(u'disease_xy',u'') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-success">
+                                            <label for="bianzheng" class="col-sm-2 control-label" style="cursor: pointer">中医辨证</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="bianzheng" placeholder="中医辨证" >{{ current_case.get(u'bianzheng',u'') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group has-success">
+                                            <label for="zhifa" class="col-sm-2 control-label" style="cursor: pointer">治法治则</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="zhifa"
+                                                          placeholder="治法治则">{{ current_case.get(u'zhifa', u'')}}</textarea>
+                                            </div>
+                                            <!--<button class="btn btn-danger " onclick="doctor_diagnose()">点选</button>-->
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="zhuxue" class="col-sm-2 control-label" style="cursor: pointer">推荐主穴</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-group has-success">
+                                                    <label for="zhuxue" class="col-sm-2 control-label" style="cursor: pointer">经穴</label>
+                                                    <div class="col-sm-10">
+                                                        <textarea type="text" class="form-control" rows="1" id="zhuxue"
+                                                          placeholder="经穴">{{ current_case.get(u'zhuxue', u'')}}</textarea>
+                                                        <div class="col-sm-12" style="padding:0" id="btn_jingxue">
+                                                            {% for zs in current_case.get(u'zhuxue', u'').replace(',', "，").split('，') %}
+                                                            {% if zs!='' %}
+                                                            <button type="button" class="btn bg-olive btn-flat"
+                                                                    style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                                    onclick="push_chufang(this,'{{ zs }}')">"{{ zs }}"
+                                                            </button>
+                                                            {% end %}
+                                                            {% end %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group has-success">
+                                                    <label for="xiaoyanxue" class="col-sm-2 control-label" style="cursor: pointer">效验穴</label>
+                                                    <div class="col-sm-10">
+                                                        <textarea type="text" class="form-control" rows="1" id="xiaoyanxue"
+                                                          placeholder="效验穴">{{ current_case.get(u'xiaoyanxue', u'')}}</textarea>
+                                                        <div class="col-sm-12" style="padding:0" id="btn_xiaoyan">
+                                                            {% for zs in current_case.get(u'xiaoyanxue', u'').replace(',', "，").split('，') %}
+                                                            {% if zs!='' %}
+                                                            <button type="button" class="btn bg-olive btn-flat"
+                                                                    style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"
+                                                                    onclick="push_chufang(this,'{{ zs }}')">"{{ zs }}"
+                                                            </button>
+                                                            {% end %}
+                                                            {% end %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<button class="btn btn-danger " onclick="previous_treatment()">点选</button>-->
+                                            <button id="zl_total" style="display:none"></button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="peixue" class="col-sm-2 control-label" style="cursor: pointer">推荐配穴</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="peixue"
+                                                          placeholder="配穴">{{ current_case.get(u'peixue', u'')}}</textarea>
+
+                                            </div>
+                                            <button id="yw_total" style="display:none"></button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="jiajianxue" class="col-sm-2 control-label" style="cursor: pointer">推荐加减穴</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="1" id="jiajianxue"
+                                                          placeholder="加减穴">{{ current_case.get(u'jiajianxue', u'')}}</textarea>
+
+                                            </div>
+                                            <button id="yw_total" style="display:none"></button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="recommend_therapy" class="col-sm-2 control-label" style="cursor: pointer">拟定处方</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="recommend_therapy"
+                                                          placeholder="拟定处方">{{ current_case.get(u'therapy', u'')}}</textarea>
+                                                <!--<div class="col-sm-12" style="padding:0">-->
+                                                    <!--<button type="button" class="btn bg-olive btn-flat"-->
+                                                            <!--style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px"-->
+                                                            <!--onclick="kg_select()">针灸处方选穴图谱-->
+                                                    <!--</button>-->
+                                                <!--</div>-->
+                                            </div>
+
+                                            <!--<button id="yw_total" style="display:none"></button>-->
+                                        </div>
+
+                                        <div class="form-group has-warning" style="display: none">
+                                            <label for="hz_bz" class="col-sm-2 control-label" style="cursor: pointer"></label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="2" id="hz_bz"
+                                                          placeholder="备注意见">{{ current_case.get(u'therapy', u'')}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="box box-success "
+                                     style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse"
+                                         style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">附件与下载</h3>
+                                        <!--<small style="margin-left:10px">点击标题部分可收缩，该部分为上传的附件信息及下载删除</small>-->
+                                    </div>
+                                    <div class="box-body">
+                                        {% if len(appendix_list) !=0 %}
+                                        <table id="appendix_table" class="table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>病例编号</th>
+                                                <th>附件名称</th>
+                                                <th>附件类型</th>
+                                                <th>附件简介</th>
+                                                <th>上传时间</th>
+                                                <th>附件下载</th>
+                                                <th>附件删除</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for appendix in appendix_list %}
+                                            <tr id=u'appendix_' +
+                                                    {{ unicode(appendix.get(u'caseFirstID')) + u'_' + unicode(appendix.get(u'caseSecondID'))}}>
+                                                <td>
+                                                    {{ unicode(appendix.get(u'caseFirstID')) + u'.' + unicode(appendix.get(u'caseSecondID'))}}</td>
+                                                <td>{{ appendix.get(u"name")}}</td>
+                                                <td>{{ appendix.get(u"type")}}</td>
+                                                <td>{{ appendix.get(u"abstract")}}</td>
+                                                <td>{{ appendix.get(u"upload_time")}}</td>
+                                                <td><a href="/download?appendix_path={{ appendix.get(u'path')}}"><i
+                                                        class="fa  fa-cloud-download fa-lg"></i> 下载</a></td>
+                                                {% if appendix.get(u'doctorManage') == 1 %}
+                                                <td><a onclick="deleteappendix_confim('
+                                                        {{ appendix.get(u'appendixID')}}', '
+                                                        {{ appendix.get(u"name")}}')" style="cursor: pointer"><i
+                                                        class="fa fa-trash-o fa-lg"></i> 删除</a></td>
+                                                {% else %}
+                                                　　　　　　　
+                                                <td><a onclick="nopermission( '{{ appendix.get(u"name")}}')"
+                                                       style="cursor: pointer" disabled="true"> 没有权限</a></td>
+                                                {% end %}
+                                            </tr>
+                                            {% end %}
+                                            </tbody>
+                                        </table>
+                                        {% else %}
+                                        暂无医生上传附件，请使用右上方上传按钮上传附件。
+                                        {% end %}
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="col-sm-5">
+                                    </div>
+                                    <div class="col-sm-2" style="padding-left:5px;float:center">
+                                        <button class="btn btn-success btn-block"
+                                            onclick="saveCase_cx2('{{ current_case.get(u'caseID', u'0')}}')">保 存 病 例
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-md-12">
+                    <div class="box box-success" style="border-radius:8px">
+                        <div class="box-body" style="overflow-x:auto">
+                            <table id="case_table" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>病例编号</th>
+                                    <th>中医病名</th>
+                                    <th>主症</th>
+                                    <th>兼症</th>
+                                    <th>处方</th>
+                                    <th>就诊时间</th>
+                                    <th>查看</th>
+                                </tr>
+                                </thead>
+                                {% set clomun_num = len(patient_cases) %}
+                                <tbody>
+                                {% for case in patient_cases %}
+                                {% if case != current_case %}
+                                <tr id=
+                                        {{ unicode(case.get(u'caseID')) }}>
+                                    <td>
+                                        {{ unicode(case.get(u'caseFirstID')) + u'.' + unicode(case.get(u'caseSecondID'))}}</td>
+                                    <td>{{ case.get(u"disease_zy")}}</td>
+                                    <td>{{ case.get(u"first_symptom")}}</td>
+                                    <td>{{ case.get(u"second_symptom")}}</td>
+                                    <td>{{ case.get(u"therapy")}}</td>
+                                    <td>{{ case.get(u"case_date")}}</td>
+                                    <td><a onclick="newviewCase({{ case.get(u'caseID',u'')}},{{ case.get(u'category',u'')}})" style="cursor: pointer">查看</a></td>
+                                </tr>
+                                {% end %}
+                                {% end %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+     <div class="footer"></div>
+
+</div>
+
+
+<script src='{{ static_url("ui/plugins/jQuery/jquery-2.2.3.min.js") }}'></script>
+<!-- Bootstrap 3.3.6 -->
+<script src='{{ static_url("ui/bootstrap/js/bootstrap.min.js") }}'></script>
+<!-- DataTables -->
+<script src="{{ static_url('ui/plugins/datatables/jquery.dataTables1.min.js') }}"></script>
+<script src="{{ static_url('ui/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<!-- SlimScroll -->
+<script src="{{ static_url('ui/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ static_url('ui/plugins/fastclick/fastclick.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ static_url('ui/dist/js/app.min.js') }}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{ static_url('ui/dist/js/demo.js') }}"></script>
+<script src="{{ static_url('layer/layer.js') }}"></script>
+<script src="{{ static_url('layer/layui.js') }}"></script>
+
+<!-- Page specific script -->
+<script>
+    $(function () {
+        $("#case_table").DataTable({
+            "searching": false,
+            "ordering": false,
+            "iDisplayLength": 5
+        });
+        $('.side').load('/xuewei/side?side_id=1');
+        $('.footer').load('/xuewei/footer');
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function diagnose(caseID) {
+        $("#zzfa_content").removeClass("collapsed-box");
+        $("#zzfa_icon").removeClass("fa-plus");
+        $("#zzfa_icon").addClass("fa-minus");
+        $("#zzfa_body").css("display","block");
+        var url = "/xuewei/case/"+caseID;
+        case_info = {
+            caseID:$("#caseID").val(),
+            caseFirstID:$('#hz_case_id').val().split('.')[0],
+            caseSecondID:$("#hz_case_id").val().split('.')[1],
+            first_symptom:$("#first_symptom").val(),
+            second_symptom:$("#second_symptom").val(),
+            look:$("#look").val(),
+            pulse:$("#pulse").val(),
+            onset_time:$("#onset_time").val(),
+            medicine_history:$("#medicine_history").val(),
+            therapy_history:$("#therapy_history").val(),
+            disease_zy:$("#disease_zy").val(),
+            disease_xy:$("#disease_xy").val(),
+            bianzheng:$("#bianzheng").val(),
+            zhifa:$("#zhifa").val(),
+            zhuxue:$("#zhuxue").val(),
+            peixue:$("#peixue").val(),
+            jiajianxue:$("#jiajianxue").val(),
+            xiaoyanxue:$("#xiaoyanxue").val(),
+            recommend_therapy:$("#recommend_therapy").val(),
+            op:"predict"
+        };
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                console.log(datas);
+                $("#peixue").val(datas["配穴"]);
+                $("#jiajianxue").val(datas["加减穴"]);
+                $("#xiaoyanxue").val(datas["效验穴"]);
+                $("#zhuxue").val(datas["主穴"]);
+                $("#bianzheng").val(datas["证型"]);
+                $("#disease_xy").val(datas["disease_xy"]);
+                $("#disease_zy").val(datas["disease_zy"]);
+                $("#btn_jingxue").html("");
+                $("#btn_xiaoyan").html("");
+                var btn_jingxue_str='';
+                for(zs of datas["主穴"].replace(',', "，").split('，')){
+                    if(zs !=''){
+                        btn_jingxue_str+='<button type="button" class="btn bg-olive btn-flat"style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px" onclick="push_chufang(this,\''+ zs +'\')">"'+zs+'"</button>';
+                    }
+                }
+                $('#btn_jingxue').append(btn_jingxue_str);
+                var btn_xiaoyan_str='';
+                for(xy of datas["效验穴"].replace(',', "，").split('，')){
+                    if(xy !=''){
+                        btn_xiaoyan_str+='<button type="button" class="btn bg-olive btn-flat"style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px" onclick="push_chufang(this,\''+ xy +'\')">"'+xy+'"</button>';
+                    }
+                }
+                $('#btn_xiaoyan').append(btn_xiaoyan_str);
+                $("#zhifa").val(datas["治法"]);
+               // window.location.href = '/xuewei/case/'+datas['caseID'];
+            },
+            error: function (datas) {
+            }
+        });
+    }
+    function kg_select(){
+        layer.open({
+            type: 2,
+            title: '胃脘痛（著作类）',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true,
+            area: ['95%', '95%'],
+            anim: 2,
+            content: '/xuewei/knowledge_zoom?disease_name=' + "胃脘痛（著作类）" + "&&kg_id=" + "kgs",
+            end: function () {
+            }
+        });
+    }
+
+    var category = $("#category").val();
+
+    function newviewCase(caseID, category) {
+//        var patientID = $("#patientID").val();
+        var url = "/xuewei/case/" + caseID +"?category=" + category;
+        window.location.href = url;
+    }
+
+    function editCase(role) {
+        if (role == "主治医生") {
+            $('#hz_name').removeAttr("readonly");
+            $('#hz_sex').removeAttr("readonly");
+            $('#hz_age').removeAttr("readonly");
+            $('#hz_num').removeAttr("readonly");
+            $('#hz_sz').removeAttr("readonly");
+            $('#hz_sh').removeAttr("readonly");
+            $('#hz_zs').removeAttr("readonly");
+            $('#hz_xb').removeAttr("readonly");
+            $('#hz_tg').removeAttr("readonly");
+            $('#hz_hy').removeAttr("readonly");
+            $('#hz_xy').removeAttr("readonly");
+            $('#hz_ys').removeAttr("readonly");
+            $('#hz_zlfa').removeAttr("readonly");
+            $('#hz_fz').removeAttr("readonly");
+            $('#hz_bz').removeAttr("readonly");
+            $('#hz_yw').removeAttr("readonly");
+        } else {
+            $('#hz_bz').removeAttr("readonly");
+        }
+    }
+
+
+    function editCase_cx(flag) {
+        if (flag == 1) {
+            $('#hz_zs').removeAttr("readonly");
+            $('#hz_xb').removeAttr("readonly");
+            $('#hz_tg').removeAttr("readonly");
+            $('#hz_hy').removeAttr("readonly");
+            $('#hz_xy').removeAttr("readonly");
+            $('#hz_ys').removeAttr("readonly");
+            $('#hz_zlfa').removeAttr("readonly");
+            $('#hz_fz').removeAttr("readonly");
+            $('#hz_bz').removeAttr("readonly");
+            $('#hz_yw').removeAttr("readonly");
+            $('#hz_zlfa').val('');
+            $('#hz_fz').val('');
+            $('#hz_xy').val('');
+            $('#hz_yw').val('');
+        } else {
+            $('#hz_name').removeAttr("readonly");
+            $('#hz_sex').removeAttr("readonly");
+            $('#hz_age').removeAttr("readonly");
+            $('#hz_num').removeAttr("readonly");
+            $('#hz_sz').removeAttr("readonly");
+            $('#hz_sh').removeAttr("readonly");
+            $('#hz_zs').removeAttr("readonly");
+            $('#hz_xb').removeAttr("readonly");
+            $('#hz_tg').removeAttr("readonly");
+            $('#hz_hy').removeAttr("readonly");
+            $('#hz_xy').removeAttr("readonly");
+            $('#hz_ys').removeAttr("readonly");
+            $('#hz_zlfa').removeAttr("readonly");
+            $('#hz_fz').removeAttr("readonly");
+            $('#hz_bz').removeAttr("readonly");
+            $('#hz_yw').removeAttr("readonly");
+            $('#hz_zlfa').val('');
+            $('#hz_fz').val('');
+            $('#hz_xy').val('');
+            $('#hz_yw').val('');
+            $('#btn_xy').css('display', 'none');
+            $('#btn_yw').css('display', 'none');
+            $('#btn_zlfa').css('display', 'none');
+            $('#save_case_flag').val(flag);
+        }
+        var ui = document.getElementById("model_detail");
+        ui.style.display = "none";
+
+    }
+
+
+    function saveCase(role, process_finished) {
+        var case_info = {};
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $("#hz_case_id").val().split('.')[1];
+        case_info["caseDate"] = $('#hz_case_date').val();
+        case_info["patientID"] = $('#patientID').val();
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["chemicalExamination"] = $('#hz_hy').val();
+        case_info["predictionResults"] = $('#hz_xy').val();
+        case_info["differentialDiagnosis"] = $('#hz_ys').val();
+        case_info["treatment"] = $('#hz_zlfa').val();
+        case_info["auxInfo"] = $('#hz_fz').val();
+        {#        case_info["treatment"] = $('#zl_total').text();#}
+        {#        case_info["recommend_medicine"] = $('#yw_total').text();#}
+        case_info["recommend_medicine"] = $('#hz_yw').val();
+        case_info["doctorComment"] = $('#hz_bz').val();
+        case_info["isFinish"] = process_finished;
+        case_info["doctorRole"] = role;
+        case_info["isNew"] = 1;
+        var url = "/doctor_save_case";
+        {#        var category = $("#category").val();#}
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                location.href = "/xuewei/doctor_case/" + datas["patientID"] + '?caseFirstID=' + datas["caseFirstID"] + '&caseSecondID=' + datas["caseSecondID"] + '&category=' + category;
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+    function saveCase_confim(role, save_flag, process_finished) {
+
+//         layer.confirm('您是否确认保存此 <span style="background-color:#9BC78F;color:#000;border-color:#8DBD7F"> ' +  '复诊</span>病例信息？', {
+        layer.confirm('您是否确认保存此病例信息？', {
+            btn: ['确认保存', '继续编辑'], //按钮
+            shade: false, //不显示遮罩
+            skin: 'layer-layer-lan',
+        }, function () {
+            if (save_flag == 3) {
+                update_case(process_finished);
+                var case_info = {};
+                case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+                case_info["caseSecondID"] = $("#hz_case_id").val().split('.')[1];
+                case_info["patientID"] = $('#patientID').val();
+                location.href = "/doctor_case/" + case_info["patientID"] + '?caseFirstID=' + case_info["caseFirstID"] + '&caseSecondID=' + case_info["caseSecondID"] + '&process_finished=' + process_finished + '&category=' + category;
+            }
+            else {
+                saveCase(role, process_finished);
+            }
+            if (process_finished == 0) {
+                $('#save_case_flag').val(4);
+            }
+            layer.closeAll();
+        }, function () {
+        });
+    }
+
+    function saveCase_cx(role) {
+        role = '主治医生';
+        var saveCase_flag = $('#save_case_flag').val();
+        var doctor_zhenduan = $('#hz_ys').val();
+        var process_finished = 0;
+        if (saveCase_flag == 1) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+        }
+        else if (saveCase_flag == 2) {
+            newCase_confim(role, process_finished);
+        }
+        else if (saveCase_flag == 3) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+        }
+        else {
+            layer.msg('您目前没有处于编辑状态，请编辑后再保存！', {
+                time: 5000,
+                btn: ['确定']
+            });
+        }
+    }
+function saveCase_cx2(caseID) {
+        layer.confirm('您是否确认保存此病例信息？', {
+            btn: ['确认保存', '继续编辑'], //按钮
+            shade: false, //不显示遮罩
+            skin: 'layer-layer-lan',
+        }, function () {
+            var url = "/xuewei/case/"+caseID;
+            case_info = {
+                caseID:$("#caseID").val(),
+                caseFirstID:$('#hz_case_id').val().split('.')[0],
+                caseSecondID:$("#hz_case_id").val().split('.')[1],
+                first_symptom:$("#first_symptom").val(),
+                second_symptom:$("#second_symptom").val(),
+                look:$("#look").val(),
+                pulse:$("#pulse").val(),
+                onset_time:$("#onset_time").val(),
+                medicine_history:$("#medicine_history").val(),
+                therapy_history:$("#therapy_history").val(),
+                disease_zy:$("#disease_zy").val(),
+                disease_xy:$("#disease_xy").val(),
+                bianzheng:$("#bianzheng").val(),
+                zhifa:$("#zhifa").val(),
+                zhuxue:$("#zhuxue").val(),
+                peixue:$("#peixue").val(),
+                jiajianxue:$("#jiajianxue").val(),
+                xiaoyanxue:$("#xiaoyanxue").val(),
+                recommend_therapy:$("#recommend_therapy").val(),
+            };
+            case_info["name"] = $("#hz_name").val();
+            case_info["telephone"] = $("#hz_num").val();
+            var sex_str=$("#hz_sex input:radio:checked").val();
+            //alert("性别：：：：：：：：：：：：：：："+sex_str);
+            //case_info["sex"] = $("#hz_sex").val();
+            case_info["sex"] = sex_str;
+            case_info["age"] = $("#hz_age").val();
+            case_info["caseDate"] = "";
+            case_info["height"] = $("#hz_height").val();
+            case_info["weight"] = $("#hz_weight").val();
+            case_info["job"] = $("#hz_job").val();
+            case_info["address"] = $("#hz_address").val();
+            case_info["family_history"] = $("#hz_family_history").val();
+            case_info["anamnesis"] = $("#hz_anamnesis").val();
+            $.ajax({
+                type: "post",
+                async: true,
+                url: url,
+                data: case_info,
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+//                    $("#caseID").val(datas['caseID']);
+//                    $('#hz_case_id').val(datas['caseFirstID']+'.'+datas['caseSecondID']);
+                    layer.msg('病例已保存！', {
+                        time: 5000,
+                        btn: ['确定']
+                    });
+                    layer.closeAll();
+                    window.location.href = '/xuewei/case/'+datas['caseID'];
+                },
+                error: function (datas) {
+
+                }
+            });
+        }, function () {
+        });
+    }
+    function confimCase_cx(role) {
+        role = '主治医生';
+        var saveCase_flag = $('#save_case_flag').val();
+        var process_finished = 1;
+        if (saveCase_flag == 1) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+
+        }
+        else if (saveCase_flag == 2) {
+            newCase_confim(role, process_finished);
+
+        }
+        else if (saveCase_flag == 3) {
+            saveCase_confim(role, saveCase_flag, process_finished);
+        }
+        else {
+            layer.msg('您目前没有处于编辑状态，请编辑后再保存！', {
+                time: 5000,
+                btn: ['确定']
+            });
+        }
+    }
+
+    function newCase(role, process_finished) {
+        var doctor_zhenduan = $('#hz_ys').val();
+        var case_info = {};
+        case_info["name"] = $("#hz_name").val();
+        case_info["telephone"] = $("#hz_num").val();
+        case_info["identityCardNum"] = $("#hz_sz").val();
+        case_info["socialSecurityNum"] = $("#hz_sh").val();
+        case_info["sex"] = $("#hz_sex").val();
+        case_info["age"] = $("#hz_age").val();
+        case_info["caseDate"] = "";
+        case_info["patientID"] = "";
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["chemicalExamination"] = $('#hz_hy').val();
+        case_info["predictionResults"] = $('#hz_xy').val();
+        case_info["differentialDiagnosis"] = $('#hz_ys').val();
+        case_info["treatment"] = $('#hz_zlfa').val();
+//        alert($('#zl_total').text());
+        {#        case_info["treatment"] = $('#zl_total').text();#}
+        case_info["auxInfo"] = $('#hz_fz').val();
+        case_info["recommend_medicine"] = $('#hz_yw').val();
+        case_info["doctorComment"] = $('#hz_bz').val();
+        case_info["isFinish"] = process_finished;
+        case_info["isNew"] = 1;
+        case_info["doctorRole"] = role;
+        var url = "/build_patient";
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                location.href = "/doctor_case/" + datas["patientID"] + '?caseFirstID=' + datas["caseFirstID"] + '&caseSecondID=' + datas["caseSecondID"] + '&category=' + category;
+
+            },
+            error: function (datas) {
+
+            }
+        });
+    }
+
+    function newCase_confim(role, process_finished) {
+        layer.confirm('您是否确认保存此病例信息？', {
+            btn: ['确认保存', '继续编辑'], //按钮
+            shade: false //不显示遮罩
+        }, function () {
+            newCase(role, process_finished);
+            $('#save_case_flag').val(4);
+            layer.closeAll();
+        }, function () {
+        });
+    }
+
+
+    function inviteDoctor() {
+
+        var index = layer.open({
+            type: 1,
+            title: '请输入验证信息',
+            content: '<div class="col-md-12">' +
+            '<div class="box box-warning" style="border-radius:8px">' +
+            '<div class="box-body">' +
+            '<div class="form-horizontal">' +
+            ' <div class="form-group has-feedback"> ' +
+            '<label for="hz_name" class="col-sm-3 control-label"  style="cursor: pointer" >姓名</label> ' +
+            '<div class="col-sm-9"> ' +
+            '<input type="text" class="form-control" id="cx_username" placeholder="姓名" >' +
+            '</div> ' +
+            '</div>' +
+            '<div class="form-group has-feedback"> ' +
+            '<label for="hz_num" class="col-sm-3 control-label"  style="cursor: pointer" onclick="">手机号</label> ' +
+            '<div class="col-sm-9"> ' +
+            '<input type="text" class="form-control" id="cx_telephone" placeholder="手机号" >' +
+            '</div> ' +
+            '</div>' +
+            '<div class="form-group has-feedback"> ' +
+            '<div class="col-sm-3"></div> ' +
+            '<div class="col-sm-6"> ' +
+            '<button class="btn btn-block btn-success" onclick="confirmInvite()">' + '确定' + '</button>' +
+            '</div> ' +
+            '<div class="col-sm-3"></div> ' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        });
+
+    }
+
+    function confirmInvite() {
+        var uasename = $("#cx_username").val();
+        var telephone = $("#cx_telephone").val();
+        var caseIDs = $("#hz_case_id").val();
+        if (uasename == "" || telephone == "") {
+            layer.alert("请输入医生姓名和手机号！");
+        } else {
+            layer.closeAll();
+            var url = "/doctor_share_case";
+            $.ajax({
+                type: "post",
+                async: true,
+                url: url,
+                data: {name: uasename, telephone: telephone, caseIDs: caseIDs},
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    if (datas == "error") {
+                        layer.alert("您输入的医生姓名或手机号错误，请重新输入！");
+                    } else {
+                        layer.alert("邀请成功！");
+                    }
+                },
+                error: function (datas) {
+
+                }
+            });
+        }
+    }
+
+    function changeTextArea(id) {
+        $("#textarea_label").val(id);
+    }
+
+    function inputSypmtom(sypm_id) {
+        var textAreaID = $("#textarea_label").val();
+        if (textAreaID != "-1") {
+            if ($("#" + textAreaID).attr("readonly") != "readonly") {
+                var curSypm = $("#" + sypm_id).text();
+                var lastStr = $("#" + textAreaID).val();
+                var new_text = "";
+                lastStr.replace("，", ",");
+                lastStr.replace("；", ",");
+                lastStr.replace(" ", ",");
+                lastStr.replace("\n", ",");
+                var symp_arr = lastStr.split(",");
+
+                if (symp_arr.indexOf(curSypm) == -1) {
+                    var newValue = lastStr + (lastStr == "" ? "" : ",") + curSypm;
+                    $("#" + textAreaID).val(newValue);//填充内容
+
+                }
+                else {
+                    for (var i = 0; i < symp_arr.length; i++) {
+                        if (symp_arr[i] != curSypm) {
+                            new_text += symp_arr[i] + ",";
+                        }
+                    }
+                    new_text = new_text.substring(0, new_text.length - 1);
+                    $("#" + textAreaID).val(new_text);
+                }
+            }
+        }
+
+    }
+
+    function openHuayanIFream(hz_hy, flag) {
+        var caseFirstID = $('#hz_case_id').val().split('.')[0];
+        var caseSecondID = $("#hz_case_id").val().split('.')[1];
+        var patientID = $('#patientID').val();
+        if (flag == 1) {
+            if ($("#" + hz_hy).attr("readonly") != "readonly") {
+                layer.open({
+                    type: 2,
+                    title: '请输入患者的化验检测信息。',
+                    closeBtn: 1,
+                    shadeClose: false,
+                    scrollbar: true,
+                    shade: 0.3,
+                    maxmin: true, //开启最大化最小化按钮
+                    area: ['75%', '600px'],
+                    anim: 2,
+                    content: '/doctor_huayan_case?patientID=' + patientID + '&caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+                });
+            }
+        }
+        else {
+            layer.open({
+                type: 2,
+                title: '请输入患者的化验检测信息。',
+                closeBtn: 1,
+                shadeClose: false,
+                scrollbar: true,
+                shade: 0.3,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['75%', '600px'],
+                anim: 2,
+                content: '/doctor_huayan_case?patientID=' + patientID + '&caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+                end: function () {
+                    var hz_hy_content = $('#hz_hy').val();
+                    update_case(-1);
+                    layer.alert('您输入的化验检测信息如下：' + hz_hy_content, +'\n您可以在 “患者症状信息下面查看。”');
+                },
+            });
+        }
+
+    }
+
+    function loadSystemPredict() {
+        var case_info = {};
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $('#hz_case_id').val().split('.')[1];
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["category"] = $('#category').val();
+        var url = "/doctor_predict_case";
+        var zl_object;
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 60000,
+            success: function (datas) {
+                console.log(datas);
+                if (datas == "error") {
+                    layer.alert("系统出错，请重试");
+                } else {
+                    location.reload();
+                }
+            },
+            error: function (datas) {
+                console.log("数据传输失败" + datas);
+            }
+        });
+        console.log("zl_object:" + zl_object);
+    }
+
+    function update_case(process_finished) {
+        var doctor_zhenduan = $('#hz_ys').val();
+        var case_info = {};
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $("#hz_case_id").val().split('.')[1];
+        case_info["caseDate"] = $('#hz_case_date').val();
+        case_info["patientID"] = $('#patientID').val();
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["chemicalExamination"] = $('#hz_hy').val();
+        case_info["predictionResults"] = $('#hz_xy').val();
+        case_info["differentialDiagnosis"] = $('#hz_ys').val();
+//        case_info["treatment"] = $('#hz_zlfa').val();
+        case_info["treatment"] = $('#zl_total').text();
+//        case_info["auxInfo"] = $('#hz_fz').val();
+
+//        case_info["auxInfo"]+='\n***\n';
+        case_info["auxInfo"] = $('#hz_fz').val();
+        case_info["recommend_medicine"] = $('#hz_yw').val();
+        case_info["doctorComment"] = $('#hz_bz').val();
+//        if (process_finished != -1){
+//            case_info["isFinish"] = process_finished;
+//        }
+        case_info["isFinish"] = process_finished;
+        case_info["doctorRole"] = '主治医生';
+        var url = "/doctor_update_case";
+        $.ajax({
+            type: "post",
+            async: true,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 10000,
+            success: function (datas) {
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+    function save_loadSystemPredict() {
+        var case_info = {};
+        case_info["chiefComplaint"] = $('#hz_zs').val();
+        case_info["HPI"] = $('#hz_xb').val();
+        case_info["physicalExamination"] = $('#hz_tg').val();
+        case_info["caseFirstID"] = $('#hz_case_id').val().split('.')[0];
+        case_info["caseSecondID"] = $('#hz_case_id').val().split('.')[1];
+        case_info["category"] = $("#category").val();
+        var url = "/doctor_predict_case";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: case_info,
+            dataType: "json",
+            timeout: 10000,
+            success: function (datas) {
+                if (datas == "error") {
+                } else {
+//                   layer.alert('预测成功！您可以在<span style="color:#181aff"> “诊断与治疗” </span>下面的 <span style="color:#ff2240">“系统预测”</span>中查看');
+                    $('#hz_xy').val(datas["疾病名称"]);
+                    $('#hz_zlfa').val(datas['治疗方案']);
+//                    $('#hz_fz').val(datas['用药推荐']);
+                    update_case(-1);
+                }
+            },
+            error: function (datas) {
+            }
+        });
+    }
+
+    function file_upload(doctorID) {
+        layer.open({
+            type: 2,
+            title: '请选择您要上传的附件......',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '420px'],
+            anim: 2,
+            content: '/xuewei/upload?doctorID=' + doctorID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function downloadappendix(path) {
+        var url = "/xuewei/download";
+        var data = {};
+        data['appendix_path'] = JSON.stringify(path);
+        $.ajax({
+            type: "get",
+            async: true,
+            url: url,
+            data: data,
+            dataType: "json",
+            timeout: 10000,
+            success: function (datas) {
+                if (datas == "error") {
+                    layer.alert("下载失败！");
+                } else {
+                    layer.alert("加载成功！");
+                }
+            },
+            error: function (datas) {
+            }
+        });
+        alert(path);
+    }
+
+    function deleteappendix(appendixID) {
+        var url = "/xuewei/deleteappendix";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"appendixID": appendixID},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                location.reload()
+            },
+            error: function (datas) {
+                location.reload()
+            }
+        });
+    }
+
+    function nopermission(filename) {
+        layer.alert('您不是 <span style="color:#ff1936">“ ' + filename + ' ”</span>   上传者，没有权限删除此附件！');
+    }
+
+    function deleteappendix_confim(appendixID, filename) {
+        layer.confirm('确定删除附件 <span style="color:#ff1936">“ ' + filename + ' ” </span> ?', {
+            btn: ['删除', '取消'], //按钮
+            shade: false //不显示遮罩
+        }, function () {
+            deleteappendix(appendixID);
+            layer.closeAll();
+        }, function () {
+        });
+    }
+
+    function scan_attachment(appendixID) {
+        layer.open({
+            type: 2,
+            title: '以下是附件内容',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '450px'],
+            anim: 2,
+            content: '/scan_content?appendixID=' + appendixID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function scan(doctorID) {
+        layer.open({
+            type: 2,
+            title: '请上传需要识别的文件：',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '450px'],
+            anim: 2,
+            content: '/scan?doctorID=' + doctorID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function medicine(caseFirstID, caseSecondID, disease_name) {
+        var hz_xy = $('#hz_xy').val();
+        if (hz_xy == '') {
+            save_loadSystemPredict();
+        }
+        var hz_zs = $('#hz_zs').val();
+        var hz_xbs = $('#hz_xb').val();
+        var hz_xy = $('#hz_xy').val();
+        var hz_tg = $("#hz_tg").val();
+
+        layer.open({
+            type: 2,
+            title: '药物选择',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['950px', '420px'],
+            anim: 2,
+            content: '/doctor_case_medicine?hz_zs=' + hz_zs + '&hz_xy=' + hz_xy + '&hz_xbs=' + hz_xbs + '&hz_tg=' + hz_tg,
+            end: function () {
+                update_case(-1);
+            }
+        });
+    }
+
+    function doctor_comments(doctorID) {
+        var hz_xy = $('#hz_xy').val();
+        var caseFirstID = $('#hz_case_id').val().split('.')[0];
+        var caseSecondID = $("#hz_case_id").val().split('.')[1];
+        layer.open({
+            type: 2,
+            title: '交流与评论',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '250px'],
+            anim: 2,
+            content: '/doctor_comments?caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID + '&doctorID=' + doctorID,
+            end: function (datas) {
+            }
+        });
+    }
+
+    function send_comment() {
+        var url = '/doctor_save_comments';
+        var caseFirstID = $('#hz_case_id').val().split('.')[0];
+        var caseSecondID = $("#hz_case_id").val().split('.')[1];
+        var comments = $('#message').val();
+        if (comments != '') {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: url,
+                data: {comments: comments, caseFirstID: caseFirstID, caseSecondID: caseSecondID},
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    var message = '<div class="direct-chat-msg right">' +
+                        '<div class="direct-chat-info clearfix">' +
+                        ' <span class="direct-chat-name pull-right">' + datas['doctorName'] + '</span>' +
+                        '<span class="pull-right">&nbsp&nbsp&nbsp&nbsp&nbsp</span>' +
+                        ' <span class="direct-chat-timestamp pull-right">' + datas['comment_time'] + '</span>' +
+                        '</div>' +
+                        '<img class="direct-chat-img" src="{{static_url("ui/dist/img/user3-128x128.jpg")}}" alt="message user image">' +
+                        '<div class=" col-sm-5 direct-chat-text " style="float: right">' + datas['doctorComment'] + '</div>' +
+                        '</div>';
+                    $('#comments_all').append(message);
+                    $("#comments_all").animate({"scrollTop": $('#comments_all')[0].scrollHeight}, "slow");
+                },
+                error: function (datas) {
+                    layer.alert("评论添加失败！", clearTimeout(1000));
+                }
+            });
+            $('#message').val('');
+        }
+        else {
+            layer.msg('请您现输入评论内容！', {
+                time: 5000,
+                btn: ['确定']
+            });
+        }
+
+    }
+
+    function cancel() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+    function modify_person(patientID) {
+        layer.open({
+            type: 2,
+            title: '请您修改信息后保存......',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '330px'],
+            anim: 2,
+            content: '/modify_person?patientID=' + patientID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function model_detail(caseFirstID, caseSecondID) {
+        layer.open({
+            type: 2,
+            title: '系统预测详情',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '700px'],
+            anim: 2,
+            content: '/model_detail?caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function huayan_detail(caseFirstID, caseSecondID) {
+        layer.open({
+            type: 2,
+            title: '化验检测详情',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['700px', '600px'],
+            anim: 2,
+            content: '/huayan_detail?caseFirstID=' + caseFirstID + '&caseSecondID=' + caseSecondID,
+            end: function () {
+                location.reload();
+            }
+        });
+    }
+
+    function doctor_diagnose() {
+        var hz_ys = $('#hz_ys').val();
+        layer.open({
+            type: 2,
+            title: '化验检测详情',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['600px', '400px'],
+            anim: 2,
+            content: '/disease_subclass?hz_ys=' + hz_ys,
+            end: function () {
+                update_case(0);
+            }
+        });
+    }
+
+    function symptom_select(parent_id,content, doctor_id) {
+        var moban_name = $('#moban_name').val();
+        {#        var category = $("#category").val();#}
+        if(parent_id=="first_symptom"){
+            layer.open({
+                type: 2,
+                area: ['80%', '50%'],
+                shade: [0.8, '#393D49'],
+                title: false,
+                content: '/xuewei/primary_symptom_select?parent_id=' + parent_id +'&content='+content,
+                end: function () {
+                    firstSymptomChange(doctor_id);
+                }
+            });
+            layer.cornerRadius = 8;
+        }else{
+            layer.open({
+                type: 2,
+                area: ['80%', '50%'],
+                shade: [0.8, '#393D49'],
+                title: false,
+                content: '/xuewei/primary_symptom_select?parent_id=' + parent_id+'&content='+content ,
+                end: function () {
+                    firstSymptomChange(doctor_id);
+                }
+            });
+        }
+    }
+
+    function previous_treatment() {
+        var moban_name = $('#moban_name').val();
+        layer.open({
+            type: 2,
+            title: '症状选择',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['800px', '400px'],
+            anim: 2,
+            content: '/previous_treatment?moban_name=' + moban_name,
+            end: function () {
+                update_case(0);
+            }
+        });
+    }
+
+    function search_graph_for_case(graph_name) {
+
+        layer.open({
+            type: 2,
+            title: '相关知识图谱',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['80%', '90%'],
+            anim: 2,
+            content: '/search_graph_for_doctor?graph_name=' + graph_name + '&category=' + category,
+            end: function () {
+            }
+        });
+    }
+
+</script>
+<script>
+    function blreport() {
+        layer.open({
+            type: 2,
+            title: '诊断报告',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['80%', '90%'],
+            anim: 2,
+            content: '/diagnosis_report',
+            end: function () {
+            }
+        });
+    }
+
+    function show_info(id) {
+        var content = $("#" + id).val();
+        layer.alert(content);
+    }
+
+    function show_big_skin_images(path, disease) {
+        layer.photos({
+            photos: {
+                "data": [{
+                    "alt": disease + " 的临床医学图片",
+                    "src": path
+                }]
+            }
+        });
+    }
+
+    function show_report(caseID) {
+        layer.open({
+            type: 2,
+            title: '历史诊断报告',
+            closeBtn: 1,
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['80%', '90%'],
+            anim: 2,
+            content: '/diagnosis_history_report?caseID=' + caseID,
+            end: function () {
+            }
+        });
+    }
+    function push_chufang(obj,xuewei){
+        var old_str=$("#recommend_therapy").val();
+        old_str.replace("，" , ",");
+        old_str.replace("；" , ",");
+        old_str.replace(" " , ",");
+        console.log(old_str);
+        var old_arr = old_str.replace('，', ",").split(",");
+        var new_text = "";
+        if(old_str.indexOf(xuewei)<0){
+            if(old_str.length==0){
+                new_text=old_str + xuewei;
+            }else{
+                new_text=old_str + "，" + xuewei;
+            }
+            $("#recommend_therapy").val(new_text);
+            $(obj).removeClass("bg-olive");
+            $(obj).addClass("bg-teal");
+        }else{
+            for(var i = 0; i < old_arr.length; i++) {
+                if(old_arr[i] != xuewei) {
+                    new_text += old_arr[i] + "，";
+                }
+            }
+            new_text = new_text.substring(0, new_text.length - 1);
+            $("#recommend_therapy").val(new_text);
+            $(obj).removeClass("bg-teal");
+            $(obj).addClass("bg-olive");
+        }
+    }
+    function firstSymptomChange(doctorid){
+        var first_symptom_str=$("#first_symptom").val();
+        console.log(first_symptom_str);
+        var first_symptom_arr=first_symptom_str.split("，");
+        var btn_jianzheng_str='';
+        var btn_shexiang_str='';
+        var btn_maixiang_str='';
+        for(i of first_symptom_arr){
+            btn_jianzheng_str+='<button type="button" class="btn bg-orange btn-flat" onclick="symptom_select(\'second_symptom\',\''+i+'\','+doctorid+')" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:14px">'+i+'的兼症</button>';
+            btn_shexiang_str+='<button type="button" class="btn bg-orange btn-flat" onclick="symptom_select(\'look\',\''+i+'\','+doctorid+')" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:14px">'+i+'的舌象</button>';
+            btn_maixiang_str+='<button type="button" class="btn bg-orange btn-flat" onclick="symptom_select(\'pulse\',\''+i+'\','+doctorid+')" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:14px">'+i+'的脉象</button>';
+        }
+        $('#btn_jianzheng').html(btn_jianzheng_str);
+        $('#btn_look').html(btn_shexiang_str);
+        $('#btn_pulse').html(btn_maixiang_str);
+    }
+</script>
+</body>
+</html>

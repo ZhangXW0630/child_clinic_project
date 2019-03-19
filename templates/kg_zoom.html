@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link rel="stylesheet" href="{{ static_url('ui/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/font-awesome.min.css') }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{ static_url('ui/css/ionicons.min.css') }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/datatables/dataTables.bootstrap.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/AdminLTE.min.css') }}">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="{{ static_url('ui/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/iCheck/all.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('ui/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('layer/skin/layer.css') }}">
+    <link rel="stylesheet" href="{{ static_url('layer/skin/layui.css') }}">
+
+    <link rel="stylesheet" href="{{ static_url('acupuncture/xuewei_kg.css') }}">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success" style="border-radius:8px">
+                <div class="box-body" style="margin-top: 50px; margin-left: 30px; margin-right: 30px">
+                    <div id="kg" style="margin:0 auto; text-align: center;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <div class="form-group has-feedback">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-2">
+                    <button id="shangchuan_close" onclick="shangchuan_close()" class="btn btn-success btn-block"
+                            style="background-color:#9BC78F;color:#000;border-color:#8DBD7F">
+                        <b>关 闭</b>
+                    </button>
+                </div>
+            </div>
+            <br/>
+            <!-- /. box -->
+        </div>
+        <input id="disease_name" type="text" style="display: none;" value="{{disease_name}}">
+        <input id="kg_id" type="text" style="display: none;" value="{{kg_id}}">
+    </div>
+</div>
+<script src='{{static_url("ui/plugins/jQuery/jquery-2.2.3.min.js")}}'></script>
+<script src="{{static_url('layer/layer.js')}}"></script>
+<script src="{{ static_url('d3/d3.v3.min.js') }}"></script>
+<script src="{{ static_url('layer/layer.js') }}"></script>
+<script src="{{ static_url('layer/layui.js') }}" charset="utf-8"></script>
+
+<script src="{{ static_url('acupuncture/xuewei_kg.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        var disease_name = $("#disease_name").val();
+        var kg_id = $("#kg_id").val();
+        var url = "/xuewei/knowledge_zoom";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"disease_name": disease_name, "kg_id": kg_id},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                add_kg(datas, "kg", "center");
+            },
+            error: function (datas) {
+                layer.alert("初始化数据失败！");
+            }
+        });
+    });
+
+    function shangchuan_close() {
+	      var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+      }
+</script>
+</body>
+</html>

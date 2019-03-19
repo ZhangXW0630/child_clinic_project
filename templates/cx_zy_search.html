@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>中医知识搜索</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+
+     <link rel="stylesheet" href="{{static_url('ui/bootstrap/css/bootstrap.min.css')}}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{static_url('ui/css/font-awesome.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{static_url('ui/css/ionicons.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{static_url('ui/dist/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('ui/dist/css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('css/style.css')}}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      <style>
+        #head1,#head2,#footer {
+            background: -webkit-linear-gradient(#9BC78F, #385C2E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#9BC78F, #385C2E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#9BC78F, #385C2E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#9BC78F, #385C2E); /* 标准的语法（必须放在最后） */
+        }
+      </style>
+  </head>
+  <body class="skin-green-light fixed" data-spy="scroll" data-target="#scrollspy">
+    <div class="wrapper">
+
+     <header class="main-header">
+        <!-- Logo -->
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">康康助手</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img src="{{static_url('ui/dist/img/ICT1.png')}}" style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" id="head2">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+          <!-- Navbar Right Menu -->
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+		<aside class="main-sidebar">
+			<!-- sidebar: style can be found in sidebar.less -->
+			<div class="sidebar" id="scrollspy">
+
+			  <!-- sidebar menu: : style can be found in sidebar.less -->
+			  <ul class="nav sidebar-menu">
+				  <li class="header">指令列表</li>
+                  <li class="treeview"><a href="/doctor_home" > <i class="fa fa-user-md text-green"></i><span> 首页</span></a></li>
+                  <li class="treeview"><a href="/zy_model" > <i class="fa fa-medkit text-blue "></i>中医诊断</a></li>
+				  <li class="treeview"><a href="javascript:void(0);" onclick="bingzheng()"><i class="fa fa-medkit text-blue"></i>中医知识搜索</a></li>
+
+			  </ul>
+			</div>
+			<!-- /.sidebar -->
+		</aside>
+
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+
+          <ol class="breadcrumb" style="float: left">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 中医</a></li>
+            <li class="active">知识搜索</li>
+          </ol>
+
+        </div>
+        <!-- Main content -->
+        <div class="content body" id="zhengzhuang">
+            {% if query is None %}
+			<div class="row" id="sear">
+				<div class="col-xs-12 col-md-12">
+					<div class="box box-default color-palette-box" style="margin:30px 0;padding:100px 0 200px 0">
+
+						<div class="box-body">
+							<div class="form-group">
+								<p style="font-family:楷体;font-size:1.8em;text-align:center;" ><b>康 康 <img src="{{static_url('images/cute.gif')}}" style="height:10%;width:10%"/>一 下</b></p>
+								<div class="input-group">
+									<input type="text" id="search0"  class="form-control input-lg"  onkeydown="bz()" style="border-radius:8px" placeholder=" 请输入症状..."><span class="input-group-addon btn btn-primary"style="border-radius:8px" >搜索</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+            <div class="row" id="lists" style="display:none">
+				<div class="col-xs-12 col-md-12">
+					<div class="box box-default color-palette-box" style="margin:20px 0;padding-bottom:100px">
+						<div class="box-body">
+							<div class="form-group">
+								<span style="font-family:楷体;font-size:1.2em;text-align:center;" ><b>康康一下</b></span>
+								<div class="input-group">
+									<input type="text" id="search1" class="form-control input-lg" style="border-radius:8px" placeholder=" 请输入症状..." value="{{query}}">
+									<span class="input-group-addon btn btn-primary" style="border-radius:8px" onclick="souSuoStart()">搜索</span>
+								</div>
+							</div>
+							<div class="col-xs-9 col-md-9" id="search_results">
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+            {% else %}
+            <div class="row" id="lists2" style="display:block">
+				<div class="col-xs-12 col-md-12">
+					<div class="box box-default color-palette-box" style="margin:30px 0;padding-bottom:100px">
+						<div class="box-body">
+							<div class="form-group">
+								<span style="font-family:楷体;font-size:1.8em;text-align:center;" ><b>康康一下</b></span>
+								<div class="input-group">
+									<input type="text" id="search2" class="form-control input-lg" style="border-radius:8px" placeholder=" 请输入症状..." value="{{query}}">
+									<span class="btn-primary input-group-addon" style="border-radius:8px" onclick="souSuoStart2()">搜索</span>
+								</div>
+							</div>
+							<div class="col-xs-9 col-md-9" id="search_results2">
+                                <div><h5>康康共为你搜索到{{len(search_results)}}条结果</h5></div>
+
+
+                                {% for result in search_results[(cur_page - 1) * page_size: cur_page * page_size] %}
+                                <div class="result-op c-container xpath-log">
+                                    <a href="/zy_detail/{{result["file_name"]}}">
+                                    <h3 class="t c-gap-bottom-small" > {{result["disease_name"]}}</h3>
+                                    </a>
+                                    <h5>来源：{{result["disease_source"]}}</h5>
+                                    <div class="c-span24 c-span-last"> {{result["disease_abstract"]}} </div>
+                                </div>
+                                {% end %}
+                                   
+
+                                <div id="pages_nav">
+                                    <ul class="pagination pagination-lg">
+                                        {% if cur_page == 1 %}
+                                        <li class="disabled"><a href="">&laquo;上一页</a></li>
+                                        {% else %}
+                                        <li ><a href="/zy_search_home?query={{query}}&page={{cur_page-1}}">&laquo;上一页</a></li>
+                                        {% end %}
+
+                                         <li class="active"><a href="">第{{cur_page}}页</a></li>
+                                         <li><a href="">共{{pages}}页</a></li>
+
+
+
+                                        {% if cur_page == pages %}
+                                        <li class="disabled"><a href="#">下一页&raquo;</a></li>
+                                        {% else %}
+                                        <li><a href="/zy_search_home?query={{query}}&page={{cur_page+1}}">下一页&raquo;</a></li>
+                                        {% end %}
+                                        <li><div class="input-group input-group-lg" style="width: 150px; float: right">
+
+                                                <input type="number" id="page_num" class="form-control" placeholder="页数" value={{cur_page}}>
+                                                <span class="input-group-addon" onclick="jump_page()" style="cursor: pointer">跳转</span>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+
+                                </div>    
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+            {% end %}
+        </div><!-- /.content -->
+
+
+
+		</div>
+      </div><!-- /.content-wrapper -->
+
+      <footer class="main-footer" id="footer" style="color:white">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.5.0
+        </div>
+        <strong>Copyright &copy; 2015-2016 ICT,CAS,CARCH.</strong> All rights
+        reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong> 电话.13911103406
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <div class="pad">
+          This is an example of the control sidebar.
+        </div>
+      </aside><!-- /.control-sidebar -->
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+
+    </div><!-- ./wrapper -->
+
+    <!-- jQuery 2.2.3 -->
+    <script src="{{static_url('ui/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="{{static_url('ui/bootstrap/js/bootstrap.min.js')}}"></script>
+    <!-- FastClick -->
+    <script src="{{static_url('ui/plugins/fastclick/fastclick.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{static_url('ui/dist/js/app.min.js')}}"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="{{static_url('ui/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{static_url('js/run_prettify.js')}}"></script>
+    <script src="{{static_url('js/docs.js')}}"></script>
+	<script>
+		function bingzheng(){
+
+			$("#yaoming").hide();
+			$("#bingming").hide();
+			$("#zhengzhuang").show();
+		}
+		function yaoming(){
+
+			$("#zhengzhuang").hide();
+			$("#bingming").hide();
+			$("#yaoming").show();
+		}
+		function bingming(){
+
+			$("#zhengzhuang").hide();
+			$("#yaoming").hide();
+			$("#bingming").show();
+		}
+		function bz(){
+			$("#sear").hide();
+            $("#lists").show();
+            document.getElementById("search1").focus();
+            $("#search1").val($("#search0").val());
+
+		}
+
+	</script>
+	<script>
+             function souSuoStart() {
+
+                var text = $("#search1").val();
+                var query = "/zy_search_home?query=" + text;
+                location.href = query;
+
+            }
+            function souSuoStart2() {
+
+                var text = $("#search2").val();
+                var query = "/zy_search_home?query=" + text;
+                location.href = query;
+            }
+            function jump_page() {
+                var page = $("#page_num").val();
+                var text = $("#search2").val();
+                var query = "/zy_search_home?query=" + text + "&page=" + page;
+                location.href = query;
+            }
+  </script>
+
+  </body>
+</html>

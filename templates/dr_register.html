@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>欢迎注册</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="static/ui/plugins/iCheck/square/blue.css">
+  <style>
+		
+		.login_Submit{width:100%;margin-top:10px;height:40px; text-align:center;background:#028e4e; color:#fff; border:none; border-radius:5px; cursor:pointer}
+		.login_Submit:hover{ background:#027742}
+		.login_static{ display:none}
+  </style>
+
+  
+</head>
+<body class="hold-transition login-page" style="background-color:white">
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+
+
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" style="background-color:#3c8dbc;max-height:50px">
+				<div class="col-xs-12 col-md-12"  style="text-align:center;padding-top:4px;">
+
+					<strong style="font-family:楷体;color:white;font-size:220%;">康康助手（儿科）</strong>
+				</div>
+			</nav>
+			<div style="padding-bottom:9px;margin:60px 60px 20px;border-bottom:1px solid #eee">
+
+			</div>
+		</div>
+	</div>
+	<div class="row" style="background:url(static/ui/dist/img/login_bg.jpg) no-repeat;background-position:82% 10%;">
+		<div class="col-sm-2 col-md-2" >
+		</div>
+		<div class="col-sm-10 col-md-10">
+			<div class="login_box">
+				<div class="login_warp">					
+					<div class="login-box" style="margin-top:2%;"> 
+					  <div class="login-box-body" style="border-radius:5px;">														
+						<div >
+							<div class="form-group has-feedback">
+								<input id="yaoqingma" type="text" class="form-control" placeholder="邀请码">
+								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input id="yaoqingren" type="text" class="form-control" placeholder="邀请人手机号码">
+								<span class="glyphicon glyphicon-phone form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input id="userPhone" type="text" class="form-control" placeholder="您的手机号码">
+								<span class="glyphicon glyphicon-phone form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input id="userName" type="text" class="form-control" placeholder="真实姓名">
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input id="password" type="password" class="form-control" placeholder="密码">
+								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							</div>
+							
+							<div class="form-group has-feedback" >
+								男性：<input class="form-control" type="radio" checked="checked" name="Sex" value="male" />
+								女性：<input class="form-control" type="radio" name="Sex" value="female"  />
+																						
+							</div>
+							<div class="form-group has-feedback">
+								<input id="age" type="number" class="form-control" placeholder="年龄">
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input id="department" type="text" class="form-control" placeholder="科室">
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input id="major" type="text" class="form-control" placeholder="主治">
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+							<div style="width:50%;float:left">
+								<div class="form-group has-feedback" >													  
+									<input id="input_code" type="text" class="form-control" placeholder="图片验证码" >
+									<span class="glyphicon glyphicon-log-in form-control-feedback"></span>														
+								</div>
+							</div>
+							<div style="width:50%;float:left">						  
+								<div class="form-group has-feedback" >
+									<span id="discode" >
+										<img id="verify_image" src={{img_info[0]}} alt=" 验证码"  />
+										<label id="verification_code" style="display:none;">{{img_info[1]}}</label>
+										<img src="static/ui/dist/img/timg.jpg" onclick="refresh_image()" style="cursor: pointer" width="15%" height="15%">
+										<!--<span onclick="refresh_image()" style="font-size:1px; text-align:center;cursor:pointer;" class="glyphicon glyphicon-repeat"></span>-->
+										<!--<a onclick="refresh_image()" style="font-size:1px; text-align:center;float:center;cursor:pointer;">看不清换一张</a>-->
+										<!--<span class="glyphicon glyphicon-repeat form-control-feedback" style="color:#46a3ff;cursor: pointer" onclick="refresh_image()"></span>-->
+									</span>
+								</div>
+							</div>
+																				  
+							
+							<div class="row" style="clear:both">
+								<div class="col-xs-6" >
+									<button id="register0" name="" style="background:#ffb5b5" type="submit" class="login_Submit" onclick="signIn()">注&nbsp;册</button>
+								</div>
+								<div class="col-xs-6" >
+									<button id="reset0" name="" type="reSet" style="background:#c4e1ff;" class="login_Submit" >重&nbsp;置</button>
+								</div>							
+							   
+							</div>
+						</div>
+					  </div>
+					  <!-- /.login-box-body -->
+					</div>
+					<!-- /.login-box -->														
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="padding-bottom:9px;margin:60px 60px 20px;">
+
+	</div>
+	  <div id="footer" class="container">
+		  <nav class="navbar navbar-default navbar-fixed-bottom">
+			  <div class="navbar-inner navbar-content-center">
+				  <p class="text-muted credit" style="padding: 10px;background-color:#3c8dbc;color:white;text-align:center" >
+					 <img src="static/ui/dist/img/ICT1.png" style="height:30px;width:30px">中国科学院计算技术研究所&nbsp;&nbsp;<img src="static/ui/dist/img/carch.png" style="height:30px;width:30px">计算机体系结构国家重点实验室 &nbsp;&nbsp;孙毓忠.电话.13911103406
+				  </p>
+			  </div>
+		  </nav>
+	  </div>
+</div>
+
+<!-- jQuery 2.2.3 -->
+<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="static/ui/plugins/iCheck/icheck.min.js"></script>
+  <script>       
+		function signIn() {
+		    //医生注册
+
+			var p_yqm = $("#yaoqingma").val();
+			var p_yqr = $("#yaoqingren").val();
+
+		    var p_phone = $("#userPhone").val();
+		    var p_name = $("#userName").val();
+		    var p_password = $("#password").val();
+            var p_age = $("#age").val();
+            var p_sex = ($('input[name="Sex"]:checked').val() == "male") ? 1 : 0;
+            var p_department = $("#department").val();
+            var p_major = $("#major").val();
+            var my_reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            var error = 0;
+
+            if(p_yqm == "" || p_yqr == "") {
+				error = -1;
+				alert("邀请码和邀请人不能为空！");
+			}
+
+            if(p_phone == "" || !my_reg.test(p_phone)) {
+                error = -1;
+                alert("请输入有效的11位手机号");
+            }
+            if(error != -1 && (p_name == "" || p_password == "")) {
+                error = -1;
+                alert("姓名或密码不能为空!");
+            }
+            if(error != -1 && (p_age == "" || p_age < 0)) {
+                error = -1;
+                alert("年龄输入有误, 请重新输入!");
+            }
+            if(error != -1 && p_department == "") {
+                error = -1;
+                alert("请输入科室!");
+            }
+            if(error != -1 && p_major == "") {
+                error = -1;
+                alert("请输入主治!");
+            }
+            var real_code = $("#verification_code").text().toLowerCase();
+            var input_code = $("#input_code").val().toLowerCase();
+            if(error != -1 && input_code == "") {
+                error = -1;
+                alert("请输入验证码!");
+            }
+            if(error != -1 && real_code != input_code) {
+                error = -1;
+                alert("验证码错误,请重新输入!");
+                refresh_image();
+            }
+            if(error != -1) {
+                var user = {
+                    "p_yqm": p_yqm,
+                    "p_yqr": p_yqr,
+                    "p_phone" : p_phone,
+                    "p_name" : p_name,
+                    "p_password" : p_password,
+                    "p_sex" : p_sex,
+                    "p_age" : p_age,
+                    "p_department" : p_department,
+                    "p_major" : p_major
+                };
+                url = "/doctor_register";
+                $.ajax({
+                    type : "post",
+                    async : false,
+                    url : url,
+                    data: user,
+                    dataType: "json",
+                    timeout : 1000,
+                    success : function(datas) {
+                        if(datas["status"] == "success") {
+                            alert("注册成功");
+                            location.href = "/login";
+                        } else {
+                            if(datas["error"] == "1") {
+                                alert("邀请码有误！");
+                            } else {
+                                alert("注册失败,请重试!");
+                            }
+                        }
+                    },
+                    error : function(res) {
+                    }
+                });
+
+            }
+
+		}
+		function refresh_image() {
+            location.href = "/doctor_register";
+        }
+
+
+//
+//        function refresh_image() {
+//		    var url = "/sync_flash_image";
+//		    $.ajax({
+//		        type : "post",
+//                async : false,
+//                url : url,
+//                data:{},
+//                dataType: "json",
+//                timeout : 1000,
+//                success : function(datas) {
+//                    $("#verify_image").attr("src", datas["image_path"]);
+//                    $("#verification_code").html(datas["image_code"]);
+//                },
+//                error : function(res) {
+//                }
+//		    });
+//		}
+    </script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>
+</html>

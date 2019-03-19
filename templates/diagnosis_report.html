@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% import json %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>诊断报告</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="{{static_url('css/report_table.css')}}">
+    <link rel="stylesheet" href="{{static_url('ui/bootstrap/css/bootstrap.min.css')}}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{static_url('ui/css/font-awesome.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{static_url('ui/css/ionicons.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{static_url('ui/dist/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('ui/dist/css/skins/_all-skins.min.css')}}">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <link rel="stylesheet" href="{{static_url('ui/css/maindoc.css')}}">
+    <link rel="stylesheet" href="{{static_url('ui/css/jQueryUI/jquery-ui-1.10.3.custom.min.css')}}">
+
+    <!-- jQuery 2.2.3 -->
+    <script src="{{static_url('ui/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="{{static_url('ui/bootstrap/js/bootstrap.min.js')}}"></script>
+
+    <!-- FastClick -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        hr {
+            border-top-color: rgb(255, 255, 255);
+        }
+    </style>
+
+
+</head>
+<body class="skin-blue-light fixed sidebar-collapse" data-spy="scroll" data-target="#scrollspy">
+</body>
+<div class="wrapper">
+    <div class="content body">
+        <section data-spy="scroll" data-target="#scrollspy-components">
+
+            <div class="row">
+                <!-- /.col -->
+                <input name="b_print" type="button" class="ipt" onClick="printdiv('div_print')" value=" 打印报告/生成PDF ">
+                <div class="box box-default color-palette-box" id="div_print" style="margin-bottom:5px">
+                    <div class="modal-body report_body col-12" style="background-color:#fff">
+                        <div class="report_all_title ng-binding" style="padding-bottom:10px;padding-top:10px:font-size:18px">
+                            康康系统-患者诊断报告
+                        </div>
+                        <div style="max-width:1000px; margin-left:auto;margin-right:auto">
+                            <div class="report_baseInfo">
+                                <div class="report_title" style="font-size:17px">
+                                    患者基本信息
+                                </div>
+                                <table class="table" style="margin-bottom:5px">
+                                    <tbody>
+                                    <tr>
+                                        <!--180 285 145-->
+                                        <td class="report_key">
+                                            <div class="ng-binding">
+                                                姓名
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <div class="ng-binding" id="hz_name">
+                                            </div>
+                                        </td>
+                                         <td class="report_key">
+                                            <div>
+                                                年龄
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_age">
+                                            </div>
+                                        </td>
+                                        <td class="report_key">
+                                            <div>
+                                                性别
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_sex">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="report_key">
+                                            <div>
+                                                科别
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding">
+
+                                            </div>
+                                        </td>
+                                        <td class="report_key">
+                                            <div>
+                                                编号
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_case_id">
+                                            </div>
+                                        </td>
+                                        <td class="report_key">
+                                            <div>
+                                                日期
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_case_date">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="report_website ng-scope" ng-if="items.data.webInfoList.length&gt;0">
+                                <div class="report_title" style="font-size:17px">
+                                    临床诊断
+                                </div>
+                                <table class="table" style="margin-bottom:5px">
+                                    <tbody>
+                                    <!-- ngRepeat: change in items.data.changeRecordList track by $index -->
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key">
+                                            <div class="ng-binding">
+                                                主诉
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_zs">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key">
+                                            <div class="ng-binding">
+                                                现病史
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_xb">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key">
+                                            <div class="ng-binding">
+                                                体格检查
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_tg">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key">
+                                            <div class="ng-binding">
+                                                化验检测
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_hy">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key">
+                                            <div class="ng-binding">
+                                                诊断结果
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_xy">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key">
+                                            <div class="ng-binding">
+                                                诊断解释
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_js">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="report_website ng-scope" ng-if="items.data.webInfoList.length&gt;0">
+                                <div class="report_title" style="font-size:17px">
+                                    Rp
+                                </div>
+                                <table class="table"style="margin-bottom:5px">
+                                    <tbody>
+                                    <!-- ngRepeat: change in items.data.changeRecordList track by $index -->
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key" >
+                                            <div class="ng-binding">
+                                                治疗方案
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_zlfa" style="white-space:pre-wrap">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="change in items.data.changeRecordList track by $index"
+                                        class="ng-scope">
+                                        <td width="16%" class="report_key">
+                                            <div class="ng-binding">
+                                                推荐药物
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="ng-binding" id="hz_yw" style="white-space:pre-wrap">
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.col -->                
+            </div>
+            <!-- /.row -->
+
+        </section>
+
+        <!-- End of Main Content Body-->
+    </div>
+
+    <!-- End of Main Document Contents-->
+</div>
+
+
+<!-- AdminLTE App -->
+<script src="{{static_url('ui/dist/js/app.min.js')}}"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="{{static_url('ui/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+<!-- <script src="{{static_url('js/run_prettify.js')}}"></script>-->
+<script src="{{static_url('js/swfobject.js')}}"></script>
+<script src="{{static_url('js/jspdf.min.js')}}"></script>
+<script src="{{static_url('js/downloadify.js')}}"></script>
+<script src="{{static_url('ui/plugins/jQueryUI/jquery-ui.min.js')}}"></script>
+<script src="{{static_url('layer/layer.js')}}"></script>
+<script >
+$(function () {
+    var old_hz_name = parent.$('#hz_name').val();
+//    console.log(old_hz_name);
+    $("#hz_name").html(old_hz_name);
+    var old_hz_age = parent.$('#hz_age').val();
+    $("#hz_age").html(old_hz_age);
+    var old_hz_sex = parent.$('#hz_sex').val();
+    $("#hz_sex").html(old_hz_sex);
+    var old_hz_case_id = parent.$('#hz_case_id').val();
+    $("#hz_case_id").html(old_hz_case_id);
+    var old_hz_case_date = parent.$('#hz_case_date').val();
+    $("#hz_case_date").html(old_hz_case_date);
+    var old_hz_zs = parent.$('#hz_zs').val();
+    $("#hz_zs").html(old_hz_zs);
+    var old_hz_tg = parent.$('#hz_tg').val();
+    $("#hz_tg").html(old_hz_tg);
+    var old_hz_xb = parent.$('#hz_xb').val();
+    $("#hz_xb").html(old_hz_xb);
+    var old_hz_hy = parent.$('#hz_hy').val();
+    $("#hz_hy").html(old_hz_hy);
+    var old_hz_xy = parent.$('#hz_dp').val();
+    var old_hz_xy_arr=old_hz_xy.split("依据：");
+    $("#hz_xy").html(old_hz_xy_arr[0]);
+    $("#hz_js").html(old_hz_xy_arr[1]);
+    var old_hz_zlfa = parent.$('#hz_zlfa').val();
+    var zlfa_arr1=old_hz_zlfa.split(/\n/);
+    var final_str='';
+    for(var arr=0;arr<zlfa_arr1.length;arr++){
+        if(zlfa_arr1[arr].indexOf("(")==0 || zlfa_arr1[arr].indexOf("[")==0){
+            zlfa_arr1[arr]=" "+" "+" "+" "+zlfa_arr1[arr];
+        }
+        final_str += zlfa_arr1[arr]+'\n';
+    }
+    var old_hz_zlfa_arr=old_hz_zlfa.split();
+//    console.log(old_hz_zlfa);
+//    document.getElementById('hz_zlfa').innerHTML=parent.$('#hz_zlfa').html();
+    $("#hz_zlfa").html(final_str);
+    var old_hz_yw = parent.$('#hz_yw').val();
+    var old_hz_yw_arr=old_hz_yw.split("\n***");
+    $("#hz_yw").html(old_hz_yw_arr[0]);
+
+ });
+function printdiv(printpage){
+    var headstr = "<html><head><title></title></head><body>";
+    var footstr = "</body>";
+    var newstr = document.all.item(printpage).innerHTML;
+    var oldstr = document.body.innerHTML;
+    document.body.innerHTML = headstr+newstr+footstr;
+    window.print();
+    document.body.innerHTML = oldstr;
+    return false;
+}
+
+</script>
+</html>

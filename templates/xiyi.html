@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>测试工具</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">
+	<link rel = "stylesheet" href="static/ui/css/maindoc.css">
+    <!-- jQuery 2.2.3 -->
+    <script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+	
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<style>
+      hr{border-top-color:rgb(255,255,255);}
+      #head1,#head2,#footer {
+            background: -webkit-linear-gradient(#9BC78F, #385C2E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#9BC78F, #385C2E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#9BC78F, #385C2E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#9BC78F, #385C2E); /* 标准的语法（必须放在最后） */
+      }
+	</style>
+  </head>
+  <div class="wrapper">
+	<header class="main-header">
+        <!-- Logo -->
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+		  <!-- mini logo for sidebar mini 50x50 pixels -->
+		  <span class="logo-mini">康康助手</span>
+		  <!-- logo for regular state and mobile devices -->
+		  <span class="logo-lg"><img src="static/ui/dist/img/ict1.png"  style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+		</a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation" id="head2">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- Messages: style can be found in dropdown.less-->
+        <!--<li class="dropdown messages-menu">-->
+          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+            <!--<i class="fa fa-envelope-o"></i>-->
+            <!--<span class="label label-success">4</span>-->
+          <!--</a>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li class="header">You have 4 messages</li>-->
+            <!--<li>-->
+              <!--&lt;!&ndash; inner menu: contains the actual data &ndash;&gt;-->
+              <!--<ul class="menu">-->
+                <!--<li>&lt;!&ndash; start message &ndash;&gt;-->
+                  <!--<a href="#">-->
+                    <!--<div class="pull-left">-->
+                      <!--<img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+                    <!--</div>-->
+                    <!--<h4>-->
+                      <!--Sender Name-->
+                      <!--<small><i class="fa fa-clock-o"></i> 5 mins</small>-->
+                    <!--</h4>-->
+                    <!--<p>Message Excerpt</p>-->
+                  <!--</a>-->
+                <!--</li>&lt;!&ndash; end message &ndash;&gt;-->
+                <!--...-->
+              <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="footer"><a href="#">See All Messages</a></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+        <!--&lt;!&ndash; Notifications: style can be found in dropdown.less &ndash;&gt;-->
+        <!--<li class="dropdown notifications-menu">-->
+          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+            <!--<i class="fa fa-bell-o"></i>-->
+            <!--<span class="label label-warning">10</span>-->
+          <!--</a>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li class="header">You have 10 notifications</li>-->
+            <!--<li>-->
+              <!--&lt;!&ndash; inner menu: contains the actual data &ndash;&gt;-->
+              <!--<ul class="menu">-->
+                <!--<li>-->
+                  <!--<a href="#">-->
+                    <!--<i class="ion ion-ios-people info"></i> Notification title-->
+                  <!--</a>-->
+                <!--</li>-->
+                <!--...-->
+              <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="footer"><a href="#">View all</a></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+        <!--&lt;!&ndash; Tasks: style can be found in dropdown.less &ndash;&gt;-->
+        <!--<li class="dropdown tasks-menu">-->
+          <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+            <!--<i class="fa fa-flag-o"></i>-->
+            <!--<span class="label label-danger">9</span>-->
+          <!--</a>-->
+          <!--<ul class="dropdown-menu">-->
+            <!--<li class="header">You have 9 tasks</li>-->
+            <!--<li>-->
+              <!--&lt;!&ndash; inner menu: contains the actual data &ndash;&gt;-->
+              <!--<ul class="menu">-->
+                <!--<li>&lt;!&ndash; Task item &ndash;&gt;-->
+                  <!--<a href="#">-->
+                    <!--<h3>-->
+                      <!--Design some buttons-->
+                      <!--<small class="pull-right">20%</small>-->
+                    <!--</h3>-->
+                    <!--<div class="progress xs">-->
+                      <!--<div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">-->
+                        <!--<span class="sr-only">20% Complete</span>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</a>-->
+                <!--</li>&lt;!&ndash; end task item &ndash;&gt;-->
+                <!--...-->
+              <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="footer">-->
+              <!--<a href="#">View all tasks</a>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</li>-->
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="static/ui/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+            <span class="hidden-xs">{{doctor["d_name"]}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+              <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <p>
+                {{doctor["d_name"]}} - 初级学员
+                <small>入会日期： 2012</small>
+              </p>
+            </li>
+            <!-- Menu Body -->
+            <li class="user-body">
+              <div class="col-xs-4 text-center">
+                <a href="#">Followers</a>
+              </div>
+              <div class="col-xs-4 text-center">
+                <a href="#">Sales</a>
+              </div>
+              <div class="col-xs-4 text-center">
+                <a href="/invitation">邀请好友</a>
+              </div>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="#" class="btn btn-default btn-flat">Profile</a>
+              </div>
+              <div class="pull-right">
+                <a href="/logout" class="btn btn-default btn-flat">退 出</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+      </header>
+
+
+	   <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p>{{doctor["d_name"]}}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="搜索...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="nav sidebar-menu">
+                <li class="header"></li>
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-user-md text-green"></i> <span>疾病预诊</span>
+                    <span class="pull-right-container">
+                      <span class="label label-success pull-right">2</span>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li class="active"> <a href="/doctor_home?category=0"> &nbsp;&nbsp;<i class="fa fa-stethoscope text-green"></i> <span>儿科学预诊</span></a></li>
+                    <li> <a href="/doctor_home?category=1"> &nbsp;&nbsp;<i class="fa fa-stethoscope text-green"></i> <span>皮肤病预诊</span></a></li>
+                  </ul>
+                </li>
+                <li><a href="/liugan" > <i class="fa fa-user-md text-red"></i> <span>流感治疗</span></a></li>
+                <li><a href="/xy_search_home" > <i class="fa fa-medkit text-blue"></i> <span>知识查询</span></a></li>
+                <li><a href="/yaopin_search_home" > <i class="fa fa-medkit text-blue"></i> <span>药品查询</span></a></li>
+                <li><a href="/knowledge_graph_home" > <i class="fa fa-medkit text-blue"></i> <span>知识图谱</span></a></li>
+                <li><a href="/zy_model" > <i class="fa fa-medkit text-blue"></i> <span>成人腹泻(中医)</span></a></li>
+                <li><a href="/xy_jiuzhen" > <i class="fa fa-dashboard text-purple"></i> <span>测试工具</span></a></li>
+                <li><a href="http://118.190.158.2/ylyx/index.html" > <i class="fa fa-image text-blue"></i> <span>医学影像</span></a></li>
+                <li><a href="/usersGuide" > <i class="fa fa-sticky-note text-yellow"></i> <span>使用说明</span><span class="label label-danger pull-right" ><i class="fa fa-star"></i></span></a></li>
+	  </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+      <!-- Left side column. contains the logo and sidebar -->
+      <!--<aside class="main-sidebar" >-->
+        <!--&lt;!&ndash; sidebar: style can be found in sidebar.less &ndash;&gt;-->
+        <!--<div class="sidebar" id="scrollspy">-->
+
+          <!--&lt;!&ndash; sidebar menu: : style can be found in sidebar.less &ndash;&gt;-->
+          <!--<ul class="nav sidebar-menu">-->
+            <!--<li class="header">指令列表</li>-->
+
+            <!--<li><a href="/doctor"><i class="fa fa-heartbeat text-red"></i>  患者诊断</a></li>-->
+
+          <!--</ul>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.sidebar &ndash;&gt;-->
+      <!--</aside>-->
+
+<!--<script>-->
+<!--function bingzhengluru(){-->
+
+<!--&lt;!&ndash; &lt;!&ndash;     $$('#myTab a[href="#activity"]').tab('show'); &ndash;&gt;-->
+<!--&lt;!&ndash; 	$$("activity_1").addClass("active");$$("activity").addClass("active"); &ndash;&gt;-->
+<!--&lt;!&ndash; 	$('#myTab a:first').tab('show')-->
+ <!--&ndash;&gt;-->
+ <!--$('#myTab li:eq(0) a').tab('show')-->
+ <!--$('#bingliceshi').click()-->
+ <!--}-->
+<!--function fenxiliucheng(){-->
+
+<!--&lt;!&ndash; &lt;!&ndash;     $$('#myTab a[href="#activity"]').tab('show'); &ndash;&gt;-->
+<!--&lt;!&ndash; 	$$("activity_1").addClass("active");$$("activity").addClass("active"); &ndash;&gt;-->
+	<!--$('#myTab  li:eq(1) a').tab('show')-->
+	<!--$('#bingliceshi').click()-->
+<!--}-->
+<!--function zhishibuchong(){-->
+
+<!--&lt;!&ndash; &lt;!&ndash;     $$('#myTab a[href="#activity"]').tab('show'); &ndash;&gt;-->
+<!--&lt;!&ndash; 	$$("activity_1").addClass("active");$$("activity").addClass("active"); &ndash;&gt;-->
+	<!--$('#myTab  li:eq(2) a').tab('show')-->
+	<!--$('#bingliceshi').click()-->
+<!--}-->
+<!--function shiyongshuoming(){-->
+
+<!--&lt;!&ndash; &lt;!&ndash;     $$('#myTab a[href="#activity"]').tab('show'); &ndash;&gt;-->
+<!--&lt;!&ndash; 	$$("activity_1").addClass("active");$$("activity").addClass("active"); &ndash;&gt;-->
+	<!--$('#myTab  li:eq(0) a').tab('show')-->
+	<!--$('#bingliceshi').click()-->
+<!--}-->
+<!--function anlikufenxi(){-->
+
+<!--&lt;!&ndash; &lt;!&ndash;     $$('#myTab a[href="#activity"]').tab('show'); &ndash;&gt;-->
+<!--&lt;!&ndash; 	$$("activity_1").addClass("active");$$("activity").addClass("active"); &ndash;&gt;-->
+	<!--$('#myTab  li:eq(0) a').tab('show')-->
+	<!--$('#toanliku').click()-->
+<!--}-->
+<!--</script>-->
+
+</div>
+    <div class="content-wrapper">
+        <div class="content-header">
+          <h1>
+            Case Test and Learning(CTL):病例测试学习平台
+            <small>Current version 0.0.5</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+            <li class="active">病例测试</li>
+          </ol>
+        </div>	
+	<div class="content body">
+			
+<!-- 		<section id="introduction">
+
+		  <p class="lead">
+			<b><a href="#introduction">简介</a></b> 病例测试学习平台通过测试学习病例样本，添加病例分析知识来对系统知识进行评测和补充。通过输入现病史、体格检查以及主诉文字，对病例进行预判和知识检索。可添加知识条目对病例分析进行扩充。目前系统中包含1425条临床门诊案例和200条主院门诊案例供学习参考。
+		  </p>
+		  <hr>
+		</section><!-- /#introduction --> 
+	<section id = "statistic" data-spy = "scroll" data-target = "#scrollspy-components">
+		<p class="lead"><b><a href="#statistic">基本信息</a></b> 
+		病例测试学习平台通过测试学习病例样本，添加病例分析知识来对系统知识进行评测和补充。通过输入现病史、体格检查以及主诉文字，对病例进行预判和知识检索。可添加知识条目对病例分析进行扩充。目前系统中包含1425条临床门诊案例和200条主院门诊案例供学习参考。
+		</p>			
+		<hr>
+		<div class="row">
+			<div class="col-md-3 col-sm-6 col-xs-12">
+			  <div class="info-box">
+				<span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+				<div class="info-box-content">
+				  <span class="info-box-text">门诊病例学习案例</span>
+				  <span class="info-box-number">1,990</span>
+				</div><!-- /.info-box-content -->
+			  </div><!-- /.info-box -->
+			</div><!-- /.col -->
+			<div class="col-md-3 col-sm-6 col-xs-12">
+			  <div class="info-box">
+				<span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+				<div class="info-box-content">
+				  <span class="info-box-text">住院病例学习案例</span>
+				  <span class="info-box-number">203</span>
+				</div><!-- /.info-box-content -->
+			  </div><!-- /.info-box -->
+			</div><!-- /.col -->
+			<div class="col-md-3 col-sm-6 col-xs-12">
+			  <div class="info-box">
+				<span class="info-box-icon bg-yellow"><i class="fa fa-files-o"></i></span>
+				<div class="info-box-content">
+				  <span class="info-box-text">知识条目</span>
+				  <span class="info-box-number">《儿科学》236种疾病</span>
+				</div><!-- /.info-box-content -->
+			  </div><!-- /.info-box -->
+			</div><!-- /.col -->
+			<div class="col-md-3 col-sm-6 col-xs-12">
+			  <div class="info-box">
+				<span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
+				<div class="info-box-content">
+				  <span class="info-box-text">专业病案</span>
+				  <span class="info-box-number">64</span>
+				</div><!-- /.info-box-content -->
+			  </div><!-- /.info-box -->
+			</div><!-- /.col -->
+	  </div>
+	</section>
+    <section id = "binglitest" data-spy = "scroll" data-target = "#scrollspy-components">
+		<p class="lead"><b><a href="#statistic">病例测试</a></b> 
+
+		</p>
+		<hr>
+		  <div class="row">
+		   <!-- /.col -->
+			<div class="col-md-9">
+			  <div class="nav-tabs-custom">
+				<ul class="nav nav-tabs" id="myTab">
+				  <li class="active" id="activity_1"><a href="#activity" data-toggle="tab">病症录入</a></li>
+				  <li id="activity_2"><a href="#timeline" data-toggle="tab">中医穴位推荐</a></li>
+				  <!--<li id="activity_3"><a href="#zhishibuchong" data-toggle="tab">知识补充</a></li>-->
+				</ul>
+				<div class="tab-content">
+				  <div class="active tab-pane" id="activity">
+	<!-- Input Box of Bing Zheng XianbingShi, Tigejiancha-->
+					<div class="box box-primary">
+						<div class="box-body">
+							<div class="box-body">
+							  <div class="row">
+								<div class="col-xs-4">
+								   <div class="form-group">
+									 
+										<label>
+										  <input type="radio" name="Sex" id="optionsRadios1" value="male" checked>
+										  男
+										</label>
+										<label>
+										  <input type="radio" name="Sex" id="optionsRadios2" value="female">
+										  女
+										</label>
+									</div>
+								</div>
+
+								<div class="col-xs-4">
+									<div class = "form-group">
+										<input type="text" id="age" class="form-control" placeholder="年龄">
+									</div>
+								</div>
+							  </div>
+							</div>
+						<!-- /.box-body
+							<!-- text input -->
+
+							<div class="form-group has-error">
+							  <label class="control-label" ><i class="fa fa-bell-o"></i> 患者信息</label>
+							  <textarea  class="form-control" id="zhusu" placeholder="Enter ..."></textarea>
+							  <span class="help-block">患者信息可帮助系统对患者进行确诊分析</span>
+							</div>
+							<!-- textarea -->
+							<div class="form-group has-success">
+							  <label>化验检测</label>
+							  <textarea class="form-control" id="huayanjiance" rows="6" placeholder="输入化验检测 ..."></textarea>
+							</div>
+							<div class="form-group has-warning">
+							  <label>案例结论</label>
+							  <textarea class="form-control" id="anlijielun" rows="6" placeholder="输入案例实际结论 ..."></textarea>
+							</div>
+							<div class="form-group has-success">
+							  <label>分析说明</label>
+							  <textarea class="form-control" id="fenxishuoming" rows="6" placeholder="输入该案例的说明分析 ..."></textarea>
+							</div>
+
+						 
+							  <hr>
+							<div class="form-group has-warning">
+							  <label>治疗信息</label>
+							  <textarea class="form-control" id="zhiliaoxinxi" rows="6" placeholder="输入该案例的治疗信息 ..."></textarea>
+							</div>
+							<!-- 启动分析按钮，与右侧栏按钮同等功能-->
+							  <div class="box-footer">
+								<button class="btn btn-success btn-block" onclick="start_analyse()">开始分析</button>
+							  </div>
+						</div>
+						<!-- /.box-body -->
+						  <!-- general form elements -->
+						  <div class="box box-primary">
+							
+						  </div>						
+					  </div>
+			  <!-- /.box -->
+
+	<!-- End of Input Box of Bing Zheng, XianbingShi-->			  
+					<!-- /.post -->
+				  </div>
+				  <!-- /.tab-pane -->
+				  <div class="tab-pane" id="timeline">
+					<!-- The timeline -->
+
+                    <div class="form-group has-error">
+							  <label class="control-label" ><i class="fa fa-bell-o"></i> 患者症状</label>
+							  <textarea  class="form-control" id="xw_zhengzhuang" placeholder="Enter ..."></textarea>
+							  <span class="help-block">患者症状可帮助系统对患者进行确诊分析</span>
+                              <a class="btn btn-primary btn-xs" onclick="start_recommend()">开始推荐</a>
+                    </div>
+					<ul class="timeline timeline-inverse">
+					  <!-- timeline time label -->
+					  <li class="time-label">
+							<span class="bg-red">
+							  穴位推荐
+							</span>
+					  </li>
+					  <!-- /.timeline-label -->
+					  <!-- timeline item -->
+					  <li>
+						<i class="fa fa-comments bg-yellow"></i>
+
+						<div class="timeline-item">
+						  <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
+
+						  <h3 class="timeline-header"><a href="#">单穴推荐</a> </h3>
+
+						  <div class="timeline-body" >
+
+						  </div>
+						  <div class="timeline-footer"id="dx_recommend">
+
+						  </div>
+						</div>
+					  </li>
+					  <!-- END timeline item -->
+					  <!-- timeline item -->
+					  <li>
+						<i class="fa fa-comments bg-yellow"></i>
+
+						<div class="timeline-item">
+						  <!--<span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>-->
+
+						  <h3 class="timeline-header"><a href="#">配穴推荐</a>
+						  </h3>
+                           <div class="timeline-body">
+
+						  </div>
+                          <div class="timeline-footer" id="px_recommend">
+							<!--<a class="btn btn-warning btn-flat btn-xs">Update</a>-->
+						  </div>
+
+						</div>
+					  </li>
+					  <!-- END timeline item -->
+					  <!-- timeline item -->
+					  <li>
+						<i class="fa fa-comments bg-yellow"></i>
+
+						<div class="timeline-item">
+						  <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+
+						  <h3 class="timeline-header"><a href="#">总体推荐</a> </h3>
+
+						  <div class="timeline-body">
+
+						  </div>
+						  <div class="timeline-footer" id="zt_recommend">
+							<!--<a class="btn btn-warning btn-flat btn-xs">Update</a>-->
+						  </div>
+						</div>
+					  </li>
+					  <!-- END timeline item -->
+					  <!-- timeline time label -->
+
+					</ul>
+				  </div>
+                          <!-- /.tab-pane -->
+
+				  <!-- /.tab-pane -->
+				</div>
+				<!-- /.tab-content -->
+			  </div>
+			  <!-- /.nav-tabs-custom -->
+					<!-- Post -->
+						<!-- /.post -->
+
+						<!-- Post -->
+				  <div class="box clearfix">
+						  
+					  
+
+					</div>
+			  
+			</div>
+			<!-- /.col -->
+			<div class="col-md-3">
+
+			  <!-- Profile Image -->
+			  <div class="box box-primary">
+				<div class="box-body box-profile">
+				  <img class="profile-user-img img-responsive img-circle" src="static/ui/dist/img/user4-128x128.jpg" alt="User profile picture">
+
+				  <h3 class="profile-username text-center">小I</h3>
+
+				  <p class="text-muted text-center">Predictor</p>
+
+				  <ul class="list-group list-group-unbordered">
+					<li class="list-group-item">
+					  <b>测试用例</b> <a class="pull-right">1,322</a>
+					</li>
+					<li class="list-group-item">
+					  <b>精度</b> <a class="pull-right">75%</a>
+					</li>
+					<li class="list-group-item">
+					  <b>召回</b> <a class="pull-right">70%</a>
+					</li>
+				  </ul>
+
+				  <a class="btn btn-primary btn-block" onclick="start_analyse()" style="cursor:pointer;"><b>开始分析</b></a>
+				</div>
+				<!-- /.box-body -->
+			  </div>
+			  <!-- /.box -->
+
+			  <!-- About Me Box -->
+              <div class="box box-primary">
+                  <div class="box-header with-border">
+				    <h3 class="box-title">检查结果</h3>
+                  </div>
+                  <div class="box-body" id="check_res">
+                    <strong><i class="fa fa-book margin-r-5"></i>基于书本知识的"三便"检查模型</strong>
+
+                      <p class="text-muted" id="possible_check">
+                        根据患者的症状，我们提示患者做应有的检查。
+                      </p>
+                  </div>
+
+              </div>
+			  <div class="box box-primary">
+				<div class="box-header with-border">
+				  <h3 class="box-title">诊断结果</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body" id="fenxijieguo">
+
+				  <strong><i class="fa fa-book margin-r-5"></i>诊断模型</strong>
+
+				  <p class="text-muted" id="possible_res">
+					根据测试症状，我们将根据系统案例库和知识库列出3-5种可能的病因。
+				  </p>
+
+				  <hr>
+
+
+
+				  <strong><i class="fa fa-pencil margin-r-5"></i> 常见病症</strong>
+
+				   <p>
+					<a class="btn btn-primary btn-xs">呼吸道疾病</a>
+					<a class="btn btn-success btn-xs">消化道疾病</a>
+					<a class="btn btn-danger btn-xs">感冒</a>
+					<a class="btn btn-warning btn-xs">咳嗽</a>
+					<a class="btn btn-info btn-xs">腹泻</a>
+
+				  </p>
+
+				  <hr>
+
+				  <strong><i class="fa fa-file-text-o margin-r-5"></i> 说明</strong>
+
+				  <p>系统根据症状进行初筛后将进一步进行鉴别诊断分析。</p>
+				</div>
+				<!-- /.box-body -->
+			  </div>
+			  <!-- /.box -->
+			</div>
+	 
+		  </div>
+      <!-- /.row -->
+
+    </section>
+
+		
+	<!-- End of Main Content Body-->
+	</div>
+
+<!-- End of Main Document Contents-->
+</div>
+  <footer class="main-footer" id="footer" style="background-color:#3c8dbc;color:white">
+    		<div class="pull-right hidden-xs">
+      			<b>Version</b> 3.4.0
+    		</div>
+    		<strong>Copyright &copy; 2015-2018 ICT,CAS,CARCH.</strong> All rights
+    		reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong> 电话.13911103406
+  		</footer>
+
+
+    <script src="static/ui/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="static/ui/dist/js/app.min.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="static/ui/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!--<script src="static/ui/js/google-code-prettify/run_prettify.js"></script>-->
+    <script src="static/ui/bootstrap/js/docs.js"></script>
+    <script type='text/javascript' src="static/js1/jquery.json.min.js"></script>
+  	<script src="static/layer/layer.js"></script>
+  <body class="skin-blue-light fixed" data-spy="scroll" data-target="#scrollspy">
+
+  <script>
+      function start_recommend(){
+
+      }
+	  function start_analyse() {
+		  var error = 1;
+		  var age = $("#age").val();
+		  var sex = $('input[name="Sex"]:checked').val() == "male" ? "男" : "女";
+		  if (age == "") {
+			  error = -1;
+			  alert("请输入患者年龄信息");
+		  }
+		  var zhusu = $("#zhusu").val();
+		  if (error != -1 && zhusu == "") {
+			  error = -1;
+			  alert("请输入患者的主诉信息");
+		  }
+
+		  var xianbingshi = $("#xianbingshi").val();
+		  if (error != -1 && xianbingshi == "") {
+			  error = -1;
+			  alert("请输入患者的现病史信息");
+		  }
+
+		  var tigejiancha = $("#tigejiancha").val();
+		  if (error != -1 && tigejiancha == "") {
+			  error = -1;
+			  alert("请输入患者的体格检查信息");
+		  }
+		  var huayanjiance = $("#huayanjiance").val();
+		  var anlijielun = $("#anlijielun").val();
+		  var fenxishuoming = $("#fenxishuoming").val();
+		  var zhiliaoxinxi = $("#zhiliaoxinxi").val();
+
+		  var user_info = {
+			  "性别": sex,
+			  "年龄": age,
+			  "主诉": zhusu,
+			  "现病史": xianbingshi,
+			  "体格检查": tigejiancha,
+              "化验检测": huayanjiance,
+			  "分析说明": fenxishuoming,
+			  "案例结论": anlijielun,
+			  "治疗信息": zhiliaoxinxi,
+              "提交类型": 1
+		  };
+		  var json_str = $.toJSON(user_info);
+
+		  var url = "/xy_jiuzhen";
+		  if (error != -1) {
+			  $.ajax({
+				  type: "post",
+				  async: false,
+				  url: url,
+				  data: {"user_info": json_str},
+				  dataType: "json",
+				  timeout: 1000,
+				  success: function (datas) {
+                      alert("分析成功，请查看");
+					  $("#user_info").html(datas["user_info"]);
+                      addHtmlRes(datas);
+				  },
+				  error: function (res) {
+				  }
+			  });
+		  }
+
+
+	  }
+  </script>
+  <script>
+	  function addHtmlRes(p_diagnosis) {
+          var model_name = p_diagnosis["model_name"];
+          var model_res = p_diagnosis["model_res"];
+          var model_reason = p_diagnosis["model_reason"];
+
+          var name_arr = model_name.split("\n");
+          var res_arr = model_res.split("\n");
+          var reason_arr = model_reason.split("\n");
+
+          $("#fenxijieguo").html('');
+
+          var html = '';
+          var html1 = '';
+          var final_str = '';
+          var final_str1 = '';
+          var zy_str = '<b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-yellow"></i>专业模型:</b> <br>';
+          var zh_str = '<b style="color:#003D79;font-family:微软黑雅;font-size:18px"><i class="fa fa-stethoscope text-red"></i> 综合模型：</b> <br>';
+          var check_res = p_diagnosis["check_res"];
+
+
+          $("#possible_check").html(check_res);
+
+
+          for(var i = 0; i < name_arr.length; i++) {
+              if(i <= name_arr.length-4){
+                  html += '<strong><i class="fa fa-book margin-r-5"></i>' + name_arr[i] + '</strong>' +
+                      '<p class="text-muted" id="possible_res" style="border:1px solid #ffcc00;background:#FFF8D7;margin:5px 5px 0px 6px;padding:5px;">' +
+                      '<a>模型结果：</a>' + '<a class="btn-warning btn-xs">' + res_arr[i] +  '</a>' +
+                      '<br><a>模型解释：</a>' + reason_arr[i] +
+                      '</p>' + '<br>';
+                  final_str = zy_str + html;
+              }
+              else{
+                  html1 +=  '<strong><i class="fa fa-book margin-r-5"></i>' + name_arr[i] + '</strong>' +
+                      '<p class="text-muted" id="possible_res" style="border:1px solid #ffaad5;background:#FFECF5;margin:5px 5px 0px 6px;padding:5px;">' +
+                      '<a>模型结果：</a>' + '<a class="btn-danger btn-xs">' + res_arr[i] +  '</a>' +
+                      '<br><a>模型解释：</a>' + reason_arr[i] +
+                      '</p>' + '<br>';
+                  final_str1 = zh_str + html1;
+              }
+              final = final_str + final_str1;
+          }
+
+          final += '<a class="btn btn-danger btn-block" onclick="save_bingli()" style="cursor:pointer;"><b>保存</b></a> <hr>';
+          final += '<strong><i class="fa fa-pencil margin-r-5"></i> 常见病症</strong>' +
+				  ' <p>' +
+					'<a class="btn btn-primary btn-xs">呼吸道疾病</a>'+
+					'<a class="btn btn-success btn-xs">消化道疾病</a>'+
+					'<a class="btn btn-danger btn-xs">感冒</a>'+
+					'<a class="btn btn-warning btn-xs">咳嗽</a>'+
+				  '</p>';
+
+          $(final).appendTo("#fenxijieguo");
+	  }
+  </script>
+  <script>
+      function save_bingli() {
+		  var error = 1;
+		  var age = $("#age").val();
+		  var sex = $('input[name="Sex"]:checked').val() == "male" ? "男" : "女";
+		  if (age == "") {
+			  error = -1;
+			  alert("请输入患者年龄信息");
+		  }
+		  var zhusu = $("#zhusu").val();
+		  if (error != -1 && zhusu == "") {
+			  error = -1;
+			  alert("请输入患者的主诉信息");
+		  }
+
+
+		  var huayanjiance = $("#huayanjiance").val();
+		  var anlijielun = $("#anlijielun").val();
+		  var fenxishuoming = $("#fenxishuoming").val();
+		  var zhiliaoxinxi = $("#zhiliaoxinxi").val();
+
+		  var user_info = {
+			  "性别": sex,
+			  "年龄": age,
+			  "主诉": zhusu,
+              "化验检测": huayanjiance,
+			  "分析说明": fenxishuoming,
+			  "案例结论": anlijielun,
+			  "治疗信息": zhiliaoxinxi,
+              "提交类型": 2
+		  };
+		  var json_str = $.toJSON(user_info);
+
+		  var url = "/xy_jiuzhen";
+		  if (error != -1) {
+			  $.ajax({
+				  type: "post",
+				  async: false,
+				  url: url,
+				  data: {"user_info": json_str},
+				  dataType: "json",
+				  timeout: 1000,
+				  success: function (datas) {
+					 alert("保存成功！");
+				  },
+				  error: function (res) {
+				  }
+			  });
+		  }
+
+
+	  }
+  </script>
+  </body>
+</html>

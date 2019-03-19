@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>康康一下－{{dis_detail[u"1_疾病名称"]}}</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="{{static_url('css/bootstrap.min.css')}}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{static_url('css/font-awesome.min.css')}}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="{{static_url('css/ionicons.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{static_url('css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('css/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{static_url('css/style.css')}}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+    <style>
+        #head1,#head2,#footer {
+            background: -webkit-linear-gradient(#9BC78F, #385C2E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#9BC78F, #385C2E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#9BC78F, #385C2E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#9BC78F, #385C2E); /* 标准的语法（必须放在最后） */
+        }
+      </style>
+</head>
+<body class="skin-blue-light fixed" data-spy="scroll" data-target="#scrollspy">
+<div class="wrapper">
+
+      <header class="main-header">
+        <!-- Logo -->
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">康康助手</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img src="{{static_url('ui/dist/img/ICT1.png')}}" style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" id="head2">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+          <!-- Navbar Right Menu -->
+        </nav>
+      </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{{static_url('ui/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>王医生</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+        </div>
+        <div class="sidebar" id="scrollspy">
+
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="nav sidebar-menu">
+                <li class="header"></li>
+                <li><a onclick="fanhui()" style="cursor: pointer"><i class="fa fa-rotate-left text-blue"></i> <span> 返回</span></a></li>
+                <li class="treeview"><a href="/doctor_home"> <i class="fa fa-user-md text-green"></i> <span>首页</span></a></li>
+                <li class="treeview"><a href="/xy_search_home"> <i class="fa fa-medkit text-blue"></i> <span>知识查询</span></a></li>
+                <li class="treeview"><a href="/knowledge_graph_home"> <i class="fa fa-medkit text-blue"></i> <span>知识图谱</span></a></li>
+                <li class="treeview"><a href="/zy_model" > <i class="fa fa-medkit text-blue"></i> <span>成人腹泻(中医)</span></a></li>
+                <li class="treeview"><a href="/xy_jiuzhen"> <i class="fa fa-dashboard text-purple"></i> <span>测试工具</span></a></li>
+                <li class="treeview"><a href="/yaopin_search_home"> <i class="fa fa-medkit text-blue"></i> <span>药品查询</span></a></li>
+                <li class="treeview"><a href="/skin_search_home"> <i class="fa fa-medkit text-blue"></i> <span>皮肤病查询</span></a></li>
+                <li><a href="http://118.190.158.2/ylyx/index.html" > <i class="fa fa-image text-blue"></i> <span>医学影像</span></a></li>
+                <li><a href="/usersGuide" > <i class="fa fa-sticky-note text-yellow"></i> <span>使用说明</span><span class="label label-danger pull-right" ><i class="fa fa-star"></i></span></a></li>
+                 {% for dis_index, dis_key in enumerate(sorted(dis_detail.keys())) %}
+                    <li><a href="#dis{{dis_index}}"><i class="fa fa-circle-o"></i> <span>{{dis_key.split(u"_")[-1]}}</span></a></li>
+                 {% end %}
+            </ul>
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+        <!-- Main content -->
+        <div class="content body">
+            <div class="row">
+                <div class="col-xs-10 col-md-10">
+                    <div class="box box-default color-palette-box" style="padding:0 10px">
+
+                        {% for dis_index, dis_key in enumerate(sorted(dis_detail.keys())) %}
+
+                        <section id="dis{{dis_index}}">
+                            <h3 class="page-header"><a href="#dis{{dis_index}}">{{dis_key.split(u"_")[-1]}}</a></h3>
+                            <p class="lead">
+                            {% raw dis_detail[dis_key] %}
+                            </p>
+                        </section>
+                        {% end %}
+                    </div>
+
+                </div>
+
+            </div>
+        </div><!-- /.content -->
+
+    </div><!-- /.content-wrapper -->
+
+    <footer class="main-footer" id = "footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.5.0
+        </div>
+        <strong>Copyright &copy; 2015-2016 ICT,CAS,CARCH.</strong> All rights
+    reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong>电话.13911103406
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <div class="pad">
+            This is an example of the control sidebar.
+        </div>
+    </aside><!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+
+</div><!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="{{static_url('js/jquery-2.2.3.min.js')}}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{{static_url('js/bootstrap.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{static_url('js/fastclick.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{static_url('js/app.min.js')}}"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="{{static_url('js/jquery.slimscroll.min.js')}}"></script>
+<script src="{{static_url('js/run_prettify.js')}}"></script>
+<script src="{{static_url('js/docs.js')}}"></script>
+<script>
+    function return_zhuye() {
+        location.href = "/xy_search_home";
+    }
+    function fanhui() {
+        window.history.back()
+    }
+</script>
+
+
+</body>
+</html>

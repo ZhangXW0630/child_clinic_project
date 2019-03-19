@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>医生端</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <!--<link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">-->
+    <!--&lt;!&ndash; Font Awesome &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/css/font-awesome.min.css">-->
+    <!--&lt;!&ndash; Ionicons &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/css/ionicons.min.css">-->
+    <!--&lt;!&ndash; fullCalendar 2.2.5&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.min.css">-->
+    <!--<link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.print.css" media="print">-->
+    <!--&lt;!&ndash; Theme style &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">-->
+    <!--&lt;!&ndash; AdminLTE Skins. Choose a skin from the css/skins-->
+    <!--folder instead of downloading all of them to reduce the load. &ndash;&gt;-->
+    <!--<link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">-->
+    <!--&lt;!&ndash; To make font of Chinese words like an app fonts&ndash;&gt;-->
+    <!--<link rel = "stylesheet" href="static/ui/css/maindoc.css">-->
+    <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+    <!-- fullCalendar 2.2.5-->
+    <link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="static/ui/plugins/fullcalendar/fullcalendar.print.css" media="print">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">
+    <!-- To make font of Chinese words like an app fonts-->
+    <link rel="stylesheet" href="static/ui/css/maindoc.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+    </style>
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini">
+{% import json %}
+
+    <!-- Content Wrapper. Contains page content -->
+        <!-- Content Header (Page header) -->
+
+
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="box box-primary">
+                          {% if p_zhenduan['isPerdict']  == 0%}
+                        <div><h2>您还没有进行疾病预诊，请点击病例详情页疾病预诊后再点击详情查看！</h2></div>
+                            {% else %}
+                                <section id="binglitest" data-spy="scroll" data-target="#scrollspy-components">
+
+                                    <div class="row">
+                                        <!-- /.col -->
+                                        <div class="col-md-11">
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs" id="myTab">
+                                                    <li class="active" id="activity_1"><a href="#timeline" data-toggle="tab">分析流程</a>
+                                                    </li>
+                                                </ul>
+                                                        <!-- The timeline -->
+                                                        <ul class="timeline timeline-inverse">
+                                                            <!-- timeline time label -->
+
+
+                                                            <li>
+                                                                <i class="fa fa-camera bg-purple"></i>
+                                                                <div class="timeline-item">
+                                                                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                                                                    <h3 class="timeline-header"> 诊断结果：</h3>
+
+                                                                    <div class="timeline-body" id="addZhenduan">
+                                                                        {% set model_names = p_zhenduan["zd_model"].split(u"\n") %}
+                                                                        {% set model_results = p_zhenduan["zd_res"].split(u"\n") %}
+                                                                        {% set model_reasons = p_zhenduan["zd_reason"].split(u"\n") %}
+                                                                        <b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-yellow"></i>专业模型:</b>
+                                                                        {% for i in range(4) %}
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12" style="border-radius:8px;width:96%;border:1px solid #ffcc00;background:#fffff7;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px">
+                                                                                    <a>{{i + 1}}、模型名称：</a>{{model_names[i]}}<br>
+                                                                                    <a>模型结果：</a><a class="btn-warning btn-xs">{{model_results[i]}}</a><br>
+                                                                                    <a>模型解释：</a>{{model_reasons[i]}}<br>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+                                                                        {% end %}
+                                                                        <b style="color:#003D79;font-family:微软黑雅;font-size:18px"> <i class="fa fa-stethoscope text-red"></i> 综合模型：</b>
+                                                                        {% for i in range(4, len(model_names)) %}
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12" style=" border-radius:8px;width:96%;border:1px solid #ffaad5;background:#FFECF5;margin:5px 5px 0px 6px;padding-top:5px;padding-bottom:5px">
+                                                                                    <a>{{i + 1}}、模型名称：</a>{{model_names[i]}}<br>
+                                                                                    <a>模型结果：</a><a class="btn-danger btn-xs">{{model_results[i]}}</a><br>
+                                                                                    <a>模型解释：</a>{{model_reasons[i]}}<br>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+                                                                        {% end %}
+
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- /.tab-content -->
+                                    </div>
+
+                                </section>
+                          {% end %}
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                </div>
+                <!-- /.col -->
+</div>
+
+<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="static/ui/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="static/ui/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="static/ui/dist/js/demo.js"></script>
+<script src="static/ui/dist/js/json2.js"></script>
+<script src="static/layer/layer.js"></script>
+
+<script>
+    $(document).ready(function () {
+        setInterval("flashOnTime()", 1 * 60000);
+    });
+
+</script>
+</body>
+</html>

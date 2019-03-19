@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>问答端</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <style>
+    .color-palette {
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+    }
+
+    .color-palette-set {
+      margin-bottom: 15px;
+    }
+
+    .color-palette span {
+      display: none;
+      font-size: 12px;
+    }
+
+    .color-palette:hover span {
+      display: block;
+    }
+
+    .color-palette-box h4 {
+      position: absolute;
+      top: 100%;
+      left: 25px;
+      margin-top: -40px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      display: block;
+      z-index: 7;
+    }
+	
+  </style>
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+		<a href="http://www.ict.ac.cn/" class="logo">
+		  <!-- mini logo for sidebar mini 50x50 pixels -->
+		  <span class="logo-mini">康康助手</span>
+		  <!-- logo for regular state and mobile devices -->
+		  <span class="logo-lg"><img src="static/ui/dist/img/ict1.png" style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+		</a>
+       
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success">4</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 4 messages</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><!-- start message -->
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Support Team
+                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <!-- end message -->
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        AdminLTE Design Team
+                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="../dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Developers
+                        <small><i class="fa fa-clock-o"></i> Today</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="../dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Sales Department
+                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="pull-left">
+                        <img src="../dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
+                      </div>
+                      <h4>
+                        Reviewers
+                        <small><i class="fa fa-clock-o"></i> 2 days</small>
+                      </h4>
+                      <p>Why not buy a new awesome theme?</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">See All Messages</a></li>
+            </ul>
+          </li>
+          <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
+                      page and may cause design problems
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-red"></i> 5 new members joined
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-user text-red"></i> You changed your username
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+          <!-- Tasks: style can be found in dropdown.less -->
+          <li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-flag-o"></i>
+              <span class="label label-danger">9</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 9 tasks</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Design some buttons
+                        <small class="pull-right">20%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">20% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Create a nice theme
+                        <small class="pull-right">40%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">40% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Some task I need to do
+                        <small class="pull-right">60%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                  <li><!-- Task item -->
+                    <a href="#">
+                      <h3>
+                        Make beautiful transitions
+                        <small class="pull-right">80%</small>
+                      </h3>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">80% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <!-- end task item -->
+                </ul>
+              </li>
+              <li class="footer">
+                <a href="#">View all tasks</a>
+              </li>
+            </ul>
+          </li>
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="static/ui/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <span class="hidden-xs">{{doctor["d_name"]}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <!-- User image -->
+              <li class="user-header">
+                <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                <p>
+                  {{doctor["d_name"]}}
+                  <small>Member since Nov. 2016</small>
+                </p>
+              </li>
+              <!-- Menu Body -->
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-xs-4 text-center">
+                    <a href="/invitation">邀请好友</a>
+                  </div>
+                </div>
+                <!-- /.row -->
+              </li>
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="/logout" class="btn btn-default btn-flat">退 出</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+   <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+           <p>{{doctor["d_name"]}}</p>
+          <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+        </div>
+      </div>
+      <!-- search form -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="q" class="form-control" placeholder="搜索...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
+      <!-- /.search form -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+        <li class="header">导航</li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-dashboard text-blue"></i> <span>案例测试分析</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/xy_jiuzhen">&nbsp; &nbsp;<i class="fa fa-circle-o"></i> 案例测试分析</a></li>
+          </ul>
+        </li>
+
+		<li class="treeview ">
+          <a href="/doctor" onclick="bzbuchong()">
+            <i class="fa fa-heartbeat text-red"></i> <span>分析诊断</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart text-aqua"></i>
+            <span>病例管理</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/dataui"> &nbsp;&nbsp;<i class="fa fa-circle-o"></i> 数据管理</a></li>
+            <li><a href="/show_images">&nbsp;&nbsp;<i class="fa fa-circle-o"></i> 可视化分析</a></li>
+          </ul>
+        </li>
+		<li class="treeview">
+			<a href="/search_home">
+			<i class="fa fa-commenting text-yellow"></i> <span>知识搜索</span>
+			<span class="pull-right-container">
+			<i class="fa fa-angle-left pull-right"></i>
+			</span>
+			</a>
+		</li>
+
+
+        
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        问答诊断
+        <small>患者与医生进行交流</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/doctor"><i class="fa fa-dashboard"></i> 首页</a></li>
+        
+        <li class="active">问答诊断</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- COLOR PALETTE -->
+        <div class="box box-info direct-chat direct-chat-info" style="height:600px">
+			<div class="box-header with-border">
+				<h3 class="box-title"><i class="fa fa-commenting text-blue"></i> 问答</h3>
+				<div class="box-tools pull-right">
+					<span data-toggle="tooltip" title="1 New Messages" class="badge bg-red">1</span>
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<!-- In box-tools add this button if you intend to use the contacts pane -->
+					<button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
+					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				</div>
+			</div><!-- /.box-header -->
+			<div class="box-body" >
+			<!-- Conversations are loaded here -->
+				<div class="direct-chat-messages" id="chat-box" style="height:450px">
+				<!-- Message. Default to the left -->
+					<div class="direct-chat-msg" > 
+						<div class="direct-chat-info clearfix">
+							<span class="direct-chat-name pull-left">医生</span>
+							<span class="direct-chat-timestamp pull-right">23 China 2:00 pm</span>
+						</div><!-- /.direct-chat-info -->
+						<img class="direct-chat-img" src="static/ui/dist/img/user1-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+						<div class="direct-chat-text" style="background-color:#d2e9ff;width:auto;margin-right:50px">
+							<h4>欢迎您！请输入您的症状信息！</h4>
+							<div>
+								<button name="" type="button" class="btn btn-info " id="symp1" onclick="getSymp(1)" style="margin:5px;background-color:#2894ff">咳嗽</button>
+                                <button name="" type="button" class="btn btn-info " id="symp2" onclick="getSymp(2)" style="margin:5px;background-color:#2894ff">发热</button>
+                                <button name="" type="button" class="btn btn-info " id="symp3" onclick="getSymp(3)" style="margin:5px;background-color:#2894ff">呕吐</button>
+                                <button name="" type="button" class="btn btn-info " id="symp4" onclick="getSymp(4)" style="margin:5px;background-color:#2894ff">腹痛</button>
+                                <button name="" type="button" class="btn btn-info " id="symp5" onclick="getSymp(5)" style="margin:5px;background-color:#2894ff">腹泻</button>
+                                <button name="" type="button" class="btn btn-info " id="symp6" onclick="getSymp(6)" style="margin:5px;background-color:#2894ff">头晕</button>
+                                <button name="" type="button" class="btn btn-info " id="symp7" onclick="getSymp(7)" style="margin:5px;background-color:#2894ff">头痛</button>
+							</div>
+							
+
+								
+						</div><!-- /.direct-chat-text -->																								
+					</div><!-- /.direct-chat-msg -->
+					
+
+				<!-- Message to the right -->
+					<!--<div class="direct-chat-msg right">-->
+						<!--<div class="direct-chat-info clearfix">-->
+							<!--<span class="direct-chat-name pull-right">患者</span>-->
+							<!--<span class="direct-chat-timestamp pull-left">23 China 2:05 pm</span>-->
+						<!--</div>&lt;!&ndash; /.direct-chat-info &ndash;&gt;-->
+						<!--<img class="direct-chat-img" src="static/ui/dist/img/child-boy.png" alt="message user image">&lt;!&ndash; /.direct-chat-img &ndash;&gt;-->
+						<!--<div class="direct-chat-text" style="background-color:#bbffbb;color:black;text-align:right;width:auto;margin-left:50px">-->
+							<!---->
+							<!--<div>-->
+								<!--<button name="" type="button" class="btn btn-warning " style="background-color:#ff8000;margin:5px">重 置</button>-->
+							<!--</div>-->
+						<!--</div>&lt;!&ndash; /.direct-chat-text &ndash;&gt;-->
+					<!--</div>&lt;!&ndash; /.direct-chat-msg &ndash;&gt;-->
+				</div><!--/.direct-chat-messages-->
+
+    <!-- Contacts are loaded here -->
+    <div class="direct-chat-contacts">
+      <ul class="contacts-list">
+        <li>
+          <a href="#">
+            <img class="contacts-list-img" src="static/ui/dist/img/child-boy.png" alt="Contact Avatar">
+            <div class="contacts-list-info">
+              <span class="contacts-list-name">
+                Count Dracula
+                <small class="contacts-list-date pull-right">2/28/2015</small>
+              </span>
+              <span class="contacts-list-msg">How have you been? I was...</span>
+            </div><!-- /.contacts-list-info -->
+          </a>
+        </li><!-- End Contact Item -->
+      </ul><!-- /.contatcts-list -->
+    </div><!-- /.direct-chat-pane -->
+  </div><!-- /.box-body -->
+  <div class="box-footer">
+    <div class="input-group">
+      <input type="text" name="message" id="questionText" placeholder="请您输入内容" class="form-control">
+      <span class="input-group-btn">
+        <button name="" type="button" class="btn btn-danger " onclick="sendMessage()">发 送</button>
+		
+		
+      </span>
+    </div>
+  </div><!-- /.box-footer-->
+</div><!--/.direct-chat -->
+		<!-- /.box -->                     
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer" style="background-color:#3c8dbc;color:white">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 0.5.0
+    </div>
+    <strong>Copyright &copy; 2015-2016 ICT,CAS,CARCH.</strong> All rights
+    reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong>电话.13911103406
+  </footer>
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="static/ui/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="static/ui/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="static/ui/dist/js/demo.js"></script>
+<script>
+	window.onload = function (){
+		
+		getNowFormatDate();
+		
+    }
+</script>
+<script>
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+		var weekday=new Array(7);
+		weekday[0]="星期天";
+		weekday[1]="星期一";
+		weekday[2]="星期二";
+		weekday[3]="星期三";
+		weekday[4]="星期四";
+		weekday[5]="星期五";
+		weekday[6]="星期六";
+		
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate+ " " + weekday[date.getDay()]+ " " + date.getHours() + seperator2 + date.getMinutes()+ seperator2 + date.getSeconds();
+		
+		document.getElementById('test').innerText=currentdate;
+		setTimeout("getNowFormatDate()",1000);
+	}
+	
+        
+</script>
+
+<script>
+    function sendMessage(){
+        var user_ques = $("#questionText").val();
+        if(user_ques.length > 0) {
+            $('<div class="direct-chat-msg right">' +
+						'<div class="direct-chat-info clearfix">' +
+							'<span class="direct-chat-name pull-right">患者</span>' +
+							'<span class="direct-chat-timestamp pull-left">23 China 2:05 pm</span>' +
+						'</div>' +
+						'<img class="direct-chat-img" src="static/ui/dist/img/child-boy1.png" alt="message user image">' +
+						'<div class="direct-chat-text" style="border-color:green;background-color:#FFFFBB;color:black;text-align:right;width:auto;margin-left:50px">'+
+						'<h4>' + user_ques + '</h4>' +
+						'</div>' +
+					'</div>').appendTo("#chat-box");
+            $("#chat-box").animate({"scrollTop": $('#chat-box')[0].scrollHeight}, "slow");
+            var url = "/doctor_wenda";
+            $.ajax({
+                type : "post",
+                async : false,
+                url : url,
+                data: {user_ques : user_ques},
+                dataType: "json",
+                timeout : 1000,
+                success : function(datas) {
+                     var sys = '<div class="direct-chat-msg">' +
+						'<div class="direct-chat-info clearfix">' +
+							'<span class="direct-chat-name pull-left">医生</span>' +
+							'<span class="direct-chat-timestamp pull-right">23 China 2:05 pm</span>' +
+						'</div>' +
+						'<img class="direct-chat-img" src="static/ui/dist/img/user1-128x128.jpg" alt="message user image">' +
+						'<div class="direct-chat-text" style="background-color:#d2e9ff;width:auto;margin-right:50px">';
+					 if(datas["is_stop"] == true) {
+                         sys += '<h4>' + '您的诊断结果为:' + datas["res"] + '</h4>' + '<br>' + '<h5>' + '解释：' + datas["reason"] + '</h5>' +
+                                 '</div>' + '</div>';
+                         $(sys).appendTo("#chat-box");
+                         $("#chat-box").animate({"scrollTop": $('#chat-box')[0].scrollHeight}, "slow");
+                     } else {
+                         sys += '<h4> 您是否还有以下症状：' + '</h4>' + '<br>' + '<div>';
+                         var other_symps = datas["res"].split("，");
+                         var dingyi = datas["zzdy"];
+                         for(var i = 0; i < other_symps.length; i++) {
+                             sys += '<button name="" type="button" class="btn btn-info" ' +
+                                     'id = "symp' + (datas["count"] * 137 + (i + 1)) + '"' +
+                                     ' onclick="getSymp(' + (datas["count"] * 137 + (i + 1)) + ')"' +
+                                     ' ondblclick="deleteSymp(' +  (datas["count"] * 137 + (i + 1)) + ')"' +
+                                     ' style="margin:5px;background-color:#2894ff">' +
+                                     other_symps[i] + '</button>';
+                             sys += ' <label id="label' + (datas["count"] * 137 + (i + 1)) + '"' + ' style="display: none;">';
+                             if (dingyi.hasOwnProperty(other_symps[i])) {
+                                 sys += dingyi[other_symps[i]];
+                             } else {
+                                 sys += '待补充';
+                             }
+                             sys += '</label>';
+                         }
+
+                         sys += '<button name="" type="button" class="btn btn-info" ' +
+                                     'id = "symp' + 123456789 + '"' +
+                                     ' onclick="getSymp(' + 123456789 + ')"' +
+                                     ' ondblclick="deleteSymp(' +  123456789 + ')"' +
+                                     ' style="margin:5px;background-color:#ff6666">' +
+                                     '已无其他症状' + '</button>';
+
+                         sys += '</div>' + '</div>' + '</div>';
+                         $(sys).appendTo("#chat-box");
+                         $("#chat-box").animate({"scrollTop": $('#chat-box')[0].scrollHeight}, "slow");
+                     }
+                },
+                error : function(datas) {
+                }
+            });
+        }
+    }
+</script>
+<script>
+    function getSymp(index) {
+        var id = "#symp" + index;
+        var symp = $(id).text().trim();
+        var last_text = $("#questionText").val();
+
+        last_text.replace("，", ",");
+        last_text.replace("；", ",");
+        last_text.replace(" ", ",");
+
+        var symp_arr = last_text.split(",");
+        if(symp_arr.indexOf(symp) == -1) {
+            var newValue = last_text + (last_text == "" ? "" : ",") + symp;
+            $("#questionText").val(newValue);//填充内容
+        }
+        $(id).css("background", "#008888");
+
+        getTermTip(index);
+    }
+    function sleep(n) {
+        var start = new Date().getTime();
+        while(true) {
+            if(new Date().getTime()-start > n) break;
+        }
+    }
+</script>
+<script>
+    function getTermTip(index) {
+        var btn_id = "#symp" + index;
+        var label_id = "#label" + index;
+        var show_text = $(label_id).text();
+
+        layer.tips(show_text, btn_id, {
+            tips: [1, "#5bc0de"],
+            time:3000
+        });
+
+    }
+</script>
+
+<script>
+    function deleteSymp(index) {
+        var btn_id = "#symp" + index;
+        var symp = $(btn_id).text().trim();
+        var last_text = $("#questionText").val();
+        last_text.replace("，", ",");
+        last_text.replace("；", ",");
+        last_text.replace(" ", ",");
+        var symp_arr = last_text.split(",");
+        var new_text = "";
+        for(var i = 0; i < symp_arr.length; i++) {
+            if(symp_arr[i] != symp) {
+                new_text += symp_arr[i] + ",";
+            }
+        }
+        new_text = new_text.substring(0, new_text.length - 1);
+        $("#questionText").val(new_text);
+        $(btn_id).css("background", "#2894ff");
+    }
+</script>
+</body>
+</html>

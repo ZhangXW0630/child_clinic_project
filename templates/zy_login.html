@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>欢迎登录</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="static/ui/plugins/iCheck/square/blue.css">
+  <style>
+		.login_switch{ overflow:hidden; text-align:center; margin-top:2%;margin-bottom:4%;color:#e2e1e1}
+		.login_switch a{list-style-type:none;display:inline-block; color:#040000; margin:0 6%; cursor:pointer}
+		.login_switch a.active{color:#D2691E}
+		.login_Submit{ width:100%; margin:10px;height:40px; text-align:center; line-height:40px; background:#FF8C00; color:#fff; border:none; border-radius:5px; cursor:pointer}
+		.login_Submit:hover{ background:#EB8500}
+		.login_static{ display:none}
+  </style>
+
+  
+</head>
+<body class="hold-transition login-page" style="background-color:white">
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+
+
+            <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" style="background-color:#8B4513;max-height:50px">
+
+
+
+                    <div class="col-xs-12 col-md-12"  style="text-align:center;padding-top:4px;">
+
+                        <strong style="font-family:楷体;color:white;font-size:220%;">康康助手（中医）</strong>
+                    </div>
+
+
+            </nav>
+
+			<div style="padding-bottom:9px;margin:60px 60px 20px;border-bottom:1px solid #eee">
+
+			</div>
+		</div>
+	</div>
+	<div class="row" style="background:url(static/images/zy2.jpg) no-repeat; background-position:50% 10%;width:80%:height:80%">
+		<div class="col-sm-2 col-md-2" >
+		</div>
+		<div class="col-sm-10 col-md-10">
+			<div class="login_box">
+				<div class="login_warp">
+					
+					<div class="login-box">
+  
+					  <div class="login-box-body" style="border-radius:5px;background-color:rgba(255, 255, 255, 0.8);
+		  filter:alpha(opacity=90);box-shadow: 2px 4px 6px #000;">
+						<div class="login_switch">
+								<a class="active" ><b>欢迎</b></a>
+						</div>
+						
+						<div class="login_static" style="display:block;">
+						  <div class="form-group has-feedback">
+							<input id="userName" type="text" class="form-control" placeholder="手机号码">
+							<span class="glyphicon glyphicon-phone form-control-feedback"></span>
+						  </div>
+						  <div class="form-group has-feedback">
+							<input id="password" type="password" class="form-control" placeholder="密码">
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+						  </div>
+						  <div style="width:50%;float:left">
+							  <div class="form-group has-feedback" >													  
+								<input id="input_code1" type="text" class="form-control" placeholder="图片验证码" >
+								<span class="glyphicon glyphicon-log-in form-control-feedback"></span>														
+							  </div>
+						  </div>
+						  <div style="width:50%;float:left">
+						  
+							<div class="form-group has-feedback" >
+								<span id="discode" >
+									<img id="verify_image1" src="{{img_info[0]}}" alt=" 验证码"  />
+									<label id="verification_code2" style="display:none;">{{img_info[1]}}</label>
+                                    <!--<span onclick="refresh_image()" style="font-size:2px; text-align:center;cursor:pointer;" class="glyphicon glyphicon-repeat"></span>-->
+                                    <img src="static/ui/dist/img/timg.jpg" onclick="refresh_image()" style="cursor: pointer" width="15%" height="15%">
+
+                                    <!--<span class="glyphicon glyphicon-repeat form-control-feedback" style="color:#46a3ff;cursor: pointer" onclick="refresh_image()"></span>-->
+								</span>
+							</div>
+							</div>
+						  <div class="row">
+							<div class="col-xs-8">
+							  <a class="changes_password login_cursor" >忘记登录密码</a>
+							</div>
+							<!-- /.col -->
+							<div class="col-xs-4" style="text-align:right">
+							  <a href="/patient_register" class="login_cursor">免费注册</a>
+							</div>
+							<!-- /.col -->
+						  </div>
+						  <div class="row">
+							  <div class="col-xs-2" >
+							  </div>
+							  <div class="col-xs-8" style="text-align:center; ">
+								
+								<button id="loginBtn1" name="" type="submit" class="login_Submit" onclick="jsLogin();"><b>登&nbsp;&nbsp;录</b></button>
+							  </div>
+							   <div class="col-xs-2" >
+							  </div>
+						  </div>
+						</div>
+						
+						
+						<!--<div class="login_static" >-->
+							  <!--<div class="form-group has-feedback">-->
+								<!--<input id="mobilePhone" type="text" class="form-control" placeholder="手机号码">-->
+								<!--<span class="glyphicon glyphicon-phone form-control-feedback"></span>-->
+							  <!--</div>-->
+							  <!--<div class="form-group has-feedback">-->
+								<!--<input id="password2" type="password" class="form-control" placeholder="密码">-->
+								<!--<span class="glyphicon glyphicon-lock form-control-feedback"></span>-->
+							  <!--</div>-->
+							  <!--<div style="width:50%;float:left">-->
+							  <!--<div class="form-group has-feedback" >													  -->
+								<!--<input id="input_code2" type="text" class="form-control" placeholder="图片验证码" >-->
+								<!--<span class="glyphicon glyphicon-log-in form-control-feedback"></span>														-->
+							  <!--</div>-->
+							  <!--</div>-->
+							  <!--<div style="width:50%;float:left">-->
+							  <!---->
+								<!--<div class="form-group has-feedback" >-->
+									<!--<span id="discode1" >-->
+										<!--<img id="verify_image2" src="{{img_info[0]}}" alt=" 验证码"  />-->
+										<!--<label id="verification_code2" style="display:none;">{{img_info[1]}}</label>-->
+                                        <!--<img src="static/ui/dist/img/0001.jpg" onclick="refresh_image()" style="cursor: pointer" width="15%" height="15%">-->
+                                        <!--&lt;!&ndash;<span onclick="refresh_image()" style="font-size:1px; text-align:center;cursor:pointer;" class="glyphicon glyphicon-repeat"></span>&ndash;&gt;-->
+										<!--&lt;!&ndash;<a onclick="refresh_image()" style="font-size:1px; text-align:center;float:center;cursor:pointer;">看不清换一张</a>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<span class="glyphicon glyphicon-repeat form-control-feedback" style="color:#46a3ff;cursor: pointer" onclick="refresh_image()"></span>&ndash;&gt;-->
+									<!--</span>-->
+								<!--</div>-->
+								<!--</div>-->
+							  <!--<div class="row">-->
+								<!--<div class="col-xs-8">-->
+								  <!--<a class="changes_password login_cursor" >忘记登录密码</a>-->
+								<!--</div>-->
+								<!--&lt;!&ndash; /.col &ndash;&gt;-->
+								<!--<div class="col-xs-4" style="text-align:right">-->
+								  <!--<a href="/doctor_register" class="login_cursor">免费注册</a>-->
+								<!--</div>-->
+								<!--&lt;!&ndash; /.col &ndash;&gt;-->
+							  <!--</div>-->
+							  <!--<div class="row">-->
+							  <!--<div class="col-xs-2" >-->
+							  <!--</div>-->
+							  <!--<div class="col-xs-8" style="text-align:center; ">-->
+								<!---->
+								<!--<button id="loginBtn2" name=""  class="login_Submit" onclick="jsLogin();">登&nbsp;录</button>-->
+							  <!--</div>-->
+							   <!--<div class="col-xs-2" >-->
+							  <!--</div>-->
+						<!--</div>-->
+
+					  <!--</div>-->
+					  <!-- /.login-box-body -->
+					</div>
+
+					<!-- /.login-box -->									
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+        <div style="padding-bottom:9px;margin:60px 60px 20px">
+
+	    </div>
+	  <div id="footer" class="container">
+		  <nav class="navbar navbar-default navbar-fixed-bottom">
+			  <div class="navbar-inner navbar-content-center">
+				  <p class="text-muted credit" style="padding: 10px;background-color:#8B4513;color:white;text-align:center" >
+					 <img src="static/ui/dist/img/ICT1.png" style="height:30px;width:30px">中国科学院计算技术研究所&nbsp;&nbsp;<img src="static/images/carch.png" style="height:25px;width:30px">计算机体系结构国家重点实验室 孙毓忠.电话.13911103406
+				  </p>
+			  </div>
+		  </nav>
+	  </div>
+</div>
+
+<!-- jQuery 2.2.3 -->
+<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="static/ui/plugins/iCheck/icheck.min.js"></script>
+ <script>
+	
+	$( function(){
+        var typeFlag="0";
+        var a= $(".login_switch a");
+        a.click(
+            function(){
+                a.removeClass("active");
+                var b=$(this);
+                b.addClass("active");
+                var c=$(".login_static");
+				
+                if(c.hide().eq(b.index()).length!=0){
+                    typeFlag = (typeFlag == "0") ? typeFlag="1":typeFlag="0";
+                }
+                c.hide().eq(b.index()).show();
+                var index = b.index();
+				
+            }
+        );
+     })
+
+
+	</script>
+	<script>
+        function refresh_image() {
+            location.href = "/zy_login";
+        }
+
+        function jsLogin(){
+            var user_phone;
+            var user_password;
+            var input_image_code;
+            var real_image_code;
+            var error = 0;
+
+                //患者用户
+			user_phone = $("#userName").val();
+			user_password = $("#password").val();
+			input_image_code =  $("#input_code1").val().toLowerCase();
+			real_image_code = $("#verification_code2").text().toLowerCase();
+
+            if(user_phone == "" || user_password == "") {
+                error = -1;
+                alert("用户名或密码不能为空!");
+            }
+            if(error != -1 && (input_image_code != real_image_code)) {
+                error = -1;
+                alert("验证码错误,请重新输入!");
+                refresh_image();
+            }
+            if(error != -1) {
+                var url = "/zy_login";
+                $.ajax({
+                    type : "post",
+                    async : false,
+                    url : url,
+                    data:{"user_type" : 0, "user_phone" : user_phone, "user_password" : user_password},
+                    dataType: "json",
+                    timeout : 1000,
+                    success : function(datas) {
+                        if(datas["status"] == "success") {
+                            if(datas["user_type"] == 0) {
+                                location.href = "/zy_model";
+                            } else {
+                                location.href = "/zy_model";
+                            }
+                        } else {
+                            alert("用户名或者密码输入错误,请重新输入!");
+                            refresh_image();
+                        }
+                    },
+                    error : function(res) {
+                    }
+                });
+            }
+
+        }
+
+    </script>
+	 <!--<script>-->
+         <!--function refresh_image() {-->
+		    <!--var url = "/sync_flash_image";-->
+		    <!--$.ajax({-->
+		        <!--type : "post",-->
+                <!--async : false,-->
+                <!--url : url,-->
+                <!--data:{},-->
+                <!--dataType: "json",-->
+                <!--timeout : 1000,-->
+                <!--success : function(datas) {-->
+                    <!--var userType = $(".login_switch a.active").index();-->
+                    <!--if(userType == 0) {-->
+                        <!--$("#verify_image1").attr("src", datas["image_path"]);-->
+                        <!--$("#verification_code1").html(datas["image_code"]);-->
+                        <!--$("#input_code1").val("");-->
+                    <!--} else {-->
+                        <!--$("#verify_image2").attr("src", datas["image_path"]);-->
+                        <!--$("#verification_code2").html(datas["image_code"]);-->
+                        <!--$("#input_code2").val("");-->
+                    <!--}-->
+                <!--},-->
+                <!--error : function(res) {-->
+                <!--}-->
+		    <!--});-->
+		<!--}-->
+    <!--</script>-->
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>问答端</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="static/layer/css/layui.css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #head1, #head2, #footer {
+            background: -webkit-linear-gradient(#9BC78F, #385C2E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#9BC78F, #385C2E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#9BC78F, #385C2E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#9BC78F, #385C2E); /* 标准的语法（必须放在最后） */
+        }
+
+        #jiandang, #yingyong {
+            background: -webkit-linear-gradient(#D2D9C3, #A5B37E); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#D2D9C3, #A5B37E); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#D2D9C3, #A5B37E); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#D2D9C3, #A5B37E); /* 标准的语法（必须放在最后） */
+        }
+
+        #jiandang:hover, #yingyong:hover {
+            color: #fff;
+            background: -webkit-linear-gradient(#E3E7DA, #C2CBAE); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(#E3E7DA, #C2CBAE); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(#E3E7DA, #C2CBAE); /* Firefox 3.6 - 15 */
+            background: linear-gradient(#E3E7DA, #C2CBAE); /* 标准的语法（必须放在最后） */
+
+        }
+
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+        }
+
+        .color-palette {
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+        }
+
+        .color-palette-set {
+            margin-bottom: 15px;
+        }
+
+        .color-palette span {
+            display: none;
+            font-size: 12px;
+        }
+
+        .color-palette:hover span {
+            display: block;
+        }
+
+        .color-palette-box h4 {
+            position: absolute;
+            top: 100%;
+            left: 25px;
+            margin-top: -40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+            display: block;
+            z-index: 7;
+        }
+
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .linetext {
+            font-size: 12px;
+            font-family: SimSun;
+            fill: #0000FF;
+            fill-opacity: 1.0;
+        }
+
+        .nodetext {
+            font-size: 12px;
+            font-family: SimSun;
+            fill: #000000;
+        }
+
+        path.link {
+            fill: none;
+            stroke: #666;
+            stroke-width: 1.5px;
+        }
+
+        marker#licensing {
+            fill: green;
+        }
+
+        path.link.symptom {
+            stroke-width: "2";
+        }
+
+        path.link.include {
+            stroke-width: "2";
+            color: #0c0c0c;
+        }
+
+        path.link.visted {
+            stroke-width: "2";
+            fill: #ca5818;
+        }
+
+        path {
+            stroke-width: "2";
+        }
+
+        path.link.disease {
+            stroke-dasharray: 0, 2 1;
+        }
+
+        circle.node.symptom {
+            font-size: 12px;
+            fill: #84cc30;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.disease {
+            font-size: 12px;
+            fill: #1324f3;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+        circle.node.xuewei {
+            font-size: 12px;
+            fill: #f31111;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+        circle.node.channel {
+            font-size: 12px;
+            fill: #18f0f3;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.part {
+            font-size: 12px;
+            fill: #f3ca0e;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+        circle.node.visited {
+            font-size: 12px;
+            fill: #f3331f;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.accessory {
+            font-size: 12px;
+            fill: #73f3cd;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.all {
+            font-size: 12px;
+            fill: #f3837f;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.examine {
+            font-size: 12px;
+            fill: #80cc17;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.examine.more {
+            font-size: 12px;
+            fill: #ff6983;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.examine.result {
+            font-size: 12px;
+            fill: #ff681a;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level0 {
+            font-size: 12px;
+            fill: #f3a331;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level1 {
+            font-size: 12px;
+            fill: #84cc30;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level2 {
+            font-size: 12px;
+            fill: #cfff40;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level3 {
+            font-size: 12px;
+            fill: #ff6983;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level4 {
+            font-size: 12px;
+            fill: #73f3cd;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level5 {
+            font-size: 12px;
+            fill: #9e98f3;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level6 {
+            font-size: 12px;
+            fill: #eef304;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level7 {
+            font-size: 12px;
+            fill: #f3341c;
+            stroke-width: 1.5px;
+        }
+
+        circle {
+            fill: #80cc17;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        svg.default {
+            border: 1.5px solid;
+            float: left;
+        }
+
+        svg.left {
+            border: 2px solid;
+            color: #ebc722;
+            float: left;
+        }
+
+        svg.right {
+            border: 2px solid;
+            color: #ebc722;
+            float: right;
+        }
+
+        svg.center {
+            margin: auto;
+            color: #ebc722;
+            text-align: center;
+            border: 2px solid;
+        }
+
+        text.disease {
+            font: 20px solid;
+            color: #f3a331;
+            pointer-events: none;
+        }
+
+        text.symptom {
+            font: 14px sans-serif;
+            pointer-events: none;
+        }
+
+        text.visted {
+            font: 18px sans-serif;
+            colot: red;
+            pointer-events: none;
+        }
+
+        text.shadow {
+            stroke: #fff;
+            stroke-width: 3px;
+            stroke-opacity: .8;
+        }
+        .link {
+            fill: none;
+            stroke: #666;
+            stroke-width: 1.5px;
+        }
+
+        #licensing {
+            fill: green;
+        }
+
+        .link.licensing {
+            stroke: green;
+        }
+
+        .link.resolved {
+            stroke-dasharray: 0,2 1;
+        }
+
+        text {
+            font: 12px Microsoft YaHei;
+            pointer-events: none;
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+        }
+        text.node.photo {
+            stroke:blue;
+            stroke-width: 1px;
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-green-light sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="http://www.ict.ac.cn/" class="logo" id="head1">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini">康康助手</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><img src="static/ui/dist/img/ICT1.png" style="height:40px;width:40px;"><b> 康 康 助 手</b></span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" id="head2">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="static/ui/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ current_doctor.get(u'name', u'')}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <p>
+                                    {{ current_doctor.get(u'name', u'')}}
+                                    <small>Member since Nov. 2016</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="/invitation">邀请好友</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="static/ui/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>{{ current_doctor["name"] }}</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <div class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" id="search_graph_name" placeholder="搜索疾病知识图谱...">
+                    <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"
+                                    onclick="search_knowledge_graph()"><i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                </div>
+            </div>
+            <!-- /.search form -->
+            <div class="sidebar" id="scrollspy">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="nav sidebar-menu">
+                    <li class="header"></li>
+                    <li class="treeview">
+                      <a href="#">
+                        <i class="fa fa-user-md text-green"></i> <span>疾病预诊</span>
+                        <span class="pull-right-container">
+                          <span class="label label-success pull-right">2</span>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu">
+                        <li class="active"> <a href="/doctor_home?category=0"> &nbsp;&nbsp;<i class="fa fa-stethoscope text-green"></i> <span>儿科学预诊</span></a></li>
+                        <li> <a href="/doctor_home?category=1"> &nbsp;&nbsp;<i class="fa fa-stethoscope text-green"></i> <span>皮肤病预诊</span></a></li>
+                      </ul>
+                    </li>
+                    <li><a href="/xy_search_home" > <i class="fa fa-medkit text-blue"></i><span>知识查询</span></a></li>
+                    <li><a href="/knowledge_graph_home" > <i class="fa fa-medkit text-blue"></i><span>知识图谱</span></a></li>
+                    <li><a href="/zy_model" > <i class="fa fa-medkit text-blue"></i><span>成人腹泻(中医)</span></a></li>
+                    <li><a href="/xy_jiuzhen" > <i class="fa fa-dashboard text-purple"></i> <span>测试工具</span></a></li>
+                    <li><a href="/yaopin_search_home" > <i class="fa fa-medkit text-blue"></i><span>药品查询</span></a></li>
+                    <li><a href="/skin_search_home"> <i class="fa fa-medkit text-blue"></i> <span>皮肤病查询</span></a></li>
+                    <li><a href="http://118.190.158.2/ylyx/index.html" > <i class="fa fa-image text-blue"></i> <span>医学影像</span></a></li>
+                    <li><a href="/usersGuide"> <i class="fa fa-sticky-note text-yellow"></i> <span>使用说明</span><span
+                            class="label label-danger pull-right"><i class="fa fa-star"></i></span></a></li>
+                </ul>
+            </div>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                问答诊断
+                <small>患者与医生进行交流</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/doctor"><i class="fa fa-dashboard"></i> 首页</a></li>
+
+                <li class="active">问答诊断</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- COLOR PALETTE -->
+            <div class="layui-tab layui-tab-card box" style="min-height: 700px;">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" style="font-size:18px;"><i class="fa fa-commenting text-blue"></i> 问答</li>
+                    <li style="font-size:18px;"><i class="fa fa-signal" aria-hidden="true"></i> 中医症状穴位图谱</li>
+                    <li style="font-size:18px;"><i class="fa fa-signal" aria-hidden="true"></i> 中医症状共享穴位图谱</li>
+                    <li style="font-size:18px;"><i class="fa fa-signal" aria-hidden="true"></i> 中医症状穴位经脉标准图谱</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="box box-info direct-chat direct-chat-info">
+                            <div>
+                                <div class="form-group has-error">
+                                          <label class="control-label" ><i class="fa fa-bell-o"></i> 患者症状</label>
+                                          <textarea  class="form-control" id="symptoms" placeholder="Enter ..."></textarea>
+                                          <span class="help-block">患者症状可帮助系统对患者进行确诊分析</span>
+                                          <a class="btn btn-primary btn-xs" onclick="start_recommend()">开始推荐</a>
+                                </div>
+                                <ul class="timeline timeline-inverse">
+                                  <li class="time-label">
+                                        <span class="bg-red">
+                                          穴位推荐
+                                        </span>
+                                  </li>
+                                  <li>
+                                    <i class="fa fa-comments bg-yellow"></i>
+
+                                    <div class="timeline-item">
+                                      <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
+
+                                      <h3 class="timeline-header"><a href="#">单穴推荐</a> </h3>
+
+                                      <div class="timeline-body" >
+
+                                      </div>
+                                      <div class="timeline-footer"id="dx_recommend">
+
+                                      </div>
+                                    </div>
+                                  </li>
+                                  <!-- END timeline item -->
+                                  <!-- timeline item -->
+                                  <li>
+						<i class="fa fa-comments bg-yellow"></i>
+
+						<div class="timeline-item">
+						  <!--<span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>-->
+
+						  <h3 class="timeline-header"><a href="#">配穴推荐</a>
+						  </h3>
+                           <div class="timeline-body">
+
+						  </div>
+                          <div class="timeline-footer" id="px_recommend">
+
+							<!--<a class="btn btn-warning btn-flat btn-xs">Update</a>-->
+						  </div>
+
+						</div>
+					  </li>
+					  <!-- END timeline item -->
+					  <!-- timeline item -->
+					  <li>
+						<i class="fa fa-comments bg-yellow"></i>
+
+						<div class="timeline-item">
+						  <!--<span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>-->
+
+						  <h3 class="timeline-header"><a href="#">总体推荐</a> </h3>
+
+						  <div class="timeline-body">
+
+						  </div>
+						  <div class="timeline-footer" id="zt_recommend">
+							<!--<a class="btn btn-warning btn-flat btn-xs">Update</a>-->
+						  </div>
+						</div>
+					  </li>
+					  <!-- END timeline item -->
+					  <!-- timeline time label -->
+
+					</ul>
+                            </div>
+
+{#                            <div class="row-fluid clearfix">#}
+{#                                <div class="col-sm-1 control-label"></div>#}
+{#                                <div class="col-sm-10 control-label">#}
+{#                                    <div class="svg_body" id="svg_body_id" style="height:360px;"></div>#}
+{#                                </div>#}
+{#                                <div class="col-sm-1 control-label"></div>#}
+{#                            </div>#}
+{#                            <div class="box-body">#}
+{#                                <!-- Conversations are loaded here -->#}
+{#                                <div class="direct-chat-messages" id="chat-box" style="height:200px">#}
+{#                                    <!-- Message. Default to the left -->#}
+{#                                    <div class="direct-chat-msg">#}
+{#                                        <div class="direct-chat-info clearfix">#}
+{#                                            <span class="direct-chat-name pull-left">医生</span>#}
+{#                                            <span class="direct-chat-timestamp pull-right">23 China 2:00 pm</span>#}
+{#                                        </div><!-- /.direct-chat-info -->#}
+{#                                        <img class="direct-chat-img" src="static/ui/dist/img/user1-128x128.jpg"#}
+{#                                             alt="message user image"><!-- /.direct-chat-img -->#}
+{#                                        <div class="direct-chat-text"#}
+{#                                             style="background-color:#d2e9ff;width:auto;margin-right:50px">#}
+{#                                            <h4>欢迎您！请输入您的症状信息！</h4>#}
+{#                                            <div>#}
+{#                                                <button name="" type="button" class="btn btn-info " id="symp1"#}
+{#                                                        onclick="getSymp(1)"#}
+{#                                                        style="margin:5px;background-color:#2894ff">咳嗽#}
+{#                                                </button>#}
+{#                                                <button name="" type="button" class="btn btn-info " id="symp2"#}
+{#                                                        onclick="getSymp(2)"#}
+{#                                                        style="margin:5px;background-color:#2894ff">发热#}
+{#                                                </button>#}
+{#                                                <button name="" type="button" class="btn btn-info " id="symp3"#}
+{#                                                        onclick="getSymp(3)"#}
+{#                                                        style="margin:5px;background-color:#2894ff">呕吐#}
+{#                                                </button>#}
+{#                                                <button name="" type="button" class="btn btn-info " id="symp4"#}
+{#                                                        onclick="getSymp(4)"#}
+{#                                                        style="margin:5px;background-color:#2894ff">腹痛#}
+{#                                                </button>#}
+{#                                                <button name="" type="button" class="btn btn-info " id="symp5"#}
+{#                                                        onclick="getSymp(5)"#}
+{#                                                        style="margin:5px;background-color:#2894ff">腹泻#}
+{#                                                </button>#}
+{#                                                <button name="" type="button" class="btn btn-info " id="symp6"#}
+{#                                                        onclick="getSymp(6)"#}
+{#                                                        style="margin:5px;background-color:#2894ff">头晕#}
+{#                                                </button>#}
+{#                                                <button name="" type="button" class="btn btn-info " id="symp7"#}
+{#                                                        onclick="getSymp(7)"#}
+{#                                                        style="margin:5px;background-color:#2894ff">头痛#}
+{#                                                </button>#}
+{#                                            </div>#}
+{##}
+{#                                        </div><!-- /.direct-chat-text -->#}
+{#                                    </div><!-- /.direct-chat-msg -->#}
+{#                                </div><!--/.direct-chat-messages-->#}
+{#                                <!-- Contacts are loaded here -->#}
+{#                            </div><!-- /.box-body -->#}
+{#                            <div class="box-footer">#}
+{#                                <div class="input-group">#}
+{#                                    <input type="text" name="message" id="questionText" placeholder="请您输入内容"#}
+{#                                           class="form-control">#}
+{#                                    <span class="input-group-btn">#}
+{#                                        <button name="" type="button" class="btn btn-danger "#}
+{#                                                onclick="generate_graph()">发 送</button>#}
+{#                                    </span>#}
+{#                                </div>#}
+{#                            </div><!-- /.box-footer-->#}
+                        </div>
+                    </div>
+
+                    <div class="layui-tab-item">
+                        <div class="box box-info direct-chat direct-chat-info">
+                            <div style="height: 20px"></div>
+                            <div class="input-group" style="margin-left: 40px; margin-right: 40px;margin-bottom: 20px">
+                                <input type="text" id="search_symptom_xuewei_all_graph_body" class="form-control input-lg"
+                                       style="border-radius:8px" placeholder=" 请您输入要查询的疾病图谱的名称..."><span
+                                    class="btn btn-success input-group-addon" style="border-radius:8px"
+                                    onclick="search_graph('symptom_xuewei_all_graph_body')">搜索</span>
+                            </div>
+                            <div>
+                                <div class="col-sm-1 control-label"></div>
+                                <div class="col-sm-10 control-label">
+                                    <div class="symptom_xuewei_all_graph_body" id="symptom_xuewei_all_graph_id"></div>
+                                </div>
+                                <div class="col-sm-1 control-label"></div>
+                            </div>
+                            <div id="symptom_xuewei_graph_pages" style="margin-top:30px; text-align:center;"></div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="box box-info direct-chat direct-chat-info">
+                            <div style="height: 40px"></div>
+                            <div>
+                                <div class="col-sm-1 control-label"></div>
+                                <div class="col-sm-10 control-label">
+                                    <svg id="union_symptom_xuewei"
+                                         style="height: 600px; width: 1000px; text-align: center; overflow:scroll;"></svg>
+                                </div>
+                                <div class="col-sm-1 control-label"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="box box-info direct-chat direct-chat-info">
+                            <div style="height: 40px"></div>
+                            <div>
+                                <div class="col-sm-1 control-label"></div>
+                                <div class="col-sm-10 control-label">
+                                    <svg id="symptom_xuewei_channel_standard_kg"
+                                         style="height: 600px; width: 1000px; text-align: center; overflow:scroll;"></svg>
+                                </div>
+                                <div class="col-sm-1 control-label"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.box -->
+        </section>
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer" id="footer" style="color:white">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.5.0
+        </div>
+        <strong>Copyright &copy; 2015-2018 ICT,CAS,CARCH.</strong> All rights
+        reserved.<strong>地址:海淀区中关村科学南路6号 孙毓忠.</strong> 电话.13911103406
+    </footer>
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="static/ui/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="static/ui/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="static/ui/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="static/ui/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="static/ui/dist/js/demo.js"></script>
+<script src="static/d3/d3.v3.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script src="static/layer/layui.js" charset="utf-8"></script>
+<script>
+      function start_recommend(){
+          var symptoms = $("#symptoms").val();
+          if (symptoms == "" || symptoms == undefined)
+              return;
+          var user_info = {"symptoms":symptoms};
+{#          var json_str = $.toJSON(user_info);#}
+
+		  var url = "/recommend_xuewei";
+		  if (symptoms != "") {
+			  $.ajax({
+				  type: "post",
+				  async: false,
+				  url: url,
+				  data: user_info,
+				  dataType: "json",
+				  timeout: 1000,
+				  success: function (datas) {
+{#                      alert("分析成功，请查看");#}
+                      console.log(datas);
+                      $("#dx_recommend").text(datas["data"]["danxue"]);
+                      $("#px_recommend").text(datas["data"]["peixue"]);
+                      $("#zt_recommend").text(datas["data"]["xuewei"]);
+{#					  $("#user_info").html(datas["user_info"]);#}
+{#                      addHtmlRes(datas);#}
+				  },
+				  error: function (res) {
+{#                      alert("请求错误！");#}
+				  }
+			  });
+		  }
+      }
+  </script>
+<script>
+    var level_radius = new Array();
+    level_radius["level0"] = 20;
+    level_radius["level1"] = 16;
+    level_radius["level2"] = 14;
+    level_radius["level3"] = 12;
+    level_radius["level4"] = 10;
+    level_radius["level5"] = 8;
+    level_radius["level6"] = 6;
+    level_radius["level7"] = 4;
+    level_radius["level8"] = 3;
+    level_radius["level9"] = 2;
+    level_radius["level10"] = 1;
+
+    var marker_radius = new Array();
+    marker_radius["level0"] = 30;
+    marker_radius["level1"] = 20;
+    marker_radius["level2"] = 19;
+    marker_radius["level3"] = 18;
+    marker_radius["level4"] = 17;
+    marker_radius["level5"] = 16;
+    marker_radius["symptom"] = 15;
+    marker_radius["disease"] = 15;
+    marker_radius["undefined"] = 15;
+
+    $(document).ready(function () {
+
+
+        var url_symptom_xuewei = "/symptom_xuewei_graphs";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url_symptom_xuewei,
+            data: {"page": 1},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                $('#symptom_xuewei_all_graph_id').html("");
+                add_all_graph(datas[0]["nodes"], datas[0]["edges"], "symptom_xuewei_all_graph_1", "left", "symptom_xuewei_all_graph_body", "symptom_xuewei");
+                add_all_graph(datas[1]["nodes"], datas[1]["edges"], "symptom_xuewei_all_graph_2", "right", "symptom_xuewei_all_graph_body", "symptom_xuewei");
+            },
+            error: function (datas) {
+                layer.alert("初始化数据失败！");
+            }
+        });
+
+        var url_symptom_xuewei_union_graph = "/symptom_xuewei_union_graph";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url_symptom_xuewei_union_graph,
+            data: {"page": 1,"kg_type":1},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                add_all_examine_disease(datas["nodes"], datas["edges"], "union_symptom_xuewei", "center", "union_symptom_xuewei");
+            },
+            error: function (datas) {
+                layer.alert("初始化数据失败！");
+            }
+        });
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url_symptom_xuewei_union_graph,
+            data: {"page": 1,"kg_type":2},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                add_all_examine_disease(datas["nodes"], datas["edges"], "symptom_xuewei_channel_standard_kg", "center", "symptom_xuewei_channel_standard_kg");
+            },
+            error: function (datas) {
+                layer.alert("初始化数据失败！");
+            }
+        });
+    });
+
+    function add_all_examine_disease(nodes, links, id, style, mark_flag) {
+        var w = 1000, h = 600;
+        var linkDistance = 80;
+        var text_font_size = 15;
+        var class_name;
+        if (style === "left") class_name = "left";
+        else if (style === "right") class_name = "right";
+        else if (style === "center") class_name = "center";
+        var force = d3.layout.force()
+            .nodes(d3.values(nodes))
+            .links(d3.values(links))
+            .size([w, h])
+            .linkDistance(linkDistance)
+            .charge(-300)
+            .on("tick", tick)
+            .start();
+
+        //定义缩放函数
+        var zoom = d3.behavior.zoom()
+            .scaleExtent([1, 10])
+            .on("zoom", zoomed);
+
+        //定义拖拽
+        var drag = d3.behavior.drag()
+            .origin(function (d) {
+                return d;
+            })
+            .on("dragstart", dragstarted)
+            .on("drag", dragged)
+            .on("dragend", dragended);
+
+        //定义画布信息
+        var svg = d3.select("#" + id)
+            .attr("viewBox", "0,0,500,800")
+            .attr("class", class_name)
+            .attr("id", id)
+            .call(zoom)
+            .on('dblclick.zoom', function (d) {
+                layer.open({
+                    type: 2,
+                    title: "症状穴位知识图谱",
+                    closeBtn: 1,
+                    shadeClose: false,
+                    shade: 0.3,
+                    maxmin: true,
+                    area: ['95%', '95%'],
+                    anim: 2,
+{#                    content: '/symptom_xuewei_union_graph?mark_flag=' + mark_flag,#}
+                    content: '/knowledge_zoom?disease_name=' + disease_name + "&&mark_flag=" + mark_flag,
+                    end: function () {
+                    }
+                });
+            });
+
+        //(2)创建一个cintainer，用于保存zoom的结果，用于控制界面
+        var container = svg.append("svg:g");
+        //(1)创建箭头
+        container.append("svg:defs").selectAll("marker")
+            .data(["mark_end_" + mark_flag])
+            .enter().append("svg:marker")
+            .attr("id", String)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 15)
+            .attr("refY", -1.5)
+            .attr("markerWidth", 10)
+            .attr("markerHeight", 10)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M0,-5L10,0L0,5");
+
+        //(2)根据连线类型引用上面创建的标记
+        var path = container.append("g").selectAll("path")
+            .data(force.links())
+            .enter().append("svg:path")
+            .attr("id", function (d, i) {
+                return "path" + i;
+            })
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "link visted";
+                return "link " + d.level;
+            })
+            .attr("marker-end", function (d) {
+                return "url(#mark_end_" + mark_flag + ")";
+            });
+
+        //首先生长text，绑定nodes节点
+        var text = container.append("g").selectAll("text")
+            .data(force.nodes())
+            .enter().append("svg:text")
+            .attr("x", text_font_size)
+            .attr("y", ".31em")
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "node visted";
+                return "node " + d.type;
+            })
+            .text(function (d) {
+                return d.name;
+            });
+
+        var circle = container.append("g").selectAll("circle")
+            .data(force.nodes())
+            .enter().append("svg:circle")
+{#            .attr("r", 10)#}
+            .attr("r", function (d) {
+                if (level_radius.hasOwnProperty(d.level)) {
+                    return level_radius[d.level];
+                } else {
+                    return 12;
+                }
+            })
+            .attr("class", function (d) {
+                console.log(d.times);
+                console.log(typeof d.times);
+{#                if (Number(d.times)>1)#}
+                if (d.times > 1)
+                    return "node visited";
+                else
+                    return "node "+d.level;
+            })
+            .on("click", function (d, i) {
+                if (d.type === "symptom") {
+                        var content = "症状：" + d.name + "</br>";
+                        layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                    } else if (d.type === "xuewei" || d.type === "xuewei2") {
+                        var content = "穴位："+d.name+"</br>"+
+                                "内容："+d.content+"</br>"+
+                                "频次："+d.count+"</br>"+
+                                "百分比"+d.percentage;
+                        layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                    }else {
+                        var content =
+                            "节点名称: " + d.name + "</br>"
+                            + "节点类型：" + d.type + "</br>"
+                            + "节点内容：" + d.content;
+                        layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                    }
+            })
+            .on("mouseover", function (d, i) {
+                //显示连接线上的文字
+                text.style("fill-opacity", function (edge) {
+                    if (edge.source === d || edge.target === d) {
+                        return 1.0;
+                    }
+                });
+            })
+            .on("mouseout", function (d, i) {
+                //隐去连接线上的文字
+                text.style("fill-opacity", function (edge) {
+                    if (edge.source === d || edge.target === d) {
+                        return 0.0;
+                    }
+                });
+            })
+            .call(drag);
+
+        //放大函数
+        function zoomed() {
+            container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        function tick() {
+//            nodes.forEach(function (d, i) {
+//                d.x = d.x - 10 < 0 ? 10 : d.x;
+//                d.x = d.x + 10 > w ? w - 10 : d.x;
+//                d.y = d.y - 10 < 0 ? 10 : d.y;
+//                d.y = d.y + 10 > h ? h - 10 : d.y;
+//            });
+            path.attr("d", function (d) {
+                var dx = d.target.x - d.source.x,//增量
+                    dy = d.target.y - d.source.y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+                return "M" + d.source.x + ","
+                    + d.source.y + "A" + dr + ","
+                    + dr + " 0 0,1 " + d.target.x + ","
+                    + d.target.y;
+            });
+            circle.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            text.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+        }
+
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();
+            d3.select(this).classed("dragging", true);
+            force.start();
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
+        }
+
+        function dragended(d) {
+            d3.select(this).classed("dragging", false);
+        }
+    }
+
+    function add_all_graph(nodes, links, id, style, pos_class, mark_flag, height_value, width_value) {
+        var w = arguments[6] ? arguments[6] : 500;
+        var h = arguments[7] ? arguments[7] : 400;
+        var linkDistance = 80;
+        var text_font_size = 15;
+        var class_name;
+        if (style === "left") class_name = "left";
+        else if (style === "right") class_name = "right";
+        else if (style === "center") class_name = "center";
+        var force = d3.layout.force()
+            .nodes(d3.values(nodes))
+            .links(d3.values(links))
+            .size([w, h])
+            .linkDistance(linkDistance)
+            .charge(-1500)
+            .on("tick", tick)
+            .start();
+
+        //定义缩放函数
+        var zoom = d3.behavior.zoom()
+            .scaleExtent([1, 10])
+            .on("zoom", zoomed);
+
+        //定义拖拽
+        var drag = d3.behavior.drag()
+            .origin(function (d) {
+                return d;
+            })
+            .on("dragstart", dragstarted)
+            .on("drag", dragged)
+            .on("dragend", dragended);
+
+        //定义画布信息
+        var svg = d3.select("." + pos_class).append("svg:svg")
+            .attr("width", w)
+            .attr("height", h)
+            .attr("class", class_name)
+            .attr("id", id)
+            .call(zoom)
+            .on('dblclick.zoom', function (d) {
+                var disease_name = $("#" + id + "0").text();
+                layer.open({
+                    type: 2,
+                    title: '疾病 “' + disease_name + "” 的知识图谱",
+                    closeBtn: 1,
+                    shadeClose: false,
+                    shade: 0.3,
+                    maxmin: true,
+                    area: ['90%', '90%'],
+                    anim: 2,
+                    content: '/knowledge_zoom?disease_name=' + disease_name + "&&mark_flag=" + mark_flag,
+                    end: function () {
+                    }
+                });
+            });
+
+        //(2)创建一个cintainer，用于保存zoom的结果，用于控制界面
+        var container = svg.append("svg:g");
+        //(1)创建箭头
+{#        container.append("svg:defs").selectAll("marker")#}
+{#            .data(function () {#}
+{#                var marker_array = [];#}
+{#                for (var index in marker_radius) {#}
+{#                    marker_array.push(index + "_" + mark_flag);#}
+{#                }#}
+{#                return marker_array;#}
+{#            })#}
+{#            .enter().append("svg:marker")#}
+{#            .attr("id", String)#}
+{#            .attr("viewBox", "0 -5 10 10")#}
+{#            .attr("refX", function (d) {#}
+{#                var level = d.split("_")[0];#}
+{#                if (marker_radius.hasOwnProperty(level)) {#}
+{#                    return marker_radius[level];#}
+{#                } else {#}
+{#                    return 15;#}
+{#                }#}
+{#            })#}
+{#            .attr("refY", -1.5)#}
+{#            .attr("markerWidth", 10)#}
+{#            .attr("markerHeight", 10)#}
+{#            .attr("orient", "auto")#}
+{#            .append("svg:path")#}
+{#            .attr("d", "M0,-5L10,0L0,5");#}
+
+        var marker=
+            container.append("marker")
+            .attr("id", id + "resolved")
+                .attr("markerUnits","userSpaceOnUse")
+                .attr("viewBox", "0 -5 10 10")//坐标系的区域
+                 .attr("refX", 18)
+                .attr("refY", -1)
+                .attr("markerWidth", 12)//标识的大小
+                .attr("markerHeight", 12)
+                .attr("orient", "auto")//绘制方向，可设定为：auto（自动确认方向）和 角度值
+                .attr("stroke-width",2)//箭头宽度
+                .append("path")
+                .attr("d", "M0,-5L10,0L0,5")//箭头的路径
+                .attr('fill','#000000');//箭头颜色
+
+        //(2)根据连线类型引用上面创建的标记
+        var path = container.append("g").selectAll("edgepath")
+            .data(force.links())
+            .enter().append("svg:path")
+            .attr("id", function (d, i) {
+                return id + "path" + i;
+            })
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "link visted";
+                return "link " + d.type;
+            })
+            .attr("marker-end", function (d) {
+                    return "url(#"+ id + "resolved)";
+                });
+        var edges_text = container.append("g").selectAll(".edgelabel")
+            .data(force.links())
+            .enter()
+            .append("text")
+            .style("pointer-events", "none")
+            .attr({  'class':'edgelabel',
+                "fill":"#ff391c",
+               'id':function(d,i){
+                return id + "path" +i;
+                },
+               'dx':50,
+               'dy':0
+               });
+        //设置线条上的文字
+        edges_text.append('textPath')
+            .attr('xlink:href',function(d,i) {return '#' + id + "path" + i})
+            .style("pointer-events", "none")
+            .text(function(d){
+{#                return "症状";#}
+                return d.name;
+            });
+
+        var circle = container.append("g").selectAll("circle")
+            .data(force.nodes())
+            .enter().append("svg:circle")
+            .attr("r", function (d) {
+                if (level_radius.hasOwnProperty(d.level)) {
+                    return level_radius[d.level];
+                } else {
+                    return 12;
+                }
+            })
+            .attr("class", function (d) {
+                return "node " + d.level;
+{#                if (d.visted === "1")#}
+{#                    return "node visted";#}
+{#                if (d.s_type == "临床表现")#}
+{#                    return "node symptom";#}
+{#                else if (d.s_type == "辅助检查总结点" || d.s_type == "临床表现总结点")#}
+{#                    return "node all";#}
+{#                else if (d.s_type == "辅助检查")#}
+{#                    return "node accessory";#}
+{#                else if (d.s_type == "辅助检查结果")#}
+{#                    return "node examine result";#}
+{#                else#}
+{#                    return "node " + d.level;#}
+            })
+            .on("click", function (d, i) {
+                    if (d.type === "symptom") {
+                        var content = "主治症状 " + d.name + " 的穴位图谱";
+                        layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                    } else if (d.type === "xuewei" || d.type === "xuewei2") {
+                        var content = "穴位："+d.name+"</br>"+
+                                "内容："+d.content+"</br>"+
+                                "频次："+d.count+"</br>"+
+                                "百分比"+d.percentage;
+                        layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                    }else {
+                        var content =
+                            "节点名称: " + d.name + "</br>"
+                            + "节点类型：" + d.type + "</br>"
+                            + "节点内容：" + d.content;
+                        layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                    }
+            })
+            .call(drag);
+        //首先生长text，绑定nodes节点
+        var text = container.append("g").selectAll("text")
+            .data(force.nodes())
+            .enter().append("svg:text")
+            .attr("x", text_font_size)
+            .attr("y", ".31em")
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "node visted";
+                else if(d.name == "图片")
+                    return "node photo";
+                return "node " + d.type;
+            })
+            .attr("id", function (d, i) {
+                if (d.type === "disease" || d.type === "level0") {
+                    return id + "disease";
+                }
+                return id + i;
+            })
+            .text(function (d) {
+                if(d.name == "图片")
+                    return '※ '+d.name+' ※';
+                return d.name;
+            });
+
+        //放大函数
+        function zoomed() {
+            container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        function tick() {
+            path.attr("d", function (d) {
+                var dx = d.target.x - d.source.x,//增量
+                    dy = d.target.y - d.source.y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+                return "M" + d.source.x + ","
+                    + d.source.y + "A" + dr + ","
+                    + dr + " 0 0,1 " + d.target.x + ","
+                    + d.target.y;
+            });
+            circle.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            text.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            edges_text.attr('transform',function(d,i){
+                if (d.target.x<d.source.x){
+                    bbox = this.getBBox();
+                    rx = bbox.x+bbox.width/2;
+                    ry = bbox.y+bbox.height/2;
+                    return 'rotate(180 '+rx+' '+ry+')';
+                }
+                else {
+                    return 'rotate(0)';
+                }
+            });
+        }
+
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();
+            d3.select(this).classed("dragging", true);
+            force.start();
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
+        }
+
+        function dragended(d) {
+            d3.select(this).classed("dragging", false);
+        }
+    }
+
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var weekday = new Array(7);
+        weekday[0] = "星期天";
+        weekday[1] = "星期一";
+        weekday[2] = "星期二";
+        weekday[3] = "星期三";
+        weekday[4] = "星期四";
+        weekday[5] = "星期五";
+        weekday[6] = "星期六";
+
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate + " " + weekday[date.getDay()] + " " + date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
+
+        document.getElementById('test').innerText = currentdate;
+        setTimeout("getNowFormatDate()", 1000);
+    }
+</script>
+<script>
+    function sendMessage() {
+        var user_ques = $("#questionText").val();
+        if (user_ques.length > 0) {
+            $('<div class="direct-chat-msg right">' +
+                '<div class="direct-chat-info clearfix">' +
+                '<span class="direct-chat-name pull-right">患者</span>' +
+                '<span class="direct-chat-timestamp pull-left">23 China 2:05 pm</span>' +
+                '</div>' +
+                '<img class="direct-chat-img" src="static/ui/dist/img/child-boy1.png" alt="message user image">' +
+                '<div class="direct-chat-text" style="border-color:green;background-color:#FFFFBB;color:black;text-align:right;width:auto;margin-left:50px">' +
+                '<h4>' + user_ques + '</h4>' +
+                '</div>' +
+                '</div>').appendTo("#chat-box");
+            $("#chat-box").animate({"scrollTop": $('#chat-box')[0].scrollHeight}, "slow");
+            var url = "/doctor_wenda";
+            $.ajax({
+                type: "post",
+                async: false,
+                url: url,
+                data: {user_ques: user_ques},
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    var sys = '<div class="direct-chat-msg">' +
+                        '<div class="direct-chat-info clearfix">' +
+                        '<span class="direct-chat-name pull-left">医生</span>' +
+                        '<span class="direct-chat-timestamp pull-right">23 China 2:05 pm</span>' +
+                        '</div>' +
+                        '<img class="direct-chat-img" src="static/ui/dist/img/user1-128x128.jpg" alt="message user image">' +
+                        '<div class="direct-chat-text" style="background-color:#d2e9ff;width:auto;margin-right:50px">';
+                    if (datas["is_stop"] == true) {
+                        sys += '<h4>' + '您的诊断结果为:' + datas["res"] + '</h4>' + '<br>' + '<h5>' + '解释：' + datas["reason"] + '</h5>' +
+                            '</div>' + '</div>';
+                        $(sys).appendTo("#chat-box");
+                        $("#chat-box").animate({"scrollTop": $('#chat-box')[0].scrollHeight}, "slow");
+                    } else {
+                        sys += '<h4> 您是否还有以下症状：' + '</h4>' + '<br>' + '<div>';
+                        var other_symps = datas["res"].split("，");
+                        var dingyi = datas["zzdy"];
+                        for (var i = 0; i < other_symps.length; i++) {
+                            sys += '<button name="" type="button" class="btn btn-info" ' +
+                                'id = "symp' + (datas["count"] * 137 + (i + 1)) + '"' +
+                                ' onclick="getSymp(' + (datas["count"] * 137 + (i + 1)) + ')"' +
+                                ' ondblclick="deleteSymp(' + (datas["count"] * 137 + (i + 1)) + ')"' +
+                                ' style="margin:5px;background-color:#2894ff">' +
+                                other_symps[i] + '</button>';
+                            sys += ' <label id="label' + (datas["count"] * 137 + (i + 1)) + '"' + ' style="display: none;">';
+                            if (dingyi.hasOwnProperty(other_symps[i])) {
+                                sys += dingyi[other_symps[i]];
+                            } else {
+                                sys += '待补充';
+                            }
+                            sys += '</label>';
+                        }
+                        sys += '<button name="" type="button" class="btn btn-info" ' +
+                            'id = "symp' + 123456789 + '"' +
+                            ' onclick="getSymp(' + 123456789 + ')"' +
+                            ' ondblclick="deleteSymp(' + 123456789 + ')"' +
+                            ' style="margin:5px;background-color:#ff6666">' +
+                            '已无其他症状' + '</button>';
+                        sys += '</div>' + '</div>' + '</div>';
+                        $(sys).appendTo("#chat-box");
+                        $("#chat-box").animate({"scrollTop": $('#chat-box')[0].scrollHeight}, "slow");
+                    }
+                },
+                error: function (datas) {
+                }
+            });
+        }
+    }
+</script>
+<script>
+    function getSymp(index) {
+        var id = "#symp" + index;
+        var symp = $(id).text().trim();
+        var last_text = $("#questionText").val();
+
+        last_text.replace("，", ",");
+        last_text.replace("；", ",");
+        last_text.replace(" ", ",");
+
+        var symp_arr = last_text.split(",");
+
+        if (symp_arr.indexOf(symp) == -1) {
+            var newValue = last_text + (last_text == "" ? "" : ",") + symp;
+            $("#questionText").val(newValue);//填充内容
+        }
+        $(id).css("background", "#008888");
+        getTermTip(index);
+    }
+    function sleep(n) {
+        var start = new Date().getTime();
+        while (true) {
+            if (new Date().getTime() - start > n) break;
+        }
+    }
+</script>
+<script>
+    function getTermTip(index) {
+        var btn_id = "#symp" + index;
+        var label_id = "#label" + index;
+        var show_text = $(label_id).text();
+
+        layer.tips(show_text, btn_id, {
+            tips: [1, "#5bc0de"],
+            time: 3000
+        });
+
+    }
+</script>
+<script>
+    function deleteSymp(index) {
+        var btn_id = "#symp" + index;
+        var symp = $(btn_id).text().trim();
+        var last_text = $("#questionText").val();
+        last_text.replace("，", ",");
+        last_text.replace("；", ",");
+        last_text.replace(" ", ",");
+        var symp_arr = last_text.split(",");
+        var new_text = "";
+        for (var i = 0; i < symp_arr.length; i++) {
+            if (symp_arr[i] != symp) {
+                new_text += symp_arr[i] + ",";
+            }
+        }
+        new_text = new_text.substring(0, new_text.length - 1);
+        $("#questionText").val(new_text);
+        $(btn_id).css("background", "#2894ff");
+    }
+</script>
+<script>
+    function generate_graph() {
+        url = "/knowledge_graph_home";
+        var graph_name = $("#questionText").val();
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"graph_name": graph_name},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                var sys = '<div class="direct-chat-msg">' +
+                    '<div class="direct-chat-info clearfix">' +
+                    '<span class="direct-chat-name pull-left">医生</span>' +
+                    '<span class="direct-chat-timestamp pull-right">23 China 2:05 pm</span>' +
+                    '</div>' +
+                    '<img class="direct-chat-img" src="static/ui/dist/img/user1-128x128.jpg" alt="message user image">' +
+                    '<div class="direct-chat-text" style="background-color:#d2e9ff;width:auto;margin-right:50px">';
+                sys += '<h4> 您是否还有以下症状：' + '</h4>' + '<br>' + '<div>';
+                var other_symps = datas[0];
+                var count = datas[2];
+                for (var i = 0; i < other_symps.length; i++) {
+                    sys += '<button name="" type="button" class="btn btn-info" ' +
+                        'id = "symp' + (count * 137 + (i + 1)) + '"' +
+                        ' onclick="getSymp(' + (count * 137 + (i + 1)) + ')"' +
+                        ' ondblclick="deleteSymp(' + (count * 137 + (i + 1)) + ')"' +
+                        ' style="margin:5px;background-color:#2894ff">' +
+                        other_symps[i] + '</button>';
+                    sys += ' <label id="label' + (count * 137 + (i + 1)) + '"' + ' style="display: none;"> </label>';
+                }
+                sys += '</div>' + '</div>' + '</div>';
+                $(sys).appendTo("#chat-box");
+                $("#chat-box").animate({"scrollTop": $('#chat-box')[0].scrollHeight}, "slow");
+                $('#svg_body_id').html("");
+                add_graph(datas[1][0]["nodes"], datas[1][0]["edges"], "id1", "left");
+                add_graph(datas[1][1]["nodes"], datas[1][1]["edges"], "id2", "right");
+            },
+            error: function (datas) {
+                layer.alert("请求失败！");
+            }
+        });
+    }
+    function add_graph(nodes, links, id, style) {
+        var w = 500, h = 350;
+        var linkDistance = 80;
+        var text_font_size = 15;
+        var class_name;
+        if (style === "left") class_name = "left";
+        else if (style === "right") class_name = "right";
+        else if (style === "center") class_name = "center";
+        var force = d3.layout.force()
+            .nodes(d3.values(nodes))
+            .links(d3.values(links))
+            .size([w, h])
+            .linkDistance(linkDistance)
+            .charge(-300)
+            .on("tick", tick)
+            .start();
+//        定义缩放函数
+        var zoom = d3.behavior.zoom()
+            .scaleExtent([1, 10])
+            .on("zoom", zoomed);
+        //定义拖拽
+        var drag = d3.behavior.drag()
+            .origin(function (d) {
+                return d;
+            })
+            .on("dragstart", dragstarted)
+            .on("drag", dragged)
+            .on("dragend", dragended);
+        //定义画布信息
+        var svg = d3.select(".svg_body").append("svg:svg")
+            .attr("width", w)
+            .attr("height", h)
+            .attr("class", class_name)
+            .attr("id", id)
+            .call(zoom);
+        //(2)创建一个cintainer，用于保存zoom的结果，用于控制界面
+        var container = svg.append("svg:g");
+        //(1)创建箭头
+        container.append("svg:defs").selectAll("marker")
+            .data(["symptom"])
+            .enter().append("svg:marker")
+            .attr("id", String)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 15)
+            .attr("refY", -1.5)
+            .attr("markerWidth", 10)
+            .attr("markerHeight", 10)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M0,-5L10,0L0,5");
+        //(2)根据连线类型引用上面创建的标记
+        var path = container.append("g").selectAll("path")
+            .data(force.links())
+            .enter().append("svg:path")
+            .attr("id", function (d, i) {
+                return "path" + i;
+            })
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "link visted";
+                return "link " + d.type;
+            })
+            .attr("marker-end", function (d) {
+                return "url(#" + d.type + ")";
+            });
+        var circle = container.append("g").selectAll("circle")
+            .data(force.nodes())
+            .enter().append("svg:circle")
+            .attr("r", 10)
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "node visted";
+                return "node " + d.type;
+            })
+            .on("click", function (d, i) {
+                if (d.type === "disease") {
+                    var content = "疾病名称: " + d.name + "</br>"
+                        + "疾病定义：" + d.definition;
+                    layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                } else if (d.type === "symptom") {
+                    var content = "节点名称: " + d.name + "</br>"
+                        + "节点类型：" + d.s_type + "</br>"
+                        + "节点状态：" + d.state + "</br>"
+                        + "节点值：" + d.value + "</br>"
+                        + "触发条件：" + d.condition;
+                    layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                }
+            })
+            .call(drag);
+        //首先生长text，绑定nodes节点
+        var text = container.append("g").selectAll("text")
+            .data(force.nodes())
+            .enter().append("svg:text")
+            .attr("x", text_font_size)
+            .attr("y", ".31em")
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "node visted";
+                return "node " + d.type;
+            })
+            .text(function (d) {
+                return d.name;
+            });
+
+        //放大函数
+        function zoomed() {
+            container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        function tick() {
+//            nodes.forEach(function (d, i) {
+//                d.x = d.x - 10 < 0 ? 10 : d.x;
+//                d.x = d.x + 10 > w ? w - 10 : d.x;
+//                d.y = d.y - 10 < 0 ? 10 : d.y;
+//                d.y = d.y + 10 > h ? h - 10 : d.y;
+//            });
+            path.attr("d", function (d) {
+                var dx = d.target.x - d.source.x,//增量
+                    dy = d.target.y - d.source.y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+                return "M" + d.source.x + ","
+                    + d.source.y + "A" + dr + ","
+                    + dr + " 0 0,1 " + d.target.x + ","
+                    + d.target.y;
+            });
+            circle.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            text.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+        }
+
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();
+            d3.select(this).classed("dragging", true);
+            force.start();
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
+        }
+
+        function dragended(d) {
+            d3.select(this).classed("dragging", false);
+        }
+    }
+    function search_knowledge_graph() {
+        var graph_name = $("#search_graph_name").val();
+        var url = "/search_graph_home";
+        var questionText = $("#questionText").val();
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"questionText": questionText, "graph_name": graph_name},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                $('#svg_body_id').html("");
+                if (datas[0] == 1) {
+                    add_graph(datas[1]["nodes"], datas[1]["edges"], "id3", "center");
+                } else {
+                    layer.alert("对不起，系统目前没有收录您输入的疾病的知识图谱！");
+                }
+            },
+            error: function (datas) {
+                layer.alert("对不起，系统目前没有收录您输入的疾病的知识图谱！");
+            }
+        });
+    }
+    function search_graph(id_name) {
+        var graph_name =  $("#search_" + id_name).val();
+        var url = "/search_graph";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"graph_name": graph_name, "id_name": id_name},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+
+                if (datas[0] == 1) {
+                    if (id_name == "all_graph_body"){
+                         $('#all_graph_id').html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "all_graph_1", "center", "all_graph_body", "all", 900, 350);
+                    }else if (id_name == "hmm_all_graph_body"){
+                         $('#hmm_all_graph_id').html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "hmm_all_graph_1", "center", "hmm_all_graph_body", "hmm", 900, 350);
+                    }
+                    else if (id_name== "skin_graph_body"){
+                        $('#skin_graph_id').html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "hmm_all_graph_1", "center", "skin_graph_body", "skin", 900, 350);
+                    }else if (id_name == "biyan_graph_body"){
+                        $('#biyan_graph_id').html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "hmm_all_graph_1", "center", "biyan_graph_body", "biyan", 900, 350);
+                    }else if (id_name == "book_skin_graph_body"){
+                        $("#book_skin_graph_id").html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "hmm_all_graph_1", "center", "book_skin_graph_body", "book_skin", 900, 350);
+                    }else if (id_name == "symptom_xuewei_all_graph_body"){
+                        $("#symptom_xuewei_all_graph_id").html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "symptom_xuewei_all_graph_1", "center", "symptom_xuewei_all_graph_body", "symptom_xuewei", 900, 350);
+                    }
+
+                } else {
+                    layer.alert("对不起，系统目前没有收录您输入的疾病的知识图谱！");
+                }
+            },
+            error: function (datas) {
+                layer.alert("对不起，系统目前没有收录您输入的疾病的知识图谱！");
+            }
+        });
+
+    }
+</script>
+<script>
+    layui.use(['layer', 'laypage', 'element'], function () {
+        var layer = layui.layer, laypage = layui.laypage, element = layui.element();
+        laypage({
+            cont: 'symptom_xuewei_graph_pages' //分页容器的id
+            , pages: 4 //总页数
+            , skin: '#5FB878' //自定义选中色值
+            , skip: true //开启跳页
+            , groups: 3 //连续显示分页数
+            , jump: function (obj, first) {
+                var page = obj.curr;
+                var url = "/symptom_xuewei_graphs";
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: url,
+                    data: {"page": page},
+                    dataType: "json",
+                    timeout: 1000,
+                    success: function (datas) {
+{#                        var all_graph = datas["all_graph"];#}
+                        var all_graph = datas;
+                        $('#symptom_xuewei_all_graph_id').html("");
+                        add_all_graph(all_graph[0]["nodes"], all_graph[0]["edges"], "symptom_xuewei_all_graph_1", "left", "symptom_xuewei_all_graph_body", "symptom_xuewei");
+                        add_all_graph(all_graph[1]["nodes"], all_graph[1]["edges"], "symptom_xuewei_all_graph_2", "right", "symptom_xuewei_all_graph_body", "symptom_xuewei");
+                    },
+                    error: function (datas) {
+                        layer.alert("初始化数据失败！");
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

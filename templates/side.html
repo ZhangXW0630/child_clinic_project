@@ -1,0 +1,43 @@
+        <div class="sidebar" id="scrollspy">
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="nav sidebar-menu">
+                    <li class="header"></li>
+                    {% if id == "1" %}
+                        <li class="active treeview"><a href="/xuewei/case_index" style="background-color:#A5B37E;color:white;border-radius:10px"> <i class="fa fa-medkit text-blue"></i> <span>针灸病例</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a></li>
+                    {% else %}
+                        <li class="treeview"><a href="/xuewei/case_index" > <i class="fa fa-medkit text-blue"></i> <span>针灸病例</span></a></li>
+                    {% end %}
+
+                    {% if id == "2" %}
+                        <li class="active treeview"><a href="/xuewei/evaluation" style="background-color:#A5B37E;color:white;border-radius:10px"><i class="fa fa-user-md text-green"></i> <span>评价系统</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a></li>
+                    {% else %}
+                        <li class="treeview"><a href="/xuewei/evaluation"><i class="fa fa-user-md text-green"></i> <span>评价系统</span></a></li>
+                    {% end %}
+
+                    {% if id == "3"  %}
+                        <li class="active treeview"><a href="/xuewei/ac_recommend" style="background-color:#A5B37E;color:white;border-radius:10px"> <i class="fa fa-medkit text-purple"></i> <span>选穴规律图谱</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a></li>
+                    {% else %}
+                        <li class="treeview"><a href="/xuewei/ac_recommend" > <i class="fa fa-medkit text-purple"></i> <span>选穴规律图谱</span></a></li>
+                    {% end %}
+
+                    {% if id == "4"  %}
+                        <li class="active treeview"><a href="/xuewei/compatibility_recommend" style="background-color:#A5B37E;color:white;border-radius:10px"> <i class="fa fa-medkit text-purple"></i> <span>配伍规律图谱</span><span class="pull-right-container"><i class="fa fa-angle-right pull-right"></i></span></a></li>
+                    {% else %}
+                        <li class="treeview"><a href="/xuewei/compatibility_recommend" > <i class="fa fa-medkit text-purple"></i> <span>配伍规律图谱</span></a></li>
+                    {% end %}
+
+                    <li class="treeview"><a href="#" > <i class="fa fa-medkit text-blue"></i> <span>针灸处方采集</span></a></li>
+                    <li class="treeview"><a href="#" > <i class="fa fa-medkit text-blue"></i> <span>名医经验采集</span></a></li>
+                    <li class="treeview"><a href="/xuewei/usersGuide" > <i class="fa fa-sticky-note text-red"></i> <span>帮助</span></a></li>
+                    <!--<li><a href="#" > <i class="fa fa-medkit text-blue"></i> <span>临床处方系统</span></a></li>-->
+                    <!--<li><a href="/xuewei/kg_xuewei_home?kg_type=1" > <i class="fa fa-medkit text-blue"></i> <span>穴位图谱</span></a></li>-->
+                    <!--<li><a href="/xuewei/diagnose" > <i class="fa fa-medkit text-blue"></i> <span>证型诊断</span></a></li>-->
+                </ul>
+            </div>
+        <script src="{{ static_url('ui/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<!-- Bootstrap 3.3.6 -->
+        <script src="{{ static_url('ui/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ static_url('js/pdfobject.js') }}"></script>
+        <script>
+            console.log($("#scrollspy"));
+        </script>

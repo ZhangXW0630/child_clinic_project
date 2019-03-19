@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Source code generated using layoutit.com">
+        <meta name="author" content="LayoutIt!">
+
+        <link rel="stylesheet" href="{{static_url("ui/bootstrap/css/bootstrap.min.css")}}">
+        <!-- Font Awesome -->
+         <link rel="stylesheet" href="{{static_url("ui/css/font-awesome.min.css")}}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="{{static_url("ui/css/ionicons.min.css")}}">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="{{static_url("ui/plugins/datatables/dataTables.bootstrap.css")}}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{static_url("ui/dist/css/AdminLTE.min.css")}}">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+           folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="{{static_url("ui/dist/css/skins/_all-skins.min.css")}}">
+        <link rel="stylesheet" href="{{static_url("ui/plugins/iCheck/all.css")}}">
+        <link rel="stylesheet" href="{{static_url("ui/plugins/colorpicker/bootstrap-colorpicker.min.css")}}">
+        <link rel="stylesheet" href="{{static_url("ui/plugins/select2/select2.min.css")}}">
+        <link rel="stylesheet" href="{{static_url('layer/skin/layer.css')}}">
+        <link rel="stylesheet" href="{{static_url('layer/skin/layui.css')}}">
+    </head>
+    <body>
+    {% import json %}
+        <div class="container-fluid">
+	        <div class="row">
+		        <div class="col-md-12">
+                    <div class="box box-success" style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                        <div class="box-header with-border" style="border-radius:8px 8px 0 0;cursor: pointer;border-bottom:1px solid #A5B37E;">
+                            <h3 class="box-title">文献基本信息</h3>
+                        </div>
+                        <div class="box-body" style="margin-top: 10px;">
+                            <input type="text"  style="display:none" placeholder="{{type}}" >
+                            <div class="form-horizontal">
+                                <div class="form-group has-error">
+                                    <label for="modern_literature_title" class="col-sm-2 control-label"  style="cursor: pointer" >题目</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="modern_literature_title" placeholder="题目" >
+                                    </div>
+                                </div>
+								<div class="form-group has-warning">
+									<label for="modern_literature_author" class="col-sm-2 control-label" style="cursor: pointer">作者</label>
+									<div class="col-sm-8">
+                                        <input type="text" class="form-control" id="modern_literature_author" placeholder="作者" >
+									</div>
+								</div>
+                                <div class="form-group has-warning">
+									<label for="modern_literature_source" class="col-sm-2 control-label" style="cursor: pointer">出处</label>
+									<div class="col-sm-8">
+                                        <input type="text" class="form-control" id="modern_literature_source" placeholder="出处" >
+									</div>
+								</div>
+                                <div class="form-group has-warning">
+									<label for="modern_literature_time" class="col-sm-2 control-label" style="cursor: pointer">年份</label>
+									<div class="col-sm-8">
+                                        <input type="text" class="form-control" id="modern_literature_time" placeholder="年份" >
+									</div>
+								</div>
+								<div class="form-group has-warning">
+									<label  class="col-sm-2 control-label" style="cursor: pointer">文件上传</label>
+                                    <div class="col-sm-8">
+                                        <input type='file' id='cx_file' onchange="name_chuli()"/>
+                                    </div>
+
+								</div>
+								<!--<div class="form-group has-feedback" style="display:none">
+                                    <div class="col-sm-4">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button  id="shangchuan_submmit" onclick="shangchuan_submmit()" class="btn btn-success btn-block" style="background-color:#9BC78F;color:#000;border-color:#8DBD7F">
+                                            <b>上　传</b>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button  id="shangchuan_close" onclick="shangchuan_close()" class="btn btn-success btn-block" style="background-color:#9BC78F;color:#000;border-color:#8DBD7F">
+                                            <b>关  闭</b>
+                                        </button>
+                                    </div>
+                                </div>-->
+                            </div>
+
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8" style="padding:4px" id="grade_btns">
+                                <input type='button' id='modern_content' value="{{ancient_paper_pingjia}}" style="display:none"/>
+                                {% if type == "modern"  %}
+                                    {% set grade_arr = [u"A级",u"B级",u"C级",u"D级"] %}
+                                    {% for grade in grade_arr%}
+                                        <button type="button" class="btn bg-olive btn-flat"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px" value="{{grade}}">{{grade}}
+                                        </button>
+                                    {% end %}
+                                {% else %}
+                                    {% set grade_arr = [u"国家级课题和基金资助学术类专著",u"国家级教材",u"国际标准",u"国家标准",u"指南",u"古代官修经典著作",u"行业标准"] %}
+                                    {% for grade in ancient_paper_type%}
+                                        <button type="button" class="btn bg-olive btn-flat"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px" value="{{ancient_paper_type[grade]}}">{{grade}}
+                                        </button>
+                                    {% end %}
+                                {% end %}
+
+                                <!--<button type="button" class="btn bg-olive btn-flat"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">A级
+                                </button>
+                                <button type="button" class="btn bg-olive btn-flat"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">B级
+                                </button>
+                                <button type="button" class="btn bg-olive btn-flat"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">C级
+                                </button>
+                                <button type="button" class="btn bg-olive btn-flat"  style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">D级
+                                </button>-->
+                            </div>
+                            <div class="col-sm-12" style="padding:0px">
+                                <div class="form-horizontal">
+                                    <div class="form-group has-error">
+                                        <label for="modern_literature_title" class="col-sm-2 control-label"  style="cursor: pointer" >评价结果</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="grade_content" placeholder="评价结果">
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success">
+                                        <label class="col-sm-2 control-label"  style="cursor: pointer" ></label>
+                                        <div class="col-sm-8">
+                                            <button type="button" class="btn bg-green btn-flat" onclick="shangchuan_submmit({{ current_doctor.get(u'doctorID', u'')}},'{{type}}')" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">保  存
+                                            </button>
+                                            <button type="button" class="btn bg-red btn-flat" onclick="shangchuan_close()" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px;font-size:16px">关  闭
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-success">
+                                        <label class="col-sm-2 control-label"  style="cursor: pointer" ></label>
+                                        <div class="col-sm-8">
+                                            GRADE系统评价辅助工具下载参考地址：
+                                            <p>1.GRADEpro软件下载网址：<a title="http://gradeprofiler.software.informer.com/download/" href="http://gradeprofiler.software.informer.com/download/" target="_blank">http://gradeprofiler.software.informer.com/download/</a></p>
+                                            <p>2.RevMan软件下载网址：<a title="http://community.cochrane.org/help/tools-and-software/revman-5/revman-5-download" href="http://community.cochrane.org/help/tools-and-software/revman-5/revman-5-download" target="_blank">http://community.cochrane.org/help/tools-and-software/revman-5/revman-5-download</a></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /. box -->
+                </div>
+	        </div>
+        </div>
+	<script src='{{static_url("ui/plugins/jQuery/jquery-2.2.3.min.js")}}'></script>
+	<script src="{{static_url('layer/layer.js')}}"></script>
+	<script>
+	    $(function(){
+	        var grade_btns = $("#grade_btns button");
+            for(var grade_item=0;grade_item<grade_btns.length;grade_item++){
+                grade_btns[grade_item].index = grade_item;
+                grade_btns[grade_item].onclick = function(){
+                    for(var grade_j=0;grade_j<grade_btns.length;grade_j++)
+                    {
+                        grade_btns[grade_j].className = "btn bg-olive btn-flat";
+                    }
+                    this.className = "btn bg-teal btn-flat";
+                    var grade_text=$(this).text();
+                    console.log($(this).val().substr(0,2));
+                    if(grade_text.indexOf("A")==0){
+                        $("#grade_content").val("文献为高质量文献，表明对文献结果非常确信，进一步研究也不可能改变此结果。");
+                    }else if(grade_text.indexOf("B")==0){
+                        $("#grade_content").val("文献为中等质量文献，表明对文献结果信心一般，进一步研究也有可能改变此结果。");
+                    }else if(grade_text.indexOf("C")==0){
+                        $("#grade_content").val("文献为低质量文献，表明对文献结果信心有限，进一步研究极有可能改变此结果。");
+                    }else if(grade_text.indexOf("D")==0){
+                        $("#grade_content").val("文献为极低质量文献，表明对文献结果几乎无信心，结果与真实值可能差异较大，进一步研究极有可能改变此结果。");
+                    }else{
+                        $("#grade_content").val($(this).val().split("#")[2]);
+                    }
+                }
+            }
+	    });
+	    function shangchuan_submmit(doctorID,type) {
+            var url = "/xuewei/evaluation_information";
+            var formdata = new FormData();
+            var fileObj = document.getElementById("cx_file").files[0];
+            var modern_literature_title=$('#modern_literature_title').val();
+            //console.log(modern_literature_title.length);
+            if(modern_literature_title=="" || $('#modern_literature_author').val()=="" || $('#modern_literature_source').val()=="" || $('#modern_literature_time').val()=="" || $('#grade_content').val()==""){
+                layer.alert("还有内容还未填写，请确定所有内容填写完成！");
+            }else{
+                formdata.append("file", fileObj);
+                formdata.append("type", type);
+                formdata.append("paperTitle", modern_literature_title);
+                formdata.append("paperAuthor", $('#modern_literature_author').val());
+                formdata.append("paperFrom", $('#modern_literature_source').val());
+                formdata.append("paperYear", $('#modern_literature_time').val());
+                formdata.append("paperLevel", $('.bg-teal').val());
+                formdata.append("doctorID", doctorID);
+                //console.log(formdata.get('grade_content'));
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: url,
+                    data:formdata,
+                    dataType: "json",
+                    timeout: 1000,
+                    processData: false,
+                    contentType: false,
+                    success: function (datas) {
+                        console.log(datas);
+                        if(datas=="success"){
+                            layer.alert("信息添加成功！");
+                            $('#modern_literature_title').val('');
+                            $('#modern_literature_source').val('');
+                            $('#modern_literature_author').val('');
+                            $('#modern_literature_time').val('');
+                            $('#grade_content').val('');
+                        }
+                    },
+                    error: function (datas) {
+                          layer.alert("信息添加失败！");
+                    }
+                });
+            }
+
+	    }
+	    function shangchuan_close() {
+	        var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+	    function name_chuli() {
+            var file = $("#cx_file").val();
+            var strFileName=file.replace(/^.+?\\([^\\]+?)(\.[^\.\\]*?)?$/gi,"$1");  //正则表达式获取文件名，不带后缀
+//          var FileExt=file.replace(/.+\./,"");   //正则表达式获取后缀
+            $('#modern_literature_title').val(strFileName);
+        }
+  </script>
+  </body>
+</html>

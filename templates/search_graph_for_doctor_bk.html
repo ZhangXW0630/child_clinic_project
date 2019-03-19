@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link rel="stylesheet" href="static/ui/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="static/ui/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="static/ui/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="static/ui/plugins/datatables/dataTables.bootstrap.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="static/ui/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="static/ui/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="static/ui/plugins/iCheck/all.css">
+    <link rel="stylesheet" href="static/ui/plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="static/ui/plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="static/layer/skin/layer.css">
+    <link rel="stylesheet" href="static/layer/skin/layui.css">
+    <style>
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .linetext {
+            font-size: 12px;
+            font-family: SimSun;
+            fill: #0000FF;
+            fill-opacity: 1.0;
+        }
+
+        .nodetext {
+            font-size: 12px;
+            font-family: SimSun;
+            fill: #000000;
+        }
+
+        path.link {
+            fill: none;
+            stroke: #666;
+            stroke-width: 1.5px;
+        }
+
+        marker#licensing {
+            fill: green;
+        }
+
+        path.link.symptom {
+            stroke-width: "2";
+        }
+
+        path.link.include {
+            stroke-width: "2";
+            color: #0c0c0c;
+        }
+
+        path.link.visted {
+            stroke-width: "2";
+            fill: #ca5818;
+        }
+
+        path {
+            stroke-width: "2";
+        }
+
+        path.link.disease {
+            stroke-dasharray: 0, 2 1;
+        }
+
+        circle.node.symptom {
+            font-size: 12px;
+            fill: #84cc30;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.disease {
+            font-size: 12px;
+            fill: #f3a331;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.visted {
+            font-size: 12px;
+            fill: #f3331f;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.accessory {
+            font-size: 12px;
+            fill: #73f3cd;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.all {
+            font-size: 12px;
+            fill: #f3837f;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.examine {
+            font-size: 12px;
+            fill: #80cc17;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.examine.more {
+            font-size: 12px;
+            fill: #ff6983;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.examine.result {
+            font-size: 12px;
+            fill: #ff681a;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level0 {
+            font-size: 12px;
+            fill: #f3a331;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level1 {
+            font-size: 12px;
+            fill: #84cc30;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level2 {
+            font-size: 12px;
+            fill: #ff681a;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level3 {
+            font-size: 12px;
+            fill: #ff6983;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level4 {
+            font-size: 12px;
+            fill: #73f3cd;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level5 {
+            font-size: 12px;
+            fill: #9e98f3;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level6 {
+            font-size: 12px;
+            fill: #eef304;
+            stroke-width: 1.5px;
+        }
+
+        circle.node.level7 {
+            font-size: 12px;
+            fill: #f3341c;
+            stroke-width: 1.5px;
+        }
+
+        circle {
+            fill: #80cc17;
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        svg.default {
+            border: 1.5px solid;
+            float: left;
+        }
+
+        svg.left {
+            border: 2px solid;
+            color: #ebc722;
+            float: left;
+        }
+
+        svg.right {
+            border: 2px solid;
+            color: #ebc722;
+            float: right;
+        }
+
+        svg.center {
+            margin: 0 auto;
+            color: #ebc722;
+            border: 2px solid;
+        }
+
+        text.disease {
+            font: 20px solid;
+            color: #f3a331;
+            pointer-events: none;
+        }
+
+        text.symptom {
+            font: 14px sans-serif;
+            pointer-events: none;
+        }
+
+        text.visted {
+            font: 18px sans-serif;
+            colot: red;
+            pointer-events: none;
+        }
+
+        text.shadow {
+            stroke: #fff;
+            stroke-width: 3px;
+            stroke-opacity: .8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group has-success" style="margin-top: 5px; margin-bottom: 10px">
+                <label class="col-sm-2 control-label" style="cursor: pointer"></label>
+                <div class="col-sm-8">
+                    <div class="input-group" style="margin-bottom: 20px">
+                        <input type="text" id="search_hmm_all_graph_body" class="form-control input-lg"
+                               style="border-radius:8px" placeholder=" 请您输入要查询的疾病图谱的名称..."><span
+                            class="btn btn-success input-group-addon" style="border-radius:8px"
+                            onclick="search_graph('hmm_all_graph_body')">搜索</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box box-success" style="border-radius:8px; margin-top: 50px">
+                <div class="box-body" style="margin-top: 50px; margin-left: 30px; margin-right: 30px">
+                    <div class="hmm_all_graph_body" id="hmm_all_graph_id"
+                         style="margin:0 auto; text-align: center;"></div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <div class="form-group has-feedback">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-2">
+                    <button id="shangchuan_close" onclick="shangchuan_close()" class="btn btn-success btn-block"
+                            style="background-color:#9BC78F;color:#000;border-color:#8DBD7F">
+                        <b>关 闭</b>
+                    </button>
+                </div>
+            </div>
+            <br/>
+            <!-- /. box -->
+        </div>
+        <input id="graph_name" type="text" style="display: none;" value="{{ graph_name }}">
+        <input id="category" type="text" style="display: none;" value="{{ category }}">
+    </div>
+</div>
+<script src='{{ static_url("ui/plugins/jQuery/jquery-2.2.3.min.js") }}'></script>
+<script src="{{ static_url('layer/layer.js') }}"></script>
+<script src="static/d3/d3.v3.min.js"></script>
+<script src="static/layer/layer.js"></script>
+<script src="static/layer/layui.js" charset="utf-8"></script>
+<script>
+    var level_radius = new Array();
+    level_radius["level0"] = 15;
+    level_radius["level1"] = 14;
+    level_radius["level2"] = 13;
+    level_radius["level3"] = 12;
+    level_radius["level4"] = 11;
+    level_radius["level5"] = 10;
+
+    var marker_radius = new Array();
+    marker_radius["level0"] = 23;
+    marker_radius["level1"] = 20;
+    marker_radius["level2"] = 19;
+    marker_radius["level3"] = 18;
+    marker_radius["level4"] = 17;
+    marker_radius["level5"] = 16;
+    marker_radius["symptom"] = 15;
+    marker_radius["disease"] = 15;
+    marker_radius["undefined"] = 15;
+    $(document).ready(function () {
+        var graph_name = $("#graph_name").val();
+        var category = $("#category").val();
+        var mark_flag = "hmm";
+        var url = "/search_graph_for_doctor";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"graph_name": graph_name, "mark_flag": mark_flag,"category":category},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+
+                if (datas[0] == 1) {
+                    $("#hmm_all_graph_id").html("");
+                    add_all_graph(datas[1]["nodes"], datas[1]["edges"], "all_graph_1", "center", "hmm_all_graph_body", "all");
+                }
+                else {
+                    layer.alert("目前该疾病暂未收录！请您确认要查询的疾病的名字！");
+                }
+            },
+            error: function (datas) {
+
+            }
+        });
+    });
+
+
+    function search_graph(id_name) {
+        var graph_name = $("#search_" + id_name).val();
+        var url = "/search_graph";
+        $.ajax({
+            type: "post",
+            async: false,
+            url: url,
+            data: {"graph_name": graph_name, "id_name": id_name},
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+
+                if (datas[0] == 1) {
+                    $("#hmm_all_graph_id").html("");
+                    if (id_name == "all_graph_body") {
+                        $('#all_graph_id').html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "all_graph_1", "center", "all_graph_body", "all", 900, 350);
+                    } else if (id_name == "hmm_all_graph_body") {
+                        $('#hmm_all_graph_id').html("");
+                        add_all_graph(datas[1]["nodes"], datas[1]["edges"], "hmm_all_graph_1", "center", "hmm_all_graph_body", "hmm", 900, 350);
+                    }
+                } else {
+                    layer.alert("对不起，系统目前没有收录您输入的疾病的知识图谱！");
+                }
+            },
+            error: function (datas) {
+                layer.alert("对不起，系统目前没有收录您输入的疾病的知识图谱！");
+            }
+        });
+
+    }
+
+    function add_all_graph(nodes, links, id, style, pos_class, mark_flag) {
+        var w = document.body.clientWidth * 0.9, h = 550;
+        var linkDistance = 80;
+        var text_font_size = 15;
+        var class_name;
+        if (style === "left") class_name = "left";
+        else if (style === "right") class_name = "right";
+        else if (style === "center") class_name = "center";
+        var force = d3.layout.force()
+            .nodes(d3.values(nodes))
+            .links(d3.values(links))
+            .size([w, h])
+            .linkDistance(linkDistance)
+            .charge(-300)
+            .on("tick", tick)
+            .start();
+
+        //定义缩放函数
+        var zoom = d3.behavior.zoom()
+            .scaleExtent([1, 10])
+            .on("zoom", zoomed);
+
+        //定义拖拽
+        var drag = d3.behavior.drag()
+            .origin(function (d) {
+                return d;
+            })
+            .on("dragstart", dragstarted)
+            .on("drag", dragged)
+            .on("dragend", dragended);
+
+        //定义画布信息
+        var svg = d3.select("." + pos_class).append("svg:svg")
+            .attr("width", w)
+            .attr("height", h)
+            .attr("class", class_name)
+            .attr("id", id)
+            .call(zoom);
+//            .on('dblclick.zoom', function (d) {
+//                var disease_name = $("#" + id + "disease").text();
+//                layer.open({
+//                    type: 2,
+//                    title: '疾病 “' + disease_name + "” 的知识图谱",
+//                    closeBtn: 1,
+//                    shadeClose: false,
+//                    shade: 0.3,
+//                    maxmin: true,
+//                    area: ['65%', '90%'],
+//                    anim: 2,
+//                    content: '/knowledge_zoom?disease_name=' + disease_name + "&mark_flag=" + mark_flag ,
+//                    end: function () {
+//                    }
+//                });
+//            });
+
+        //(2)创建一个cintainer，用于保存zoom的结果，用于控制界面
+        var container = svg.append("svg:g");
+        //(1)创建箭头
+        container.append("svg:defs").selectAll("marker")
+            .data(function () {
+                var marker_array = [];
+
+                for (var index in marker_radius) {
+                    marker_array.push(index + "_" + mark_flag);
+                }
+                return marker_array;
+            })
+            .enter().append("svg:marker")
+            .attr("id", String)
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", function (d) {
+                var level = d.split("_")[0];
+                if (marker_radius.hasOwnProperty(level)) {
+                    return marker_radius[level];
+                } else {
+                    return 15;
+                }
+            })
+            .attr("refY", -1.5)
+            .attr("markerWidth", 10)
+            .attr("markerHeight", 10)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M0,-5L10,0L0,5");
+        //(2)根据连线类型引用上面创建的标记
+        var path = container.append("g").selectAll("path")
+            .data(force.links())
+            .enter().append("svg:path")
+            .attr("id", function (d, i) {
+                return "path" + i;
+            })
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "link visted";
+                return "link " + d.type;
+            })
+            .attr("marker-end", function (d) {
+                return "url(#" + d.marker_type + "_" + mark_flag + ")";
+            });
+        var circle = container.append("g").selectAll("circle")
+            .data(force.nodes())
+            .enter().append("svg:circle")
+            .attr("r", function (d) {
+                if (level_radius.hasOwnProperty(d.type)) {
+                    return level_radius[d.type];
+                } else {
+                    return 10;
+                }
+            })
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "node visted";
+                if (d.s_type == "临床表现")
+                    return "node symptom";
+                else if (d.s_type == "辅助检查总结点" || d.s_type == "临床表现总结点")
+                    return "node all";
+                else if (d.s_type == "辅助检查")
+                    return "node accessory";
+                else if (d.s_type == "辅助检查结果")
+                    return "node examine result";
+                else
+                    return "node " + d.type;
+            })
+            .on("click", function (d, i) {
+                if (d.type === "disease") {
+                    var content = "疾病名称: " + d.name + "</br>"
+                        + "疾病定义：" + d.definition;
+                    layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                } else if (d.type === "symptom") {
+                    if (d.s_type == "辅助检查") {
+                        layer.open({
+                            type: 2,
+                            title: '具有此化验检测的疾病',
+                            closeBtn: 1,
+                            shadeClose: false,
+                            shade: 0.3,
+                            maxmin: true, //开启最大化最小化按钮
+                            area: ['60%', '70%'],
+                            anim: 2,
+                            content: '/examine_disease?examine_name=' + d.name,
+                            end: function () {
+                            }
+                        });
+                    } else {
+                        var content = "节点名称: " + d.name + "</br>"
+                            + "节点类型：" + d.s_type + "</br>"
+                            + "节点状态：" + d.state + "</br>"
+                            + "节点值：" + d.value + "</br>"
+                            + "触发条件：" + d.condition;
+                        layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                    }
+                }
+                else {
+                    var content =
+                        "节点名称: " + d.name + "</br>"
+                        + "节点ID：" + d.ID + "</br>"
+                        + "节点层次：" + d.type + "</br>"
+                        + "节点内容：" + d.content;
+                    layer.msg(content, {offest: ['1200px', '120px'], icon: 1});
+                }
+            })
+            .call(drag);
+        //首先生长text，绑定nodes节点
+        var text = container.append("g").selectAll("text")
+            .data(force.nodes())
+            .enter().append("svg:text")
+            .attr("x", text_font_size)
+            .attr("y", ".31em")
+            .attr("class", function (d) {
+                if (d.visted === "1")
+                    return "node visted";
+                return "node " + d.type;
+            })
+            .attr("id", function (d, i) {
+                if (d.type === "disease" || d.type === "level0") {
+                    return id + "disease";
+                }
+                return id + i;
+            })
+            .text(function (d) {
+                return d.name;
+            });
+
+        //放大函数
+        function zoomed() {
+            container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        function tick() {
+//            nodes.forEach(function (d, i) {
+//                d.x = d.x - 10 < 0 ? 10 : d.x;
+//                d.x = d.x + 10 > w ? w - 10 : d.x;
+//                d.y = d.y - 10 < 0 ? 10 : d.y;
+//                d.y = d.y + 10 > h ? h - 10 : d.y;
+//            });
+            path.attr("d", function (d) {
+                var dx = d.target.x - d.source.x,//增量
+                    dy = d.target.y - d.source.y,
+                    dr = Math.sqrt(dx * dx + dy * dy);
+                return "M" + d.source.x + ","
+                    + d.source.y + "A" + dr + ","
+                    + dr + " 0 0,1 " + d.target.x + ","
+                    + d.target.y;
+            });
+            circle.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            text.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+        }
+
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();
+            d3.select(this).classed("dragging", true);
+            force.start();
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
+        }
+
+        function dragended(d) {
+            d3.select(this).classed("dragging", false);
+        }
+    }
+
+    function shangchuan_close() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+</script>
+</body>
+</html>

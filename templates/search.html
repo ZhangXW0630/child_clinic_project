@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Search!</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+	  <style type="text/css">
+		  body {
+		  padding-top: 50px;
+		  }
+		  .main-container {
+		  padding: 40px 15px;
+		  }
+		  .p {
+		  text-align: center;
+		  }
+		  div {
+		  margin-left: auto;
+		  margin-right: auto;
+		  }
+           .black_overlay{
+		  display: none;
+		  position: absolute;
+		  top: 0%;
+		  left: 0%;
+		  width: 100%;
+          height:100%;
+		  background-color:rgba(255, 255, 255, 0.8);
+		  filter:alpha(opacity=90);
+		  z-index:1001;
+		  opacity:80;
+		  border-radius:30px;
+		}
+		.white_content {
+		display: none;
+		position: absolute;
+		top: -5%;
+		left: 2%;
+		width: 98%;
+          height:98%;
+          background:white;
+		border: 20px solid  #C4E1E1;
+		z-index:1002;
+		overflow: auto;
+		  border-radius:30px;
+		}
+		.white_content_small {
+		display: none;
+		position: absolute;
+		top: 20%;
+		left: 30%;
+		width: 40%;
+		height: 50%;
+		border: 16px solid #C4E1E1;
+		background-color: white;
+		z-index:1002;
+		overflow: auto;
+		  border-radius:50px;
+		}
+   </style>
+  </head>
+  <body>
+  <div class="container-fluid"  >
+      <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8"  style="margin:auto;position: absolute;top: 10%; left:10%; bottom: 10%; right: 10%">
+
+              <p style="font-family:楷体;font-size:40px;text-align:center;" ><b>康 康 助 手</b></p>
+              <hr/>
+              <fieldset style="text-align:center;" >
+                  <span class="add-on"><i class="icon-search"></i></span>
+                  <input type="text" name="s" id="search1" placeholder=" 请输入电话号码..." value="" class="placeholder"style="width:80%;border-radius:15px;height:40px">
+                  <button type="submit" class="btn btn-primary" onclick="search()">
+                      <i class="glyphicon glyphicon-search">
+                      </i>
+                  </button>
+                  <button type="submit" class="btn btn-primary" onclick="Refresh()" style="background: 	#F0F8FF">
+                      <i class="glyphicon glyphicon-refresh" style="color:#6495ED">
+                      </i>
+                  </button>
+              </fieldset>
+              <div id="fade" class="black_overlay" >
+
+              </div>
+              <div id="MyDiv" class="white_content" >
+                  <div style="text-align: right; cursor: default; height: 40px;padding-top:10px">
+                      <span style="font-size: 25px; cursor: pointer" onclick="CloseDiv('MyDiv','fade')"><i class="glyphicon glyphicon-remove">
+                      </i>&nbsp;&nbsp;&nbsp;</span>
+                  </div>
+                  <dl class="dl-horizontal">
+                      <dt>
+                          <h4>姓名</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "p_name">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4>手机</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "p_phone">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4>姓别</h4>
+                      </dt>
+                      <dd>
+                          <h4  id = "p_sex">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4>年龄</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "p_age">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4>症状</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "p_info">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4>预测检查1</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "zsh_res">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4>检查1解释</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "zsh_reason">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4 >预测检查2</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "cx_res">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4 >检查2解释</h4>
+                      </dt>
+                      <dd>
+                          <h4 id = "cx_reason">
+
+                          </h4>
+                      </dd>
+                      <dt>
+                          <h4>医生处理意见</h4>
+                      </dt>
+                      <dd>
+                          <h4 id="d_process" >
+
+                          </h4>
+                      </dd>
+                  </dl>
+              </div>
+
+		</div>
+
+          <div class="col-md-2">
+          </div>
+
+
+        </div>
+      <div class="row">
+          <div class="col-md-12" style="height:100px">
+
+          </div>
+      </div>
+
+
+		<div id="footer" class="container">
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                <div class="navbar-inner navbar-content-center">
+                    <p class="text-muted credit" style="padding: 10px;background-color:#6FB7B7;text-align:center" >
+                        中国科学院计算技术研究所&nbsp;&nbsp;<img src="static/images/carch.png" style="height:30px;width:30px">计算机体系结构国家重点实验室&nbsp;孙毓忠.电话.13911103406
+                    </p>
+                </div>
+            </nav>
+        </div>
+</div>
+
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/scripts.js"></script>
+    <script type="text/javascript">
+	//弹出隐藏层
+	function ShowDiv(show_div,bg_div, datas){
+		document.getElementById(show_div).style.display='block';
+		document.getElementById(bg_div).style.display='block' ;
+		var bgdiv = document.getElementById(bg_div);
+		bgdiv.style.width = document.body.scrollWidth;
+		// bgdiv.style.height = $(document).height();
+		$("#"+bg_div).height($(document).height());
+        $("#p_name").html(datas["p_name"]);
+        $("#p_phone").html(datas["p_phone"]);
+        $("#p_sex").html(datas["p_sex"] == 0 ? "女" : "男");
+        $("#p_age").html(datas["p_age"]);
+        $("#p_info").html(datas["p_info"]);
+        $("#zsh_res").html(datas["zsh_res"]);
+        $("#zsh_reason").html(datas["zsh_reason"]);
+        $("#cx_res").html(datas["cx_res"]);
+        $("#cx_reason").html(datas["cx_reason"]);
+	}
+	//关闭弹出层
+	function CloseDiv(show_div,bg_div)
+	{
+		document.getElementById(show_div).style.display='none';
+		document.getElementById(bg_div).style.display='none';
+	}
+    </script>
+    <script>
+      function Refresh(){
+       self.location.reload("#search1");
+      }
+    </script>
+    <script>
+        function search() {
+            var p_phone = $("#search1").val();
+            var my_reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            var error = 0;
+            if(p_phone == "" || !my_reg.test(p_phone)) {
+                error = -1;
+                alert("请输入有效的11位手机号");
+            }
+            var url = "/patient_search";
+            if(error != -1) {
+                $.ajax({
+                    type : "post",
+                    async : false,
+                    url : url,
+                    data: {"p_phone": p_phone},
+                    dataType: "json",
+                    timeout : 1000,
+                    success : function(datas) {
+                        if(datas["status"] == -1) {
+                            alert("您所输入的手机号有误,请重新输入");
+                        } else {
+                            ShowDiv('MyDiv', 'fade', datas);
+                        }
+                    },
+                    error : function(res) {
+                    }
+                });
+            }
+        }
+    </script>
+  </body>
+</html>

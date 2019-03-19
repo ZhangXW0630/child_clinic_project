@@ -1,0 +1,46 @@
+@charset "UTF-8";
+.report_body table td div,.report_body table th div {
+	width: 100%;
+	border-right: 1px dashed #ccc;
+
+}
+
+.report_body .report_website table {
+	width: 100%
+}
+
+.report_body .report_all_title {
+	padding-top: 15px;
+	padding-bottom: 30px;
+
+	border-bottom: 1px dashed #ccc;
+	text-align: center;
+	font-size: 20px
+}
+
+.report_body .report_title {
+	padding-left: 8px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background-color: #eee
+}
+
+.report_baseInfo table tr:first-child td {
+	border-top: none
+}
+.report_mobile .report_holder table,.report_title table {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	border-top: 2px dashed #aaa
+}
+
+.report_change table {
+	margin-top: 15px;
+	margin-bottom: 15px
+}
+.report_key {
+	font-weight: 600
+}
+.report_key_mobile {
+	font-weight: 500
+}

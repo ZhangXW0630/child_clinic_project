@@ -189,34 +189,13 @@
             <div class="row">
                 <!-- /.col -->
                 <div class="col-md-12">
-                    <div class="box box-success" style="border-radius:8px">
+                        <div class="box box-success" style="border-radius:8px;border-color:#a5b37e;margin-bottom:10px">
+                                    <div class="box-header with-border" data-widget="collapse" style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">家长个人信息</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为婴儿喂养信息</small>
+                                    </div>
                         <div class="box-body">
-                            {% if source == "wx"  %}
-                            <div class="form-horizontal">
-                                <div class="form-group has-feedback">
-                                    <label for="b_patientSex" class="col-sm-2 control-label"  style="cursor: pointer" >性别</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_patientSex" readonly="readonly" placeholder="性别" >
-                                        <span class="fa fa-asterisk text-red form-control-feedback"></span>
-                                    </div>
-                                    <label for="b_patientAge" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">年龄</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_patientAge" readonly="readonly" placeholder="年龄" >
-                                        <span class="fa fa-asterisk text-red form-control-feedback"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group has-feedback">
-                                    <label for="b_chief_complaint" class="col-sm-2 control-label"  style="cursor: pointer" >主诉</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="b_chief_complaint" readonly="readonly" placeholder="主诉" >
-                                        <span class="help-block"style="color:#f39c12">点击"首诊病例建档"按钮后会有更详细的主诉输入</span>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            {% else %}
                             <div class="form-horizontal">
                                 <div class="form-group has-feedback">
                                     <label for="b_patientName" class="col-sm-2 control-label"  style="cursor: pointer" >询问日期</label>
@@ -344,13 +323,55 @@
                                     </div>
 
                                 </div>
-
                             </div>
-                            {% end %}
                         </div>
                         <!-- /.box-body -->
                     </div>
+                    <div class="box box-success" style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
+                                    <div class="box-header with-border" data-widget="collapse" style="border-radius:8px 8px 0 0;cursor: pointer">
+                                        <i class="fa fa-minus"></i>
+                                        <h3 class="box-title">诊断与治疗</h3>
+                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为医生诊断、治疗方案、系统预测等信息</small>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group has-success">
+                                            <label for="hz_dp" class="col-sm-2 control-label" style="cursor: pointer">系统预测</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" style="display:none" class="form-control" rows="3" id="hz_xy">你好</textarea>
+                                                <textarea type="text" class="form-control" rows="3" id="hz_dp" placeholder="系统预测结果" >你很好</textarea>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_ys" class="col-sm-2 control-label" style="cursor: pointer">医生诊断</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_ys" placeholder="医生诊断"></textarea>
+                                            </div>
+                                            <button class="btn btn-danger " onclick="doctor_diagnose()">点选</button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_zlfa" class="col-sm-2 control-label" style="cursor: pointer">治疗方案</label>
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control" rows="3" id="hz_zlfa" placeholder="治疗方案"></textarea>
+                                                <div class="col-sm-12" style="padding:0" id="btn_zlfa">
+                                                    <input type="text" id="" name="message" style="display:none" value="">
+                                                    <button type="button" class="btn bg-olive btn-flat" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px" onclick="">
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                            <button id="zl_total" style="display:none"></button>
+                                        </div>
+                                        <div class="form-group has-success">
+                                            <label for="hz_yw" class="col-sm-2 control-label" style="cursor: pointer">药物推荐</label>
+                                            <div class="col-sm-8">
+                                                <textarea type="text" class="form-control" rows="3" id="hz_yw" placeholder="药物推荐"></textarea>
+                                            </div>
+                                            <button id="yw_total" style="display:none"></button>
+                                        </div>
+                                    </div>
                     <!-- /. box -->
+                    </div>
                 </div>
             </div>
             <!-- /.row -->
@@ -557,137 +578,90 @@
         });
     }
 
-    function buildPatient() {
+function buildPatient() {
         var pName = $("#b_patientName").val();
-        var telephone = $("#b_telephone").val();
-        var ID_Card = $("#b_ID_Card").val();
-        var socialID = $("#b_socialID").val();
-        var pSex = $("#b_patientSex").val();
-        var pAge = $("#b_patientAge").val();
-        var p_cc = $("#b_chief_complaint").val();
+        var pSex = $("#b_sex").val();
+        var pYear= $("#b_year").val();
+        var pMonth = $("#b_month").val();
+        var pDay = $("#b_day").val();
+        var pFname = $("#b_fathername").val();
+        var pFage = $("#b_fatherAge").val();
+        var pFworkplace=$("#b_fworkplace").val();
+        var pFjob=$("#b_fatherjob").val();
+        var pMname = $("#b_mothername").val();
+        var pMage = $("#b_motherAge").val();
+        var pMworkplace=$("#b_mworkplace").val();
+        var pMjob=$("#b_motherjob").val();
+        var phealthstatus=$("#b_healthstatus").val();
+        var ptakemedicine=$("#b_takemedicine").val();
+        var pmedicinename=$("#b_medicinename").val();
+        var ptai=$("#b_tai").val();
+        var pchan=$("#b_chan").val();
+        var pspecial=$("#b_special").val();
+        var pyunzhou=$("#b_yunzhou").val();
+        var pcsstatus=$("#b_csstatus").val();
+        var pirritability=$("#b_irritability").val();
+        var pweight=$("#b_weight").val();
+        var pheight=$("#b_height").val();
+        var paddress=$("#b_address").val();
+        var ppostcode=$("#b_postcode").val();
+        var pphone=$("#b_phone").val();
+        var psource=$("#b_source").val();
+        var plivingstatus=$('input:radio[name="livingstatus"]:checked').val();
+        var ptemp=$("#b_temp").val();
+        $("#b_patientName").attr("readonly","readonly")
+        $('#b_sex').attr("readonly","readonly")
+        $('#b_year').attr("readonly","readonly")
+        $('#b_month').attr("readonly","readonly")
+        $('#b_day').attr("readonly","readonly")
+        $('#b_fathername').attr("readonly","readonly")
+        ad={}
+        ad['uid']="{{ current.get('uid') }}"
+        ad['name']=pName
+        ad['sex']=pSex
+        ad['year']=pYear
+        ad['month']=pMonth
+        ad['day']=pDay
+        ad['fathername']=pFname
+        ad['fatherage']=pFage
+        ad['fatherunit']=pFworkplace
+        ad['fatherwork']=pFjob
+        ad['mothername']=pMname
+        ad['motherage']=pMage
+        ad['motherunit']=pMworkplace
+        ad['motherwork']=pMjob
+        ad['motherhealth']=phealthstatus
+        ad['contraceptivesituation']=ptakemedicine
+        ad['contraceptivename']=pmedicinename
+        ad['tai']=ptai
+        ad['chan']=pchan
+        ad['special']=pspecial
+        ad['yunzhou']=pyunzhou
+        ad['intrapartumsituation']=pcsstatus
+        ad['drugallergy']=pirritability
+        ad['birthweight']=pweight
+        ad['birthheight']=pheight
+        ad['address']=paddress
+        ad['zipcode']=ppostcode
+        ad['contactnumber']=pphone
+        ad['visitorigin']=psource
+        ad['livingstatus']=plivingstatus
+        ad['temp']=ptemp
+        ad['belong']="1"
+        $.ajax({
+            type: "post",
+            async: true,
+            url: "/storehealthrecord",
+            data: ad,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
 
-        var case_info = {};
-        case_info["name"] = $("#b_patientName").val();
-        case_info["telephone"] = $("#b_telephone").val();
-        case_info["identityCardNum"] = $("#b_ID_Card").val();
-        case_info["socialSecurityNum"] = $("#b_socialID").val();
-        case_info["sex"] = $("#b_patientSex").val();
-        case_info["age"] = $("#b_patientAge").val();
-        case_info["caseDate"] = "";
-        case_info["patientID"] = "";
-        case_info["chiefComplaint"] = $("#b_chief_complaint").val();
-        case_info["HPI"] = "";
-        case_info["physicalExamination"] = "";
-        case_info["chemicalExamination"] = "";
-        case_info["predictionResults"] = "";
-        case_info["differentialDiagnosis"] = "";
-        case_info["treatment"] = "";
-        case_info["auxInfo"] = "";
-        case_info["doctorComment"] = "";
-        case_info["isFinish"] = 0;
-        case_info["doctorRole"] = "";
-        case_info["category"] = category;
+            },
+            error: function (datas) {
+            }
+        });
 
-        var fail = 0;
-        if (case_info["name"] == "" || case_info["telephone"] == "" || case_info["identityCardNum"] == ""
-            || case_info["sex"] == "" || case_info["age"] == "") {
-            fail = -1;
-            alert("带红色星号的不能为空!");
-        }
-        var html = '';
-        html += '<div class="col-md-12">' +
-
-            '<div class="form-horizontal">' +
-            '<div class="form-group has-feedback">' +
-            '<label for="b_patientName" class="col-sm-4 control-label"  style="cursor: pointer" >姓名</label>' +
-            '<div class="col-sm-8">' +
-            '<input type="text"  style="padding-right:5px;"class="form-control" id="b_patientName" value=' + pName + '>' +
-            '</div>' +
-            '<label for="b_telephone" class="col-sm-4 control-label"  style="cursor: pointer" onclick="">手机号</label>' +
-            '<div class="col-sm-8">' +
-            '<input type="text"  style="padding-right:5px;"class="form-control" id="b_telephone" value=' + telephone + ' >' +
-            '</div>' +
-            '<label for="b_ID_Card" class="col-sm-4 control-label"  style="cursor: pointer" >身份证号</label>' +
-            '<div class="col-sm-8">' +
-            '<input type="text"  style="padding-right:5px;"class="form-control" id="b_ID_Card" value=' + ID_Card + ' >' +
-            '</div>' +
-            '<label for="b_socialID" class="col-sm-4 control-label"  style="cursor: pointer" onclick="">社保号</label>' +
-            '<div class="col-sm-8">' +
-            '<input type="text"  style="padding-right:5px;"class="form-control" id="b_socialID" value=' + socialID + ' >' +
-            '</div>' +
-            '<label for="b_patientSex" class="col-sm-4 control-label"  style="cursor: pointer" >性别</label>' +
-            '<div class="col-sm-8">' +
-            '<input type="text"  style="padding-right:5px;"class="form-control" id="b_patientSex" value=' + pSex + ' >' +
-            '</div>' +
-            '<label for="b_patientAge" class="col-sm-4 control-label"  style="cursor: pointer" onclick="">年龄</label>' +
-            '<div class="col-sm-8">' +
-            '<input type="text"  style="padding-right:5px;"class="form-control" id="b_patientAge" value=' + pAge + ' >' +
-            '</div>' +
-            '<label for="b_chief_complaint" class="col-sm-4 control-label"  style="cursor: pointer" >主诉</label>' +
-            '<div class="col-sm-8">' +
-            '<input type="text"  style="padding-right:5px;"class="form-control" id="b_chief_complaint" value=' + p_cc + ' >' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-
-        if (fail != -1) {
-            layui.use('layer', function () {
-                layer.confirm('请您确定以下信息，若正确，点击 <span style="color:#ff1936">"确定"</span> 按钮，若还需修改，点击 <span style="color:#ff1936">"取消"</span> 按钮' + html, {
-                    btn: ['确定', '取消'] //按钮
-                }, function () {
-                    layer.msg('已创建，请前往病例详情界面', {icon: 1});
-                    var url = "/build_patient";
-                    $.ajax({
-                        type: "post",
-                        async: true,
-                        url: url,
-                        data: case_info,
-                        dataType: "json",
-                        timeout: 1000,
-                        success: function (datas) {
-                            location.href = "/child/doctor_case/" + datas["patientID"] + '?category='+category+'&caseFirstID=' + datas["caseFirstID"] + '&caseSecondID=' + datas["caseSecondID"];
-                        },
-                        error: function (datas) {
-                        }
-                    });
-                }, function () {
-                    layer.msg('已取消', {
-                        time: 5000,
-                        btn: ['知道了']
-                    });
-                });
-            });
-        }
-        //
-//        if (fail != -1) {
-//            layui.use('layer', function () {
-//                layer.confirm('您确定要为:姓名为' + pName + ',手机号为' + telephone + ',身份证号为' + ID_Card + ',性别为' + pSex + ',年龄为' + pAge + '岁' + '的患者创建一份全新的首诊病例么？', {
-//                    btn: ['确定', '取消'] //按钮
-//                }, function () {
-//                    layer.msg('已创建，请前往病例详情界面', {icon: 1});
-//                    var url = "/build_patient";
-//                    $.ajax({
-//                        type: "post",
-//                        async: true,
-//                        url: url,
-//                        data: case_info,
-//                        dataType: "json",
-//                        timeout: 1000,
-//                        success: function (datas) {
-//                            location.href = "/child/doctor_case/" + datas["patientID"] + '?caseFirstID=' + datas["caseFirstID"] + '&caseSecondID=' + datas["caseSecondID"];
-//                        },
-//                        error: function (datas) {
-//                        }
-//                    });
-//                }, function () {
-//                    layer.msg('已取消', {
-//                        time: 5000,
-//                        btn: ['知道了']
-//                    });
-//                });
-//            });
-//        }
     }
     function newPatientCase(patient_id) {
         var url = "/new_patient_case";

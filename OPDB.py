@@ -54,7 +54,7 @@ def query_isexist(uid):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
     cursor.execute(
-        "SELECT * FROM 健康检查表  where id='%s'" % (uid)
+        "SELECT * FROM 健康检查表  where uid='%s'" % (uid)
         )
     results = cursor.fetchall()
     db.close()
@@ -104,7 +104,7 @@ def query_isexist(uid):
 def insert_patient_healthstatus_table(ad):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
-    cursor.execute("INSERT INTO 健康检查表 (id,`name`, sex,birth,"
+    cursor.execute("INSERT INTO 健康检查表 (uid,`name`, sex,birth,"
                    "fathername,fatherage,fatherunit,fatherwork,mothername,"
                    "motherage,motherunit,motherwork,motherhealth,contraceptivesituation,contraceptivename,tai,chan,special,yunzhou,intrapartumsituation,drugallergy,birthweight,birthheight,address,zipcode,contactnumber,visitorigin,livingstatus,temp,belong)" 
                    "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
@@ -118,3 +118,20 @@ def insert_patient_inquirystatus_table(ad):
 
     db.commit()
     db.close()
+
+def query_patientsinquiry_table(times,uid):
+    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    cursor = db.cursor()
+    cursor.execute(
+        "SELECT * FROM 健康检查表  where uid='%s' and times='%s'" % (uid,times)
+    )
+    results = cursor.fetchall()
+    db.close()
+    if len(results) == 1:
+        for res in results:
+            pass
+
+#获取标准数据
+
+def get_standard_date():
+    pass

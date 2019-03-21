@@ -180,6 +180,9 @@
                     <select id="times">
                         <option>1</option>
                         <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
                     </select>
                 </small>
             </h1>
@@ -198,23 +201,23 @@
                         <div class="box-body">
                             <div class="form-horizontal">
                                 <div class="form-group has-feedback">
-                                    <label for="b_patientName" class="col-sm-2 control-label"  style="cursor: pointer" >询问日期</label>
+                                    <label for="b_date" class="col-sm-2 control-label"  style="cursor: pointer" >询问日期</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_patientName" placeholder="询问日期" >
+                                        <input type="text" class="form-control" id="b_date" placeholder="询问日期" >
                                     </div>
-                                    <label for="b_sex" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">实足年龄</label>
+                                    <label for="b_age" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">实足年龄</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_telephone" placeholder="实足年龄" >
+                                        <input type="text" class="form-control" id="b_age" placeholder="实足年龄" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label for="b_fathername" class="col-sm-2 control-label"  style="cursor: pointer" >体重</label>
+                                    <label for="b_weight" class="col-sm-2 control-label"  style="cursor: pointer" >体重</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_patientSex" placeholder="体重" >
+                                        <input type="text" class="form-control" id="b_weight" placeholder="体重" >
                                     </div>
-                                    <label for="b_fatherAge" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">身长</label>
+                                    <label for="b_height" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">身长</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_patientAge" placeholder="身长" >
+                                        <input type="text" class="form-control" id="b_height" placeholder="身长" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
@@ -223,92 +226,98 @@
                                 <div class="form-group has-feedback">
                                     <label  class="col-sm-2 control-label"  style="cursor: pointer" >母乳</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="b_fatherplace" placeholder="多、中、少" >
+                                        <input type="text" class="form-control" id="b_howmany" placeholder="多、中、少" >
                                     </div>
                                     <div class="col-sm-2 ">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="次数/日" >
+                                        <input type="text" class="form-control" id="b_howtimes" placeholder="次数/日" >
                                     </div>
                                     <div class="col-sm-3 col-sm-offset-1">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="断母乳（是\否）" >
+                                        <input type="text" class="form-control" id="b_duanmuru" placeholder="断母乳（是\否）" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label for="b_mothername" class="col-sm-2 control-label"  style="cursor: pointer" >牛奶</label>
+                                    <label for="b_milk" class="col-sm-2 control-label"  style="cursor: pointer" >牛奶</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_patientSex" placeholder="毫升/日" >
+                                        <input type="text" class="form-control" id="b_milk" placeholder="毫升/日" >
                                     </div>
-                                    <label for="b_motherAge" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">奶粉</label>
+                                    <label for="b_milkpowed" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">奶粉</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_patientAge" placeholder="毫升/日" >
-                                    </div>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label for="b_motherplace" class="col-sm-2 control-label"  style="cursor: pointer" >米粉</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_motherplace" placeholder="克/日" >
-                                    </div>
-                                     <label for="b_fatherjob" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">面食</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="克/日" >
+                                        <input type="text" class="form-control" id="b_milkpowed" placeholder="毫升/日" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label for="b_motherplace" class="col-sm-2 control-label"  style="cursor: pointer" >粥</label>
+                                    <label for="b_riceflour" class="col-sm-2 control-label"  style="cursor: pointer" >米粉</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_motherplace" placeholder="克/日" >
+                                        <input type="text" class="form-control" id="b_riceflour" placeholder="克/日" >
                                     </div>
-                                     <label for="b_fatherjob" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">饭</label>
+                                     <label for="b_food" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">面食</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="克/日" >
-                                    </div>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label for="b_motherplace" class="col-sm-2 control-label"  style="cursor: pointer" >荤菜（鱼肉肝）</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_motherplace" placeholder="克/日" >
-                                    </div>
-                                     <label for="b_fatherjob" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">全蛋或蛋黄</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="克/日" >
+                                        <input type="text" class="form-control" id="b_food" placeholder="克/日" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label for="b_motherplace" class="col-sm-2 control-label"  style="cursor: pointer" >豆制品</label>
+                                    <label for="b_congee" class="col-sm-2 control-label"  style="cursor: pointer" >粥</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_motherplace" placeholder="克/日" >
+                                        <input type="text" class="form-control" id="b_congee" placeholder="克/日" >
                                     </div>
-                                     <label for="b_fatherjob" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">蔬菜</label>
+                                     <label for="b_rice" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">饭</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="克/日" >
-                                    </div>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label for="b_motherplace" class="col-sm-2 control-label"  style="cursor: pointer" >水果</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_motherplace" placeholder="克/日" >
-                                    </div>
-                                     <label for="b_fatherjob" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">维生素AD</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="粒(滴)/日" >
+                                        <input type="text" class="form-control" id="b_rice" placeholder="克/日" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label for="b_fathername" class="col-sm-2 control-label"  style="cursor: pointer" >钙</label>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label for="b_motherplace" class="col-sm-2 control-label"  style="cursor: pointer" >粉</label>
+                                    <label for="b_meat" class="col-sm-2 control-label"  style="cursor: pointer" >荤菜（鱼肉肝）</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_motherplace" placeholder="包/日" >
+                                        <input type="text" class="form-control" id="b_meat" placeholder="克/日" >
                                     </div>
-                                     <label for="b_fatherjob" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">片</label>
+                                     <label for="b_yolk" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">全蛋或蛋黄</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="粒/日" >
+                                        <input type="text" class="form-control" id="b_yolk" placeholder="只/日" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label for="b_fatherjob" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">备注</label>
+                                    <label for="b_bean" class="col-sm-2 control-label"  style="cursor: pointer" >豆制品</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="b_fatherjob" placeholder="备注" >
+                                        <input type="text" class="form-control" id="b_bean" placeholder="克/日" >
+                                    </div>
+                                     <label for="b_vegetables" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">蔬菜</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="b_vegetables" placeholder="克/日" >
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label for="b_fruits" class="col-sm-2 control-label"  style="cursor: pointer" >水果</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="b_fruits" placeholder="克/日" >
+                                    </div>
+                                     <label  class="col-sm-2 control-label"  style="cursor: pointer" onclick="">维生素AD</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="b_ADname" placeholder="品名" >
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="b_ADhowmany" placeholder="粒(滴)/日" >
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label  class="col-sm-2 control-label"  style="cursor: pointer" >钙</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="b_GAname" placeholder="品名" >
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label for="b_GAbao" class="col-sm-2 control-label"  style="cursor: pointer" >粉</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="b_GAbao" placeholder="包/日" >
+                                    </div>
+                                     <label for="b_GApian" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">片</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="b_GApian" placeholder="粒/日" >
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label for="b_other" class="col-sm-2 control-label"  style="cursor: pointer" onclick="">备注</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="b_other" placeholder="备注" >
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
@@ -328,107 +337,45 @@
                         <!-- /.box-body -->
                     </div>
                     <div class="box box-success" style="border-radius:8px;border-color:#A5B37E;margin-bottom:10px;">
-                                    <div class="box-header with-border" data-widget="collapse" style="border-radius:8px 8px 0 0;cursor: pointer">
-                                        <i class="fa fa-minus"></i>
-                                        <h3 class="box-title">诊断与治疗</h3>
-                                        <small style="margin-left:10px">点击标题部分可收缩，该部分为医生诊断、治疗方案、系统预测等信息</small>
+                        <div class="box-header with-border" data-widget="collapse" style="border-radius:8px 8px 0 0;cursor: pointer">
+                            <i class="fa fa-minus"></i>
+                            <h3 class="box-title">诊断与治疗</h3>
+                            <small style="margin-left:10px">点击标题部分可收缩，该部分为医生诊断、治疗方案、系统预测等信息</small>
+                        </div>
+                        <div class="box-body">
+                            <div class="form-group has-success">
+                                <label for="hz_dp" class="col-sm-2 control-label" style="cursor: pointer">系统预测</label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" rows="3" id="hz_dp" placeholder="系统预测结果" >系统预测结果</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label for="hz_ys" class="col-sm-2 control-label" style="cursor: pointer">医生诊断</label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" rows="3" id="hz_ys" placeholder="医生诊断"></textarea>
+                                </div>
+                                <button class="btn btn-danger " onclick="doctor_diagnose()">点选</button>
+                            </div>
+                            <div class="form-group has-success">
+                                <label for="hz_zlfa" class="col-sm-2 control-label" style="cursor: pointer">治疗方案</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="3" id="hz_zlfa" placeholder="治疗方案"></textarea>
+                                    <div class="col-sm-12" style="padding:0" id="btn_zlfa">
+                                        <input type="text" id="" name="message" style="display:none" value="">
+                                        <button type="button" class="btn bg-olive btn-flat" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px" onclick="">
+                                        </button>
                                     </div>
-                                    <div class="box-body">
-                                        <div>
-
-                                          <!-- Nav tabs -->
-                                            <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                                                  <li role="presentation" class=""><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="false">当前月龄喂养情况评价</a></li>
-                                                  <li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">下一月龄喂养要点提示</a></li>
-                                                    <li role="presentation" class="dropdown active">
-                                                    <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">喂养建议 <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-                                                      <li class="active"><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1" aria-expanded="true">母乳喂养</a></li>
-                                                      <li class=""><a href="#dropdown2" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2" aria-expanded="false">配方奶喂养</a></li>
-                                                    </ul>
-                                                  </li>
-                                                <li role="presentation" class="dropdown active">
-                                                    <a href="#" id="myTabDrop2" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">进食行为建议 <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu" aria-labelledby="myTabDrop2" id="myTabDrop2-contents">
-                                                      <li class="active"><a href="#dropdown3" role="tab" id="dropdown3-tab" data-toggle="tab" aria-controls="dropdown3" aria-expanded="true">哺乳次数</a></li>
-                                                      <li class=""><a href="#dropdown4" role="tab" id="dropdown4-tab" data-toggle="tab" aria-controls="dropdown4" aria-expanded="false">饱腹信号</a></li>
-                                                    </ul>
-                                                  </li>
-                                                  <li role="presentation" class="dropdown active">
-                                                    <a href="#" id="myTabDrop3" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop3-contents" aria-expanded="false">常见问题处理 <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu" aria-labelledby="myTabDrop3" id="myTabDrop3-contents">
-                                                      <li class="active"><a href="#dropdown5" role="tab" id="dropdown5-tab" data-toggle="tab" aria-controls="dropdown5" aria-expanded="true">边吃边睡</a></li>
-                                                      <li class=""><a href="#dropdown6" role="tab" id="dropdown6-tab" data-toggle="tab" aria-controls="dropdown6" aria-expanded="false">安抚奶嘴</a></li>
-                                                    </ul>
-                                                  </li>
-                                                </ul>
-
-                                          <!-- Tab panes -->
-                                            <div id="myTabContent" class="tab-content">
-      <div role="tabpanel" class="tab-pane fade" id="home" aria-labelledby="home-tab">
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="dropdown1" aria-labelledby="dropdown1-tab">
-        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="dropdown2" aria-labelledby="dropdown2-tab">
-        <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="dropdown3" aria-labelledby="dropdown3-tab">
-        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="dropdown4" aria-labelledby="dropdown4-tab">
-        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="dropdown5" aria-labelledby="dropdown5-tab">
-        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-      </div>
-      <div role="tabpanel" class="tab-pane fade active in" id="dropdown6" aria-labelledby="dropdown6-tab">
-        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-      </div>
-    </div>
-
-                                        </div>
-                                        <div class="form-group has-success">
-                                            <label for="hz_dp" class="col-sm-2 control-label" style="cursor: pointer">系统预测</label>
-                                            <div class="col-sm-8">
-                                                <textarea type="text" style="display:none" class="form-control" rows="3" id="hz_xy">你好</textarea>
-                                                <textarea type="text" class="form-control" rows="3" id="hz_dp" placeholder="系统预测结果" >你很好</textarea>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group has-success">
-                                            <label for="hz_ys" class="col-sm-2 control-label" style="cursor: pointer">医生诊断</label>
-                                            <div class="col-sm-8">
-                                                <textarea type="text" class="form-control" rows="3" id="hz_ys" placeholder="医生诊断"></textarea>
-                                            </div>
-                                            <button class="btn btn-danger " onclick="doctor_diagnose()">点选</button>
-                                        </div>
-                                        <div class="form-group has-success">
-                                            <label for="hz_zlfa" class="col-sm-2 control-label" style="cursor: pointer">治疗方案</label>
-                                            <div class="col-sm-8">
-                                                <textarea class="form-control" rows="3" id="hz_zlfa" placeholder="治疗方案"></textarea>
-                                                <div class="col-sm-12" style="padding:0" id="btn_zlfa">
-                                                    <input type="text" id="" name="message" style="display:none" value="">
-                                                    <button type="button" class="btn bg-olive btn-flat" style="margin:5px 5px 5px 0px;border-radius:5px;padding:3px 6px" onclick="">
-                                                    </button>
-
-                                                </div>
-                                            </div>
-                                            <button id="zl_total" style="display:none"></button>
-                                        </div>
-                                        <div class="form-group has-success">
-                                            <label for="hz_yw" class="col-sm-2 control-label" style="cursor: pointer">药物推荐</label>
-                                            <div class="col-sm-8">
-                                                <textarea type="text" class="form-control" rows="3" id="hz_yw" placeholder="药物推荐"></textarea>
-                                            </div>
-                                            <button id="yw_total" style="display:none"></button>
-                                        </div>
-
-                                    </div>
+                                </div>
+                                <button id="zl_total" style="display:none"></button>
+                            </div>
+                            <div class="form-group has-success">
+                                <label for="hz_yw" class="col-sm-2 control-label" style="cursor: pointer">药物推荐</label>
+                                <div class="col-sm-8">
+                                    <textarea type="text" class="form-control" rows="3" id="hz_yw" placeholder="药物推荐"></textarea>
+                                </div>
+                                <button id="yw_total" style="display:none"></button>
+                            </div>
+                        </div>
                     <!-- /. box -->
                     </div>
                 </div>
@@ -638,79 +585,63 @@
     }
 
 function buildPatient() {
-        var pName = $("#b_patientName").val();
-        var pSex = $("#b_sex").val();
-        var pYear= $("#b_year").val();
-        var pMonth = $("#b_month").val();
-        var pDay = $("#b_day").val();
-        var pFname = $("#b_fathername").val();
-        var pFage = $("#b_fatherAge").val();
-        var pFworkplace=$("#b_fworkplace").val();
-        var pFjob=$("#b_fatherjob").val();
-        var pMname = $("#b_mothername").val();
-        var pMage = $("#b_motherAge").val();
-        var pMworkplace=$("#b_mworkplace").val();
-        var pMjob=$("#b_motherjob").val();
-        var phealthstatus=$("#b_healthstatus").val();
-        var ptakemedicine=$("#b_takemedicine").val();
-        var pmedicinename=$("#b_medicinename").val();
-        var ptai=$("#b_tai").val();
-        var pchan=$("#b_chan").val();
-        var pspecial=$("#b_special").val();
-        var pyunzhou=$("#b_yunzhou").val();
-        var pcsstatus=$("#b_csstatus").val();
-        var pirritability=$("#b_irritability").val();
-        var pweight=$("#b_weight").val();
-        var pheight=$("#b_height").val();
-        var paddress=$("#b_address").val();
-        var ppostcode=$("#b_postcode").val();
-        var pphone=$("#b_phone").val();
-        var psource=$("#b_source").val();
-        var plivingstatus=$('input:radio[name="livingstatus"]:checked').val();
-        var ptemp=$("#b_temp").val();
-        $("#b_patientName").attr("readonly","readonly")
-        $('#b_sex').attr("readonly","readonly")
-        $('#b_year').attr("readonly","readonly")
-        $('#b_month').attr("readonly","readonly")
-        $('#b_day').attr("readonly","readonly")
-        $('#b_fathername').attr("readonly","readonly")
+        var times=$("#times").val();
+        var pdate = $("#b_date").val();
+        var page = $("#b_age").val();
+        var pweight= $("#b_weight").val();
+        var pheight = $("#b_height").val();
+        var phowmany = $("#b_howmany").val();
+        var phowtimes = $("#b_howtimes").val();
+        var pdanmuru = $("#b_duanmuru").val();
+        var pmilk=$("#b_milk").val();
+        var pmilkpowed=$("#b_milkpowed").val();
+        var priceflour = $("#b_riceflour").val();
+        var pfood = $("#b_food").val();
+        var pcongee=$("#b_congee").val();
+        var price=$("#b_rice").val();
+        var pmeat=$("#b_meat").val();
+        var pyolk=$("#b_yolk").val();
+        var pbean=$("#b_bean").val();
+        var pvegetables=$("#b_vegetables").val();
+        var pfruits=$("#b_fruits").val();
+        var pADname=$("#b_ADname").val();
+        var pADhowmany=$("#b_ADhowmany").val();
+        var pGAname=$("#b_GAname").val();
+        var pGAbao=$("#b_GAbao").val();
+        var pGApian=$("#b_GApian").val();
+        var pother=$("#b_other").val();
         ad={}
         ad['uid']="{{ current.get('uid') }}"
-        ad['name']=pName
-        ad['sex']=pSex
-        ad['year']=pYear
-        ad['month']=pMonth
-        ad['day']=pDay
-        ad['fathername']=pFname
-        ad['fatherage']=pFage
-        ad['fatherunit']=pFworkplace
-        ad['fatherwork']=pFjob
-        ad['mothername']=pMname
-        ad['motherage']=pMage
-        ad['motherunit']=pMworkplace
-        ad['motherwork']=pMjob
-        ad['motherhealth']=phealthstatus
-        ad['contraceptivesituation']=ptakemedicine
-        ad['contraceptivename']=pmedicinename
-        ad['tai']=ptai
-        ad['chan']=pchan
-        ad['special']=pspecial
-        ad['yunzhou']=pyunzhou
-        ad['intrapartumsituation']=pcsstatus
-        ad['drugallergy']=pirritability
-        ad['birthweight']=pweight
-        ad['birthheight']=pheight
-        ad['address']=paddress
-        ad['zipcode']=ppostcode
-        ad['contactnumber']=pphone
-        ad['visitorigin']=psource
-        ad['livingstatus']=plivingstatus
-        ad['temp']=ptemp
+        ad['times']=times
+        ad['date']=pdate
+        ad['age']=page
+        ad['weight']=pweight
+        ad['height']=pheight
+        ad['howmany']=phowmany
+        ad['howtimes']=phowtimes
+        ad['duanmuru']=pduanmuru
+        ad['milk']=pmilk
+        ad['milkpowed']=pmilkpowed
+        ad['riceflour']=priceflour
+        ad['foor']=pfood
+        ad['congee']=pcongee
+        ad['rice']=price
+        ad['meat']=pmeat
+        ad['yolk']=pyolk
+        ad['bean']=pbean
+        ad['vegetables']=pvegetables
+        ad['fruits']=pfruits
+        ad['ADname']=pADname
+        ad['ADhowmany']=pADhowmany
+        ad['GAname']=pGAname
+        ad['GAbao']=pGAbao
+        ad['GApian']=pGApian
+        ad['other']=pother
         ad['belong']="1"
         $.ajax({
             type: "post",
             async: true,
-            url: "/storehealthrecord",
+            url: "/child/storeinquiryrecord",
             data: ad,
             dataType: "json",
             timeout: 1000,

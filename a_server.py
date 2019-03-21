@@ -32,6 +32,7 @@ class MakeApp(tornado.web.Application):
             (r"/child/reloadimg", ReloadImgHandler),
             (r"/child/judgeisexist", JudgeIsExistHandler),
             (r"/child/storehealthrecord", StoreHealthRecordHandler),
+            (r"/child/storeinquiryrecord", StoreInquiryRecordHandler),
             (r"/child/doctor_case", DoctorCaseHandler)
 
             # (r"/child/login", LoginHandler),

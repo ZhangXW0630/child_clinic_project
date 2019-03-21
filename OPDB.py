@@ -111,3 +111,10 @@ def insert_patient_healthstatus_table(ad):
                    %(int(ad['uid'][0]),ad['name'][0], ad['sex'][0],ad['birth'],ad['fathername'][0],ad['fatherage'][0],ad['fatherunit'][0],ad['fatherwork'][0],ad['mothername'][0],ad['motherage'][0],ad['motherunit'][0],ad['motherwork'][0],ad['motherhealth'][0],ad['contraceptivesituation'][0],ad['contraceptivename'][0],ad['tai'][0],ad['chan'][0],ad['special'][0],ad['yunzhou'][0],ad['intrapartumsituation'][0],ad['drugallergy'][0],ad['birthweight'][0],ad['birthheight'][0],ad['address'][0],ad['zipcode'][0],ad['contactnumber'][0],ad['visitorigin'][0],ad['livingstatus'][0],ad['temp'][0],ad['belong'][0]))
     db.commit()
     db.close()
+
+def insert_patient_inquirystatus_table(ad):
+    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    cursor = db.cursor()
+
+    db.commit()
+    db.close()

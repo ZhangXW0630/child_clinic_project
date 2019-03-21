@@ -14,6 +14,13 @@ import os
 import lph_db_ado as myDb
 import cx_sql_db as cxDB
 from data import analysis_yiyi as huayan_canshu_shuoming
+class StoreInquiryRecordHandler(tornado.web.RequestHandler):
+    def get(self):
+        pass
+    def post(self):
+        pass
+        ad=self.request.arguments
+        OPDB.insert_patient_inquirystatus_table(ad)
 class StoreHealthRecordHandler(tornado.web.RequestHandler):
     def get(self):
         pass
@@ -22,7 +29,8 @@ class StoreHealthRecordHandler(tornado.web.RequestHandler):
         y=ad['year'][0]
         m=ad['month'][0]
         d=ad['day'][0]
-        birth = y+"-"+m+"-"+d
+        if(len(y)>0 and len(m)>0 and len(d)>0):
+            birth = y+"-"+m+"-"+d
         ad['birth'] =birth
         OPDB.insert_patient_healthstatus_table(ad)
 

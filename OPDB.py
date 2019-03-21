@@ -65,7 +65,7 @@ def query_isexist(uid):
             temp_dict['name'] = res[2]
             temp_dict['sex'] = res[3]
             temp_dict['birth'] = res[4].strftime("%Y-%m-%d")
-            b=res[3].strftime("%Y-%m-%d").split('-')
+            b=res[4].strftime("%Y-%m-%d").split('-')
             temp_dict['year'] = b[0]
             temp_dict['month'] = b[1]
             temp_dict['day'] = b[2]
@@ -115,17 +115,17 @@ def insert_patient_healthstatus_table(ad):
 def insert_patient_inquirystatus_table(ad):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
-    cursor.execute("INSERT INTO 询问记录表 (uid, 'time',age,"
+    cursor.execute("INSERT INTO 询问记录表 (uid, times,,data,age,"
                    "weight,height,breastmilksituation,breastmilkfrequency,alwaysbreastmilk,"
-                   "milk,milkpowder,riceflour,noodle,congee,rice,meatorfish,egg,beanproducts,vegetables,fruit,VAD,capowder,caslice,remark)"
-                   "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
+                   "milk,milkpowder,riceflour,noodle,congee,rice,meatorfish,egg,beanproducts,vegetables,fruit,VADname,VADfrequence,caname,capowder,caslice,remark)"
+                   "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
                    % (
-                   int(ad['uid'][0]), ad['time'][0], ad['age'], ad['weight'][0], ad['height'][0],
-                   ad['breastmilksituation'][0], ad['breastmilkfrequency'][0], ad['alwaysbreastmilk'][0], ad['milk'][0],
-                   ad['milkpowder'][0], ad['riceflour'][0], ad['noodle'][0], ad['congee'][0],
-                   ad['rice'][0], ad['meatorfish'][0], ad['egg'][0], ad['beanproducts'][0], ad['vegetables'][0],
-                   ad['fruit'][0], ad['VAD'][0], ad['capowder'][0], ad['caslice'][0],
-                   ad['remark'][0]))
+                   int(ad['uid'][0]), ad['times'][0],ad['data'][0], ad['age'][0], ad['weight'][0], ad['height'][0],
+                   ad['howmany'][0], ad['howtimes'][0], ad['duanmuru'][0], ad['milk'][0],
+                   ad['milkpowed'][0], ad['riceflour'][0], ad['foor'][0], ad['congee'][0],
+                   ad['rice'][0], ad['meat'][0], ad['yolk'][0], ad['bean'][0], ad['vegetables'][0],
+                   ad['fruits'][0], ad['ADname'][0], ad['ADhowmany'][0], ad['GAname'][0],ad['GAbao'][0],ad['GApian'][0],
+                   ad['other'][0]))
     db.commit()
     db.close()
 

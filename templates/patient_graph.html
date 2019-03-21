@@ -191,6 +191,10 @@
                     <div class="box box-success" style="border-radius:8px">
                         <div class="box-body">
                             此处放生长曲线
+                            <div id="panel" style="margin:50px">
+                                <!--<canvas id="bit" height="250" width="600"></canvas>-->
+                                <!--为防止浏览器报错，id不要用canvas等-->
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -236,7 +240,46 @@
 <script src="{{static_url('layer/layui.js')}}"></script>
 <script src="{{static_url('layer/layer.js')}}"></script>
 <!-- Page specific script -->
-
+<script src="{{static_url('js/Chart.min.js')}}"></script>
+<script>
+    var myLine="";
+    var maxLength=30;
+    var index_bit = new Array(30);
+    var data = [0];
+    for (var i = 0; i < 30; i++) {
+        index_bit[i] = i
+    }
+    var time="";
+    function paintLineChart(){
+        var currentData=Math.random()*100+1;
+        if(data.length>=30){
+            myLine.removeData();
+            myLine.addData([currentData],maxLength++)
+        }else{
+            data.push(currentData);
+            var lineChartData = {
+//                           横坐标
+                labels :index_bit,
+                datasets : [
+                    {
+                        fillColor : "rgba(220,220,220,0.5)",
+                        strokeColor : "palevioletred",
+                        pointColor : "palevioletred",
+                        pointStrokeColor : "fff",
+                        data :data
+                    }
+                ]
+            };
+            var defaults={
+                animation : false
+            };
+            myLine = new Chart(document.getElementById("bit").getContext("2d")).Line(lineChartData,defaults);
+        }
+        time=setTimeout(function () {
+            paintLineChart()
+        },1000);
+    }
+</script>
 
 {#<script>#}
 {#layui.use('laydate', function(){#}

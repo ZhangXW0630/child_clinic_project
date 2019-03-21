@@ -25,6 +25,7 @@ class StoreInquiryRecordHandler(tornado.web.RequestHandler):
         pass
     def post(self):
         ad=self.request.arguments
+        print(ad)
         OPDB.insert_patient_inquirystatus_table(ad)
 class StoreHealthRecordHandler(tornado.web.RequestHandler):
     def get(self):

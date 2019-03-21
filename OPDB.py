@@ -115,12 +115,12 @@ def insert_patient_healthstatus_table(ad):
 def insert_patient_inquirystatus_table(ad):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
-    cursor.execute("INSERT INTO 询问记录表 (uid, times,,data,age,"
+    cursor.execute("INSERT INTO 询问记录表 (uid,times,data,age,"
                    "weight,height,breastmilksituation,breastmilkfrequency,alwaysbreastmilk,"
                    "milk,milkpowder,riceflour,noodle,congee,rice,meatorfish,egg,beanproducts,vegetables,fruit,VADname,VADfrequence,caname,capowder,caslice,remark)"
                    "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
                    % (
-                   int(ad['uid'][0]), ad['times'][0],ad['data'][0], ad['age'][0], ad['weight'][0], ad['height'][0],
+                   int(ad['uid'][0]), ad['times'][0],ad['date'][0], ad['age'][0], ad['weight'][0], ad['height'][0],
                    ad['howmany'][0], ad['howtimes'][0], ad['duanmuru'][0], ad['milk'][0],
                    ad['milkpowed'][0], ad['riceflour'][0], ad['foor'][0], ad['congee'][0],
                    ad['rice'][0], ad['meat'][0], ad['yolk'][0], ad['bean'][0], ad['vegetables'][0],

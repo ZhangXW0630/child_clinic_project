@@ -115,12 +115,12 @@ def insert_patient_healthstatus_table(ad):
 def insert_patient_inquirystatus_table(ad):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
-    cursor.execute("INSERT INTO 询问记录表 (uid,`name`, time,age,"
+    cursor.execute("INSERT INTO 询问记录表 (uid, time,age,"
                    "weight,height,breastmilksituation,breastmilkfrequency,alwaysbreastmilk,"
                    "milk,milkpowder,riceflour,noodle,congee,rice,meatorfish,egg,beanproducts,vegetables,fruit,VAD,capowder,caslice,remark)"
-                   "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
+                   "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
                    % (
-                   int(ad['uid'][0]), ad['name'][0], ad['time'][0], ad['age'], ad['weight'][0], ad['height'][0],
+                   int(ad['uid'][0]), ad['time'][0], ad['age'], ad['weight'][0], ad['height'][0],
                    ad['breastmilksituation'][0], ad['breastmilkfrequency'][0], ad['alwaysbreastmilk'][0], ad['milk'][0],
                    ad['milkpowder'][0], ad['riceflour'][0], ad['noodle'][0], ad['congee'][0],
                    ad['rice'][0], ad['meatorfish'][0], ad['egg'][0], ad['beanproducts'][0], ad['vegetables'][0],

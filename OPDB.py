@@ -115,7 +115,7 @@ def insert_patient_healthstatus_table(ad):
 def insert_patient_inquirystatus_table(ad):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
-    cursor.execute("INSERT INTO 询问记录表 (uid, time,age,"
+    cursor.execute("INSERT INTO 询问记录表 (uid, 'time',age,"
                    "weight,height,breastmilksituation,breastmilkfrequency,alwaysbreastmilk,"
                    "milk,milkpowder,riceflour,noodle,congee,rice,meatorfish,egg,beanproducts,vegetables,fruit,VAD,capowder,caslice,remark)"
                    "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"

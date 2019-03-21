@@ -71,7 +71,8 @@ class HealthCheckHandler(tornado.web.RequestHandler):
 class HealthRecordHandler(tornado.web.RequestHandler):
     def get(self):
         uname = self.get_argument('uname')
-        self.render("patient_record.html", all_cases={}, current={"name":uname},category=0,source="")
+        uid = self.get_secure_cookie("user_id")
+        self.render("patient_record.html", all_cases={}, current={"name":uname,"uid" : uid},category=0,source="")
     def post(self):
         pass
 class CheckDetailHandler(tornado.web.RequestHandler):

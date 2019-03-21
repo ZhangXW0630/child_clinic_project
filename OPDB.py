@@ -62,39 +62,39 @@ def query_isexist(uid):
         for res in results:
             temp_dict = dict()
             temp_dict['status'] = 'success'
-            temp_dict['name'] = res[1]
-            temp_dict['sex'] = res[2]
-            temp_dict['birth'] = res[3].strftime("%Y-%m-%d")
+            temp_dict['name'] = res[2]
+            temp_dict['sex'] = res[3]
+            temp_dict['birth'] = res[4].strftime("%Y-%m-%d")
             b=res[3].strftime("%Y-%m-%d").split('-')
             temp_dict['year'] = b[0]
             temp_dict['month'] = b[1]
             temp_dict['day'] = b[2]
-            temp_dict['fathername'] = res[4]
-            temp_dict['fatherage'] = res[5]
-            temp_dict['fatherunit'] = res[6]
-            temp_dict['fatherwork'] = res[7]
-            temp_dict['mothername'] = res[8]
-            temp_dict['motherage'] = res[9]
-            temp_dict['motherunit'] = res[10]
-            temp_dict['motherwork'] = res[11]
-            temp_dict['motherhealth'] = res[12]
-            temp_dict['contraceptivesituation'] = res[13]
-            temp_dict['contraceptivename'] = res[14]
-            temp_dict['tai'] = res[15]
-            temp_dict['chan'] = res[16]
-            temp_dict['special'] = res[17]
-            temp_dict['yunzhou'] = res[18]
-            temp_dict['intrapartumsituation'] = res[19]
-            temp_dict['drugallergy'] = res[20]
-            temp_dict['birthweight'] = res[21]
-            temp_dict['birthheight'] = res[22]
-            temp_dict['address'] = res[23]
-            temp_dict['zipcode'] = res[24]
-            temp_dict['contactnumber'] = res[25]
-            temp_dict['visitorigin'] = res[26]
-            temp_dict['livingstatus'] = res[27]
-            temp_dict['temp'] = res[28]
-            temp_dict['belong'] = res[29]
+            temp_dict['fathername'] = res[5]
+            temp_dict['fatherage'] = res[6]
+            temp_dict['fatherunit'] = res[7]
+            temp_dict['fatherwork'] = res[8]
+            temp_dict['mothername'] = res[9]
+            temp_dict['motherage'] = res[10]
+            temp_dict['motherunit'] = res[11]
+            temp_dict['motherwork'] = res[12]
+            temp_dict['motherhealth'] = res[13]
+            temp_dict['contraceptivesituation'] = res[14]
+            temp_dict['contraceptivename'] = res[15]
+            temp_dict['tai'] = res[16]
+            temp_dict['chan'] = res[17]
+            temp_dict['special'] = res[18]
+            temp_dict['yunzhou'] = res[19]
+            temp_dict['intrapartumsituation'] = res[20]
+            temp_dict['drugallergy'] = res[21]
+            temp_dict['birthweight'] = res[22]
+            temp_dict['birthheight'] = res[23]
+            temp_dict['address'] = res[24]
+            temp_dict['zipcode'] = res[25]
+            temp_dict['contactnumber'] = res[26]
+            temp_dict['visitorigin'] = res[27]
+            temp_dict['livingstatus'] = res[28]
+            temp_dict['temp'] = res[29]
+            temp_dict['belong'] = res[30]
 
             return temp_dict
     else:
@@ -133,7 +133,7 @@ def query_patientsinquiry_table(times,uid):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
     cursor.execute(
-        "SELECT * FROM 健康检查表  where uid='%s' and times='%s'" % (uid,times)
+        "SELECT * FROM 询问记录表  where uid='%s' and times='%s'" % (uid,times)
     )
     results = cursor.fetchall()
     db.close()

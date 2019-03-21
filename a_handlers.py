@@ -14,11 +14,16 @@ import os
 import lph_db_ado as myDb
 import cx_sql_db as cxDB
 from data import analysis_yiyi as huayan_canshu_shuoming
+class PatientStandardHandler(tornado.web.RequestHandler):
+    def get(self):
+        uname = self.get_argument('uname')
+        self.render("patient_record.html", all_cases={}, current={"name":uname},category=0,source="")
+    def post(self):
+        pass
 class StoreInquiryRecordHandler(tornado.web.RequestHandler):
     def get(self):
         pass
     def post(self):
-        pass
         ad=self.request.arguments
         OPDB.insert_patient_inquirystatus_table(ad)
 class StoreHealthRecordHandler(tornado.web.RequestHandler):

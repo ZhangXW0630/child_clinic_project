@@ -470,7 +470,7 @@
 </script>
 
 <script>
-    
+    var myDate = new Date();
     $("#times").change(function () {
         var ss = $(this).children('option:selected').val();
         var id="{{current.get('uid')}}"
@@ -514,6 +514,33 @@
                 error: function (datas) {
                 }
             });
+        }
+        else{
+            $("#times").val(times);
+            $("#b_date").val(myDate.toLocaleDateString());     //获取当前日期);
+            $("#b_age").val();
+            $("#b_weight").val();
+            $("#b_height").val();
+            $("#b_howmany").val();
+            $("#b_howtimes").val();
+            $("#b_duanmuru").val();
+            $("#b_milk").val();
+            $("#b_milkpowed").val();
+            $("#b_riceflour").val();
+            $("#b_food").val();
+            $("#b_congee").val();
+            $("#b_rice").val();
+            $("#b_meat").val();
+            $("#b_yolk").val();
+            $("#b_bean").val();
+            $("#b_vegetables").val();
+            $("#b_fruits").val();
+            $("#b_ADname").val();
+            $("#b_ADhowmany").val();
+            $("#b_GAname").val();
+            $("#b_GAbao").val();
+            $("#b_GApian").val();
+            $("#b_other").val();
         }
     });
 </script>

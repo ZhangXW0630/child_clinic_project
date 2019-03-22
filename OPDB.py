@@ -226,14 +226,14 @@ def query_current_times(uid):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
     cursor.execute(
-        "SELECT max(times) FROM 询问记录表  where uid='%s' and times='%s'" % (uid)
+        "SELECT * FROM 询问记录表  where uid='%s'" % (uid)
     )
     results = cursor.fetchall()
     db.close()
     if len(results) == 1:
         for res in results:
             temp_dict = dict()
-            temp_dict['times']=res[0]+1
+            temp_dict['times']=int(res[2])+1
     else:
         temp_dict = dict()
         temp_dict['times']=1

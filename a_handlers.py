@@ -14,6 +14,25 @@ import os
 import lph_db_ado as myDb
 import cx_sql_db as cxDB
 from data import analysis_yiyi as huayan_canshu_shuoming
+
+class JudgeTimesAndIsExisted(tornado.web.RequestHandler):
+    def get(self):
+        pass
+    def post(self):
+        user_id = self.get_argument('uid')
+        user_times=self.get_argument('times')
+        temp_dict = OPDB.query_patientsinquiry_table(user_id,user_times)
+        if temp_dict['status'] == "success":
+            self.write(temp_dict)
+# class CurrentTimes(tornado.web.RequestHandler):
+#     def get(self):
+#         pass
+#     def post(self):
+#         user_id = self.get_argument('uid')
+#         user_times=self.get_argument('times')
+#         temp_dict = OPDB.query_patientsinquiry_table(user_id,user_times)
+#         if temp_dict['status'] == "success":
+#             self.write(temp_dict)
 class PatientStandardHandler(tornado.web.RequestHandler):
     def get(self):
         uname = self.get_argument('uname')
@@ -46,7 +65,8 @@ class  JudgeIsExistHandler(tornado.web.RequestHandler):
     def post(self):
         user_id=self.get_argument('uid')
         temp_dict = OPDB.query_isexist(user_id)
-        self.write(temp_dict)
+        if temp_dict['status']=="success":
+            self.write(temp_dict)
 
 class CheckInquiryDetailHandler(tornado.web.RequestHandler):
     def get(self):
@@ -72,7 +92,9 @@ class HealthRecordHandler(tornado.web.RequestHandler):
     def get(self):
         uname = self.get_argument('uname')
         uid = self.get_secure_cookie("user_id")
-        self.render("patient_record.html", all_cases={}, current={"name":uname,"uid" : uid},category=0,source="")
+        times=OPDB.query_current_times(uid)
+        print(times)
+        self.render("patient_record.html", all_cases={}, current={"name":uname,"uid" : uid},category=0,source="",times=times)
     def post(self):
         pass
 class CheckDetailHandler(tornado.web.RequestHandler):

@@ -469,7 +469,54 @@
   });
 </script>
 
-
+<script>
+    
+    $("#times").change(function () {
+        var ss = $(this).children('option:selected').val();
+        var id="{{current.get('uid')}}"
+        ad={"uid":uid,"times":ss}
+        times="{{times.get('times')}"
+        if(ss<times) {
+            $.ajax({
+                type: "post",
+                async: true,
+                url: "/child/judge_times_existed",
+                data: ad,
+                dataType: "json",
+                timeout: 1000,
+                success: function (datas) {
+                    $("#times").val(datas['times']);
+                    $("#b_date").val(datas['date']);
+                    $("#b_age").val(datas['age']);
+                    $("#b_weight").val(datas['weight']);
+                    $("#b_height").val(datas['height']);
+                    $("#b_howmany").val(datas['howmany']);
+                    $("#b_howtimes").val(datas['howtimes']);
+                    $("#b_duanmuru").val(datas['duanmuru']);
+                    $("#b_milk").val(datas['milk']);
+                    $("#b_milkpowed").val(datas['milkpowed']);
+                    $("#b_riceflour").val(datas['riceflour']);
+                    $("#b_food").val(datas['food']);
+                    $("#b_congee").val(datas['congee']);
+                    $("#b_rice").val(datas['rice']);
+                    $("#b_meat").val(datas['meat']);
+                    $("#b_yolk").val(datas['yolk']);
+                    $("#b_bean").val(datas['bean']);
+                    $("#b_vegetables").val(datas['vegetables']);
+                    $("#b_fruits").val(datas['fruits']);
+                    $("#b_ADname").val(datas['ADname']);
+                    $("#b_ADhowmany").val(datas['ADhowmany']);
+                    $("#b_GAname").val(datas['GAname']);
+                    $("#b_GAbao").val(datas['GAbao']);
+                    $("#b_GApian").val(datas['GApian']);
+                    $("#b_other").val(datas['other']);
+                },
+                error: function (datas) {
+                }
+            });
+        }
+    });
+</script>
 <script>
     function searchPatient() {
         var url = "/child/doctor_home";
@@ -585,7 +632,8 @@
         });
     }
 
-function buildPatient() {
+    function buildPatient() {
+
         var times=$("#times").val();
         var pdate = $("#b_date").val();
         var page = $("#b_age").val();
@@ -624,7 +672,7 @@ function buildPatient() {
         ad['milk']=pmilk
         ad['milkpowed']=pmilkpowed
         ad['riceflour']=priceflour
-        ad['foor']=pfood
+        ad['food']=pfood
         ad['congee']=pcongee
         ad['rice']=price
         ad['meat']=pmeat

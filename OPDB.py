@@ -122,14 +122,14 @@ def insert_patient_inquirystatus_table(ad):
                    % (
                    int(ad['uid'][0]), ad['times'][0],ad['date'][0], ad['age'][0], ad['weight'][0], ad['height'][0],
                    ad['howmany'][0], ad['howtimes'][0], ad['duanmuru'][0], ad['milk'][0],
-                   ad['milkpowed'][0], ad['riceflour'][0], ad['foor'][0], ad['congee'][0],
+                   ad['milkpowed'][0], ad['riceflour'][0], ad['food'][0], ad['congee'][0],
                    ad['rice'][0], ad['meat'][0], ad['yolk'][0], ad['bean'][0],ad['vegetables'][0],
                    ad['fruits'][0], ad['ADname'][0], ad['ADhowmany'][0], ad['GAname'][0],ad['GAbao'][0],ad['GApian'][0],
                    ad['other'][0]))
     db.commit()
     db.close()
 
-def query_patientsinquiry_table(times,uid):
+def query_patientsinquiry_table(uid,times):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
     cursor.execute(
@@ -139,9 +139,58 @@ def query_patientsinquiry_table(times,uid):
     db.close()
     if len(results) == 1:
         for res in results:
-            pass
+            temp_dict = dict()
+            temp_dict['status'] = 'success'
+            temp_dict['tiems'] = res[2]
+            temp_dict['age'] = res[3]
+            temp_dict['date'] = res[4].strftime("%Y-%m-%d")
+            temp_dict['weight'] = res[5]
+            temp_dict['height'] = res[6]
+            temp_dict['howmany'] = res[7]
+            temp_dict['howtimes'] = res[8]
+            temp_dict['duanmuru'] = res[9]
+            temp_dict['milk'] = res[10]
+            temp_dict['milkpowed'] = res[11]
+            temp_dict['riceflour'] = res[12]
+            temp_dict['food'] = res[13]
+            temp_dict['congee'] = res[14]
+            temp_dict['contraceptivename'] = res[15]
+            temp_dict['rice'] = res[16]
+            temp_dict['meat'] = res[17]
+            temp_dict['yolk'] = res[18]
+            temp_dict['bean'] = res[19]
+            temp_dict['vegetables'] = res[20]
+            temp_dict['fruits'] = res[21]
+            temp_dict['ADname'] = res[22]
+            temp_dict['ADhowmany'] = res[23]
+            temp_dict['GAname'] = res[24]
+            temp_dict['GAbao'] = res[25]
+            temp_dict['GApian'] = res[26]
+            temp_dict['other'] = res[27]
+            # temp_dict['belong']=res[28]
+
+            return temp_dict
+        else:
+            temp_dict = dict()
+            temp_dict['status'] = 'fail'
+            return temp_dict
 
 #获取标准数据
-
+def query_current_times(uid):
+    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    cursor = db.cursor()
+    cursor.execute(
+        "SELECT max(times) FROM 询问记录表  where uid='%s' and times='%s'" % (uid)
+    )
+    results = cursor.fetchall()
+    db.close()
+    if len(results) == 1:
+        for res in results:
+            temp_dict = dict()
+            temp_dict['times']=res[0]+1
+    else:
+        temp_dict = dict()
+        temp_dict['times']=1
+    return temp_dict
 def get_standard_date():
     pass

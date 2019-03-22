@@ -51,7 +51,7 @@ class  JudgeInqueryIsExistHandler(tornado.web.RequestHandler):
     def get(self):
         pass
     def post(self):
-        user_id=self.get_argument('uid')
+        user_id=self.get_secure_cookie('uid')
         temp_dict = OPDB.query_isexist_inquery(user_id)
         self.write(temp_dict)
 

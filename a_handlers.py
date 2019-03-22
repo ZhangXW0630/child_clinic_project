@@ -36,7 +36,7 @@ class JudgeTimesAndIsExisted(tornado.web.RequestHandler):
 class PatientStandardHandler(tornado.web.RequestHandler):
     def get(self):
         uname = self.get_argument('uname')
-        self.render("patient_record.html", all_cases={}, current={"name":uname},category=0,source="")
+        self.render("patient_graph.html", all_cases={}, current={"name":uname},category=0,source="")
     def post(self):
         pass
 class StoreInquiryRecordHandler(tornado.web.RequestHandler):

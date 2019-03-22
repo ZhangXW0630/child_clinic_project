@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>生长曲线</title>
+    <!-- 引入 echarts.js -->
+    <script src="{{static_url('js/echarts.min.js')}}"></script>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -191,7 +193,220 @@
                 <div class="col-md-12">
                     <div class="box box-success" style="border-radius:8px">
                         <div class="box-body">
-                            此处放生长曲线
+                                  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                            <div id="main1" style="width: 600px;height:400px;"></div>
+                                <script type="text/javascript">
+                                        var myChart = echarts.init(document.getElementById('main1'));
+
+                                                option = {
+                                                    title: {
+                                                        text: '生长曲线图'
+                                                    },
+                                                    tooltip: {
+                                                        trigger: 'axis'
+                                                    },
+                                                    legend: {
+                                                        data:['P1','P2','P3','P5','P10']
+                                                    },
+                                                    grid: {
+                                                        left: '3%',
+                                                        right: '4%',
+                                                        bottom: '3%',
+                                                        containLabel: true
+                                                    },
+                                                    toolbox: {
+                                                        feature: {
+                                                            saveAsImage: {}
+                                                        }
+                                                    },
+                                                    xAxis: {
+                                                        type: 'category',
+                                                        boundaryGap: false,
+                                                        data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']
+                                                    },
+                                                    yAxis: {
+                                                        type: 'value'
+                                                    },
+                                                    series: [
+                                                        {
+                                                            name:'P1',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[50.139, 52, 53, 55, 57, 58, 63]
+                                                        },
+                                                        {
+                                                            name:'P2',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[51.005, 57, 59, 61,64, 66, 68]
+                                                        },
+                                                        {
+                                                            name:'P3',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[64,66, 67, 69, 70,73,77]
+                                                        },
+                                                        {
+                                                            name:'P5',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[68, 69, 72, 75, 77, 78, 80]
+                                                        },
+                                                        {
+                                                            name:'P10',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[70, 77, 79, 82, 84, 85, 88]
+                                                        }
+                                                    ]
+                                                };
+
+
+                                        // 使用刚指定的配置项和数据显示图表。
+                                        myChart.setOption(option);
+                                    </script>
+                            <div id="main2" style="width: 600px;height:400px;"></div>
+                                <script type="text/javascript">
+                                        var myChart = echarts.init(document.getElementById('main2'));
+
+                                                option = {
+                                                    title: {
+                                                        text: '折线图堆叠'
+                                                    },
+                                                    tooltip: {
+                                                        trigger: 'axis'
+                                                    },
+                                                    legend: {
+                                                        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+                                                    },
+                                                    grid: {
+                                                        left: '3%',
+                                                        right: '4%',
+                                                        bottom: '3%',
+                                                        containLabel: true
+                                                    },
+                                                    toolbox: {
+                                                        feature: {
+                                                            saveAsImage: {}
+                                                        }
+                                                    },
+                                                    xAxis: {
+                                                        type: 'category',
+                                                        boundaryGap: false,
+                                                        data: ['周一','周二','周三','周四','周五','周六','周日']
+                                                    },
+                                                    yAxis: {
+                                                        type: 'value'
+                                                    },
+                                                    series: [
+                                                        {
+                                                            name:'邮件营销',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[120, 132, 101, 134, 90, 230, 210]
+                                                        },
+                                                        {
+                                                            name:'联盟广告',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[220, 182, 191, 234, 290, 330, 310]
+                                                        },
+                                                        {
+                                                            name:'视频广告',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[150, 232, 201, 154, 190, 330, 410]
+                                                        },
+                                                        {
+                                                            name:'直接访问',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[320, 332, 301, 334, 390, 330, 320]
+                                                        },
+                                                        {
+                                                            name:'搜索引擎',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[820, 932, 901, 934, 1290, 1330, 1320]
+                                                        }
+                                                    ]
+                                                };
+
+
+                                        // 使用刚指定的配置项和数据显示图表。
+                                        myChart.setOption(option);
+                                    </script>
+                            <div id="main3" style="width: 600px;height:400px;"></div>
+                                <script type="text/javascript">
+                                        var myChart = echarts.init(document.getElementById('main3'));
+
+                                                option = {
+                                                    title: {
+                                                        text: '折线图堆叠'
+                                                    },
+                                                    tooltip: {
+                                                        trigger: 'axis'
+                                                    },
+                                                    legend: {
+                                                        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+                                                    },
+                                                    grid: {
+                                                        left: '3%',
+                                                        right: '4%',
+                                                        bottom: '3%',
+                                                        containLabel: true
+                                                    },
+                                                    toolbox: {
+                                                        feature: {
+                                                            saveAsImage: {}
+                                                        }
+                                                    },
+                                                    xAxis: {
+                                                        type: 'category',
+                                                        boundaryGap: false,
+                                                        data: ['周一','周二','周三','周四','周五','周六','周日']
+                                                    },
+                                                    yAxis: {
+                                                        type: 'value'
+                                                    },
+                                                    series: [
+                                                        {
+                                                            name:'邮件营销',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[120, 132, 101, 134, 90, 230, 210]
+                                                        },
+                                                        {
+                                                            name:'联盟广告',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[220, 182, 191, 234, 290, 330, 310]
+                                                        },
+                                                        {
+                                                            name:'视频广告',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[150, 232, 201, 154, 190, 330, 410]
+                                                        },
+                                                        {
+                                                            name:'直接访问',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[320, 332, 301, 334, 390, 330, 320]
+                                                        },
+                                                        {
+                                                            name:'搜索引擎',
+                                                            type:'line',
+                                                            stack: '总量',
+                                                            data:[820, 932, 901, 934, 1290, 1330, 1320]
+                                                        }
+                                                    ]
+                                                };
+
+
+                                        // 使用刚指定的配置项和数据显示图表。
+                                        myChart.setOption(option);
+                                    </script>
                             <div id="panel" style="margin:50px">
                                 <!--<canvas id="bit" height="250" width="600"></canvas>-->
                                 <!--为防止浏览器报错，id不要用canvas等-->

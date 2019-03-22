@@ -44,7 +44,6 @@ class StoreInquiryRecordHandler(tornado.web.RequestHandler):
         pass
     def post(self):
         ad=self.request.arguments
-        print(ad)
         OPDB.insert_patient_inquirystatus_table(ad)
 class StoreHealthRecordHandler(tornado.web.RequestHandler):
     def get(self):
@@ -67,6 +66,14 @@ class  JudgeIsExistHandler(tornado.web.RequestHandler):
         temp_dict = OPDB.query_isexist(user_id)
         if temp_dict['status']=="success":
             self.write(temp_dict)
+
+class  JudgeInqueryIsExistHandler(tornado.web.RequestHandler):
+    def get(self):
+        pass
+    def post(self):
+        user_id=self.get_secure_cookie('uid')
+        temp_dict = OPDB.query_isexist_inquery(user_id)
+        self.write(temp_dict)
 
 class CheckInquiryDetailHandler(tornado.web.RequestHandler):
     def get(self):

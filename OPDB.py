@@ -101,6 +101,52 @@ def query_isexist(uid):
         temp_dict = dict()
         temp_dict['status'] = 'fail'
         return temp_dict
+
+def query_isexist_inquery(uid):
+    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    cursor = db.cursor()
+    cursor.execute(
+        "SELECT * FROM 询问记录表  where uid='%s'" % (uid)
+        )
+    results = cursor.fetchall()
+    db.close()
+    if len(results) == 1:
+        for res in results:
+            temp_dict = dict()
+            temp_dict['status'] = 'success'
+            temp_dict['times'] = res[2]
+            temp_dict['date'] = res[3]
+            temp_dict['age'] = res[4]
+            temp_dict['weight'] = res[5]
+            temp_dict['height'] = res[6]
+            temp_dict['howmany'] = res[7]
+            temp_dict['howtimes'] = res[8]
+            temp_dict['duanmuru'] = res[9]
+            temp_dict['milk'] = res[10]
+            temp_dict['milkpowed'] = res[11]
+            temp_dict['riceflour'] = res[12]
+            temp_dict['foor'] = res[13]
+            temp_dict['congee'] = res[14]
+            temp_dict['rice'] = res[15]
+            temp_dict['meat'] = res[16]
+            temp_dict['yolk'] = res[17]
+            temp_dict['bean'] = res[18]
+            temp_dict['vegetables'] = res[19]
+            temp_dict['fruits'] = res[20]
+            temp_dict['ADname'] = res[21]
+            temp_dict['ADhowmany'] = res[22]
+            temp_dict['GAname'] = res[23]
+            temp_dict['GAbao'] = res[24]
+            temp_dict['GApian'] = res[25]
+            temp_dict['other'] = res[26]
+
+
+            return temp_dict
+    else:
+        temp_dict = dict()
+        temp_dict['status'] = 'fail'
+        return temp_dict
+
 def insert_patient_healthstatus_table(ad):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()

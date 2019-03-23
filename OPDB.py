@@ -187,9 +187,9 @@ def query_patientsinquiry_table(uid,times):
         for res in results:
             temp_dict = dict()
             temp_dict['status'] = 'success'
-            temp_dict['tiems'] = res[2]
-            temp_dict['age'] = res[3]
-            temp_dict['date'] = res[4].strftime("%Y-%m-%d")
+            temp_dict['times'] = res[2]
+            temp_dict['date'] = res[3].strftime("%Y-%m-%d")
+            temp_dict['age'] = res[4]
             temp_dict['weight'] = res[5]
             temp_dict['height'] = res[6]
             temp_dict['howmany'] = res[7]
@@ -200,19 +200,18 @@ def query_patientsinquiry_table(uid,times):
             temp_dict['riceflour'] = res[12]
             temp_dict['food'] = res[13]
             temp_dict['congee'] = res[14]
-            temp_dict['contraceptivename'] = res[15]
-            temp_dict['rice'] = res[16]
-            temp_dict['meat'] = res[17]
-            temp_dict['yolk'] = res[18]
-            temp_dict['bean'] = res[19]
-            temp_dict['vegetables'] = res[20]
-            temp_dict['fruits'] = res[21]
-            temp_dict['ADname'] = res[22]
-            temp_dict['ADhowmany'] = res[23]
-            temp_dict['GAname'] = res[24]
-            temp_dict['GAbao'] = res[25]
-            temp_dict['GApian'] = res[26]
-            temp_dict['other'] = res[27]
+            temp_dict['rice'] = res[15]
+            temp_dict['meat'] = res[16]
+            temp_dict['yolk'] = res[17]
+            temp_dict['bean'] = res[18]
+            temp_dict['vegetables'] = res[19]
+            temp_dict['fruits'] = res[20]
+            temp_dict['ADname'] = res[21]
+            temp_dict['ADhowmany'] = res[22]
+            temp_dict['GAname'] = res[23]
+            temp_dict['GAbao'] = res[24]
+            temp_dict['GApian'] = res[25]
+            temp_dict['other'] = res[26]
             # temp_dict['belong']=res[28]
 
             return temp_dict

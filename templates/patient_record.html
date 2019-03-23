@@ -472,10 +472,11 @@
 <script>
     var myDate = new Date();
     $("#times").change(function () {
+
         var ss = $(this).children('option:selected').val();
-        var id="{{current.get('uid')}}"
+        var uid="{{current.get('uid')}}"
         ad={"uid":uid,"times":ss}
-        times="{times.get('times')}"
+        var times="{{times.get('times')}}"
         if(ss<times) {
             $.ajax({
                 type: "post",

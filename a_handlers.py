@@ -101,7 +101,7 @@ class HealthRecordHandler(tornado.web.RequestHandler):
         uid = self.get_secure_cookie("user_id")
         times=OPDB.query_current_times(uid)
         print(times)
-        self.render("patient_record.html", all_cases={}, current={"name":uname,"uid" : uid},category=0,source="",times=times)
+        self.render("patient_record.html", all_cases={}, current={"name":uname,"uid" : uid},category=0,source="",times={"times":times})
     def post(self):
         pass
 class CheckDetailHandler(tornado.web.RequestHandler):

@@ -213,12 +213,11 @@ def query_patientsinquiry_table(uid,times):
             temp_dict['GApian'] = res[25]
             temp_dict['other'] = res[26]
             # temp_dict['belong']=res[28]
-
             return temp_dict
-        else:
-            temp_dict = dict()
-            temp_dict['status'] = 'fail'
-            return temp_dict
+    else:
+        temp_dict = dict()
+        temp_dict['status'] = 'fail'
+        return temp_dict
 
 #获取标准数据
 def query_current_times(uid):

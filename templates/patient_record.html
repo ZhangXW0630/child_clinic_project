@@ -487,7 +487,8 @@
             dataType: "json",
             timeout: 1000,
             success: function (datas) {
-                $("#age").val(datas['age']);
+                $("#b_date").val(myDate.toLocaleDateString().split('/').join('-'));     //获取当前日期);
+                $("#b_age").val(datas['age']);
                 $("#hz_yd").val(datas['hint'])
                 $("#hz_ys").val(datas['feedadvice'])
                 $("#hz_jy").val(datas['mealadvice'])
@@ -544,6 +545,25 @@
             });
         }
         else{
+            $.ajax({
+            type: "post",
+            async: true,
+            url:  "/child/get_advice",
+            data: ad,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                $("#b_date").val(myDate.toLocaleDateString().split('/').join('-'));     //获取当前日期);
+                $("#b_age").val(datas['age']);
+                $("#hz_yd").val(datas['hint'])
+                $("#hz_ys").val(datas['feedadvice'])
+                $("#hz_jy").val(datas['mealadvice'])
+                $("#hz_cjwt").val(datas['problem'])
+                $("#hz_dq").val()
+            },
+            error: function (datas) {
+            }
+        });
             $("#b_date").val(myDate.toLocaleDateString());     //获取当前日期);
             $("#b_age").val("");
             $("#b_weight").val("");

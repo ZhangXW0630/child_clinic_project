@@ -355,41 +355,31 @@
                                 <div class="form-group has-success" >
                                 <label for="hz_yd" class="col-sm-2 control-label" style="cursor: pointer">下一月龄要点提示</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control" rows="3" id="hz_yd" placeholder="下一月龄要点提示" >下一月龄要点提示</textarea>
+                                    <textarea type="text" class="form-control" rows="7" id="hz_yd" placeholder="下一月龄要点提示" >下一月龄要点提示</textarea>
                                 </div>
                                 </div>
 
                                 <div class="form-group has-success">
-                                <label for="hz_jy" class="col-sm-2 control-label" style="cursor: pointer">下一月龄喂养建议</label>
+                                <label for="hz_ys" class="col-sm-2 control-label" style="cursor: pointer">下一月龄喂养建议</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control" rows="3" id="hz_jy" placeholder="下一月龄喂养建议" >下一月龄喂养建议</textarea>
+                                    <textarea type="text" class="form-control" rows="7" id="hz_ys" placeholder="下一月龄喂养建议" >下一月龄喂养建议</textarea>
                                 </div>
                             </div>
 
                                 <div class="form-group has-success">
-                                <label for="hz_js" class="col-sm-2 control-label" style="cursor: pointer">下一月龄行为建议</label>
+                                <label for="hz_jy" class="col-sm-2 control-label" style="cursor: pointer">下一月龄行为建议</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control" rows="3" id="hz_js" placeholder="下一月龄行为建议" >下一月龄行为建议</textarea>
+                                    <textarea type="text" class="form-control" rows="7" id="hz_jy" placeholder="下一月龄行为建议" >下一月龄行为建议</textarea>
                                 </div>
                             </div>
 
                                 <div class="form-group has-success" >
                                 <label for="hz_cjwt" class="col-sm-2 control-label" style="cursor: pointer">下一月龄常见问题</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control" rows="3" id="hz_cjwt" placeholder="下一月龄常见问题" >下一月龄常见问题</textarea>
+                                    <textarea type="text" class="form-control" rows="7" id="hz_cjwt" placeholder="下一月龄常见问题" >下一月龄常见问题</textarea>
                                 </div>
                             </div>
 
-                                <div class="form-group has-feedback">
-                                <div class="col-sm-8">
-
-                                    </div>
-                                <div class="col-sm-2">
-                                    <button  id="shengcheng" onclick="buildPatient()" class="btn btn-success btn-block" style="min-width: 180px; background-color:#9BC78F;color:#000;border-color:#8DBD7F">
-                                            <b>建 议 生 成</b>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     <!-- /. box -->
                     </div>
@@ -487,7 +477,8 @@
     $(function(){
         var times="{{times.get('times')}}"
         $("#times").val(times);
-
+        var uid = "{{current.get ('uid')}}"
+            ad = { "uid" : uid }
         $.ajax({
             type: "post",
             async: true,
@@ -499,7 +490,7 @@
                 $("#age").val(datas['age']);
                 $("#hz_yd").val(datas['hint'])
                 $("#hz_ys").val(datas['feedadvice'])
-                $("#hz_js").val(datas['mealadvice'])
+                $("#hz_jy").val(datas['mealadvice'])
                 $("#hz_cjwt").val(datas['problem'])
                 $("#hz_dq").val()
             },

@@ -2,6 +2,7 @@
 import  MySQLdb as pymysql
 import time
 import datetime
+import math
 
 
 
@@ -246,17 +247,16 @@ def get_advice(uid):
     db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
     cursor = db.cursor()
     cursor.execute(
-        "SELECT birth FROM 健康检查表  where uid='%s' and times='%s'" % (uid)
+        "SELECT birth FROM 健康检查表  where uid='%s'" % (uid)
     )
     results = cursor.fetchall()
     if len(results) == 1:
         for res in results:
-            age=res[0]-time.strftime('%Y.%m.%d',time.localtime(time.time()))
-            print(age)
+            age=math.ceil((((datetime.date.today() - res[0]).total_seconds())/2592000))
     else:
         age="0"
     cursor.execute(
-        "SELECT * FROM  各月龄喂养喂养建议知识库 where age='%s'" % (age)
+        "SELECT * FROM  各月龄喂养建议知识库 where age='%s'" % (age)
     )
     results = cursor.fetchall()
     db.close()
@@ -264,9 +264,9 @@ def get_advice(uid):
         for res in results:
             temp_dict = dict()
             temp_dict['age']=age
-            temp_dict['status']="sucess"
+            temp_dict['status']="success"
             temp_dict['hint']=res[2]
-            temp_dict['feedadive']=res[3]
+            temp_dict['feedadvice']=res[3]
             temp_dict['mealadvice']=res[4]
             temp_dict['problem']=res[5]
     else:

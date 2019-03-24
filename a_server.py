@@ -36,6 +36,7 @@ class MakeApp(tornado.web.Application):
             (r"/child/judgeinqueryisexist", JudgeInqueryIsExistHandler),
             (r"/child/patient_standard", PatientStandardHandler),
             (r"/child/judge_times_existed", JudgeTimesAndIsExisted),
+            (r"/child/get_advice", GetAdvice),
             (r"/child/doctor_case", DoctorCaseHandler)
 
             # (r"/child/login", LoginHandler),

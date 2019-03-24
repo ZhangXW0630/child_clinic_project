@@ -485,8 +485,26 @@
 
 <script>
     $(function(){
-         var times="{{times.get('times')}}"
-         $("#times").val(times);
+        var times="{{times.get('times')}}"
+        $("#times").val(times);
+
+        $.ajax({
+            type: "post",
+            async: true,
+            url:  "/child/get_advice",
+            data: ad,
+            dataType: "json",
+            timeout: 1000,
+            success: function (datas) {
+                $("#hz_yd").val(datas['hint'])
+                $("#hz_ys").val(datas['feedadvice'])
+                $("#hz_js").val(datas['mealadvice'])
+                $("#hz_cjwt").val(datas['problem'])
+                $("#hz_dq").val()
+            },
+            error: function (datas) {
+            }
+        });
     });
     var myDate = new Date();
     $("#times").change(function () {
@@ -534,7 +552,6 @@
             });
         }
         else{
-            $("#times").val(times);
             $("#b_date").val(myDate.toLocaleDateString());     //获取当前日期);
             $("#b_age").val("");
             $("#b_weight").val("");

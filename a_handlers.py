@@ -14,6 +14,14 @@ import os
 import lph_db_ado as myDb
 import cx_sql_db as cxDB
 from data import analysis_yiyi as huayan_canshu_shuoming
+class GetAdvice(tornado.web.RequestHandler):
+    def get(self):
+        pass
+    def post(self):
+        user_id = self.get_argument('uid')
+        temp_dict = OPDB.get_advice(user_id)
+        if temp_dict['status'] == "success":
+            self.write(temp_dict)
 
 class JudgeTimesAndIsExisted(tornado.web.RequestHandler):
     def get(self):

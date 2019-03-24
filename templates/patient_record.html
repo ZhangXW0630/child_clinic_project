@@ -496,6 +496,7 @@
             dataType: "json",
             timeout: 1000,
             success: function (datas) {
+                $("#age").val(datas['age']);
                 $("#hz_yd").val(datas['hint'])
                 $("#hz_ys").val(datas['feedadvice'])
                 $("#hz_js").val(datas['mealadvice'])

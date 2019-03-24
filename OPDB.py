@@ -263,6 +263,7 @@ def get_advice(uid):
     if len(results) == 1:
         for res in results:
             temp_dict = dict()
+            temp_dict['age']=age
             temp_dict['status']="sucess"
             temp_dict['hint']=res[2]
             temp_dict['feedadive']=res[3]

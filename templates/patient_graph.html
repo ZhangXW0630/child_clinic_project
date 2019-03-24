@@ -178,7 +178,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                生长曲线生成
+                生长曲线图
                 <small>填写基本信息后自动生成生长曲线</small>
             </h1>
             <ol class="breadcrumb">
@@ -200,7 +200,7 @@
 
                                                 option = {
                                                     title: {
-                                                        text: '生长曲线图'
+                                                        text: '身高体重(W/Y)图'
                                                     },
                                                     tooltip: {
                                                         trigger: 'axis'
@@ -271,13 +271,13 @@
 
                                                 option = {
                                                     title: {
-                                                        text: '折线图堆叠'
+                                                        text: '年龄身高(H/Y)图'
                                                     },
                                                     tooltip: {
                                                         trigger: 'axis'
                                                     },
                                                     legend: {
-                                                        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+                                                        data:['P1','P2','P3','P5','P10']
                                                     },
                                                     grid: {
                                                         left: '3%',
@@ -293,41 +293,41 @@
                                                     xAxis: {
                                                         type: 'category',
                                                         boundaryGap: false,
-                                                        data: ['周一','周二','周三','周四','周五','周六','周日']
+                                                        data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']
                                                     },
                                                     yAxis: {
                                                         type: 'value'
                                                     },
                                                     series: [
                                                         {
-                                                            name:'邮件营销',
+                                                            name:'P1',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[120, 132, 101, 134, 90, 230, 210]
+                                                            data:[50.139, 52, 53, 55, 57, 58, 63]
                                                         },
                                                         {
-                                                            name:'联盟广告',
+                                                            name:'P2',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[220, 182, 191, 234, 290, 330, 310]
+                                                            data:[51.005, 57, 59, 61,64, 66, 68]
                                                         },
                                                         {
-                                                            name:'视频广告',
+                                                            name:'P3',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[150, 232, 201, 154, 190, 330, 410]
+                                                            data:[64,66, 67, 69, 70,73,77]
                                                         },
                                                         {
-                                                            name:'直接访问',
+                                                            name:'P5',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[320, 332, 301, 334, 390, 330, 320]
+                                                            data:[68, 69, 72, 75, 77, 78, 80]
                                                         },
                                                         {
-                                                            name:'搜索引擎',
+                                                            name:'P10',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[820, 932, 901, 934, 1290, 1330, 1320]
+                                                            data:[70, 77, 79, 82, 84, 85, 88]
                                                         }
                                                     ]
                                                 };
@@ -342,13 +342,13 @@
 
                                                 option = {
                                                     title: {
-                                                        text: '折线图堆叠'
+                                                        text: '年龄体重(W/Y)图'
                                                     },
                                                     tooltip: {
                                                         trigger: 'axis'
                                                     },
                                                     legend: {
-                                                        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+                                                        data:['P1','P2','P3','P5','P10']
                                                     },
                                                     grid: {
                                                         left: '3%',
@@ -364,41 +364,41 @@
                                                     xAxis: {
                                                         type: 'category',
                                                         boundaryGap: false,
-                                                        data: ['周一','周二','周三','周四','周五','周六','周日']
+                                                        data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']
                                                     },
                                                     yAxis: {
                                                         type: 'value'
                                                     },
                                                     series: [
                                                         {
-                                                            name:'邮件营销',
+                                                            name:'P1',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[120, 132, 101, 134, 90, 230, 210]
+                                                            data:[50.139, 52, 53, 55, 57, 58, 63]
                                                         },
                                                         {
-                                                            name:'联盟广告',
+                                                            name:'P2',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[220, 182, 191, 234, 290, 330, 310]
+                                                            data:[51.005, 57, 59, 61,64, 66, 68]
                                                         },
                                                         {
-                                                            name:'视频广告',
+                                                            name:'P3',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[150, 232, 201, 154, 190, 330, 410]
+                                                            data:[64,66, 67, 69, 70,73,77]
                                                         },
                                                         {
-                                                            name:'直接访问',
+                                                            name:'P5',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[320, 332, 301, 334, 390, 330, 320]
+                                                            data:[68, 69, 72, 75, 77, 78, 80]
                                                         },
                                                         {
-                                                            name:'搜索引擎',
+                                                            name:'P10',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[820, 932, 901, 934, 1290, 1330, 1320]
+                                                            data:[70, 77, 79, 82, 84, 85, 88]
                                                         }
                                                     ]
                                                 };

@@ -310,5 +310,5 @@ def get_growthstandard():
     else:
         temp_dict = dict()
         temp_dict['status'] = "fail"
-
+    print (temp_dict1)
     return temp_dict1

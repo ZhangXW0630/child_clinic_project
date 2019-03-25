@@ -295,20 +295,30 @@ def get_growthstandard():
     results = cursor.fetchall()
     db.close()
     if len(results) > 0:
-        temp_dict1 = []
-        for res in results:
-            temp_dict = dict()
-            temp_dict['age']=res[0]
-            temp_dict['status']="success"
-            temp_dict['P3']=res[1]
-            temp_dict['P10']=res[2]
-            temp_dict['P50']=res[3]
-            temp_dict['P85']=res[4]
-            temp_dict['P97'] = res[5]
-            temp_dict1.append(temp_dict)
+        temp_dict = {}
+        index=0
+        age=[]
+        P3=[]
+        P10=[]
+        P50=[]
+        P85=[]
+        P97=[]
 
+        for res in results:
+            age.append(res[0])
+            P3.append(res[1])
+            P10.append(res[2])
+            P50.append(res[3])
+            P85.append(res[4])
+            P97.append(res[5])
+        temp_dict['age']=age
+        temp_dict['P3']=P3
+        temp_dict['P10']=P10
+        temp_dict['P50']=P50
+        temp_dict['P85']=P85
+        temp_dict['P97'] =P97
     else:
         temp_dict = dict()
         temp_dict['status'] = "fail"
-    print (temp_dict1)
-    return temp_dict1
+    print (temp_dict)
+    return temp_dict

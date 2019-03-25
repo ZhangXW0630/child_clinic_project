@@ -194,7 +194,7 @@
                     <div class="box box-success" style="border-radius:8px">
                         <div class="box-body">
                                   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-                            <div id="main1" style="width: 600px;height:400px;"></div>
+                            <div id="main1" style="width: 800px;height:600px;"></div>
                                 <script type="text/javascript">
                                         var myChart = echarts.init(document.getElementById('main1'));
 
@@ -206,7 +206,7 @@
                                                         trigger: 'axis'
                                                     },
                                                     legend: {
-                                                        data:['P1']
+                                                        data:['P3','P10','P50','P85','P97']
                                                     },
                                                     grid: {
                                                         left: '3%',
@@ -220,19 +220,54 @@
                                                         }
                                                     },
                                                     xAxis: {
-                                                        <!--type: 'category',-->
-                                                        <!--boundaryGap: false,-->
-                                                        <!--data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']-->
+                                                        type: 'category',
+                                                        boundaryGap: false,
                                                         data: []
                                                     },
                                                     yAxis: {
-                                                        type: 'value'
-                                                    },
+                                                            scale: true,
+                                                            splitArea: {
+                                                                show: true
+                                                            }
+                                                        },
+                                                    dataZoom: [
+                                                            {
+                                                                type: 'inside',
+                                                                start: 50,
+                                                                end: 100
+                                                            },
+                                                            {
+                                                                show: true,
+                                                                type: 'slider',
+                                                                y: '90%',
+                                                                start: 50,
+                                                                end: 100
+                                                            }
+                                                        ],
                                                     series: [
                                                         {
-                                                            name:'P1',
+                                                            name:'P3',
                                                             type:'line',
-                                                            stack: '总量',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'P10',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'P50',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                        name:'P85',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                        name:'P97',
+                                                            type:'line',
                                                             data:[]
                                                         }
                                                     ]
@@ -437,30 +472,52 @@
 
 
 
-<!--<script>-->
-        <!--$.ajax({-->
-            <!--type: "post",-->
-            <!--async: true,-->
-            <!--url:  "/child/get_growthstandard",-->
-            <!--data: {},-->
-            <!--dataType: "json",-->
-            <!--timeout: 1000,-->
-            <!--success: function (result){-->
-                <!--myChart.setOption({-->
-                <!--xAxis: {-->
-                            <!--data: temp_dict['Day']-->
-                        <!--},-->
-                        <!--series: [{-->
-                            <!--// 根据名字对应到相应的系列-->
-                            <!--name: 'P1',-->
-                            <!--data: temp_dict['P3']-->
-                        <!--}]-->
-                <!--})-->
-            <!--},-->
-            <!--error: function (datas) {-->
-            <!--}-->
-        <!--})-->
-<!--</script>-->
+<script>
+        $.ajax({
+            type: "post",
+            async: true,
+            url:  "/child/get_growthstandard",
+            data: {},
+            dataType: "json",
+            timeout: 1000,
+            success: function (result){
+                myChart.setOption({
+                xAxis: {
+                            data: result['age']
+                        },
+                        series: [
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P3',
+                            data: result['P3']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P10',
+                            data: result['P10']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P50',
+                            data: result['P50']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P85',
+                            data: result['P85']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P97',
+                            data: result['P97']
+                        },
+                        ]
+                })
+            },
+            error: function (datas) {
+            }
+        })
+</script>
 
 
 

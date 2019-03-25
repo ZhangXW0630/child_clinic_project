@@ -198,7 +198,7 @@
                                 <script type="text/javascript">
                                         var myChart = echarts.init(document.getElementById('main1'));
 
-                                                option = {
+                                                myChart.setOption({
                                                     title: {
                                                         text: '身高体重(W/Y)图'
                                                     },
@@ -206,7 +206,7 @@
                                                         trigger: 'axis'
                                                     },
                                                     legend: {
-                                                        data:['P1','P2','P3','P5','P10']
+                                                        data:['P1']
                                                     },
                                                     grid: {
                                                         left: '3%',
@@ -220,9 +220,10 @@
                                                         }
                                                     },
                                                     xAxis: {
-                                                        type: 'category',
-                                                        boundaryGap: false,
-                                                        data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']
+                                                        <!--type: 'category',-->
+                                                        <!--boundaryGap: false,-->
+                                                        <!--data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']-->
+                                                        data: []
                                                     },
                                                     yAxis: {
                                                         type: 'value'
@@ -232,38 +233,14 @@
                                                             name:'P1',
                                                             type:'line',
                                                             stack: '总量',
-                                                            data:[50.139, 52, 53, 55, 57, 58, 63]
-                                                        },
-                                                        {
-                                                            name:'P2',
-                                                            type:'line',
-                                                            stack: '总量',
-                                                            data:[51.005, 57, 59, 61,64, 66, 68]
-                                                        },
-                                                        {
-                                                            name:'P3',
-                                                            type:'line',
-                                                            stack: '总量',
-                                                            data:[64,66, 67, 69, 70,73,77]
-                                                        },
-                                                        {
-                                                            name:'P5',
-                                                            type:'line',
-                                                            stack: '总量',
-                                                            data:[68, 69, 72, 75, 77, 78, 80]
-                                                        },
-                                                        {
-                                                            name:'P10',
-                                                            type:'line',
-                                                            stack: '总量',
-                                                            data:[70, 77, 79, 82, 84, 85, 88]
+                                                            data:[]
                                                         }
                                                     ]
-                                                };
+                                                });
 
 
-                                        // 使用刚指定的配置项和数据显示图表。
-                                        myChart.setOption(option);
+                                        <!--// 使用刚指定的配置项和数据显示图表。-->
+                                        <!--myChart.setOption(option);-->
                                     </script>
                             <div id="main2" style="width: 600px;height:400px;"></div>
                                 <script type="text/javascript">
@@ -404,9 +381,9 @@
                                                 };
 
 
-                                        // 使用刚指定的配置项和数据显示图表。
-                                        myChart.setOption(option);
-                                    </script>
+                                        <!--// 使用刚指定的配置项和数据显示图表。-->
+                                        <!--myChart.setOption(option);-->
+                                    <!--</script>-->
                             <div id="panel" style="margin:50px">
                                 <!--<canvas id="bit" height="250" width="600"></canvas>-->
                                 <!--为防止浏览器报错，id不要用canvas等-->
@@ -457,6 +434,37 @@
 <script src="{{static_url('layer/layer.js')}}"></script>
 <!-- Page specific script -->
 <script src="{{static_url('js/Chart.min.js')}}"></script>
+
+
+
+<!--<script>-->
+        <!--$.ajax({-->
+            <!--type: "post",-->
+            <!--async: true,-->
+            <!--url:  "/child/get_growthstandard",-->
+            <!--data: {},-->
+            <!--dataType: "json",-->
+            <!--timeout: 1000,-->
+            <!--success: function (result){-->
+                <!--myChart.setOption({-->
+                <!--xAxis: {-->
+                            <!--data: temp_dict['Day']-->
+                        <!--},-->
+                        <!--series: [{-->
+                            <!--// 根据名字对应到相应的系列-->
+                            <!--name: 'P1',-->
+                            <!--data: temp_dict['P3']-->
+                        <!--}]-->
+                <!--})-->
+            <!--},-->
+            <!--error: function (datas) {-->
+            <!--}-->
+        <!--})-->
+<!--</script>-->
+
+
+
+
 <script>
     var myLine="";
     var maxLength=30;
@@ -545,277 +553,7 @@
 </script>
 
 
-<script>
-    $(document).ready(function(){
-        var uid="{{ current.get('uid') }}"
-        $.ajax({
-            type: "post",
-            async: true,
-            url: "judgeisexist",
-            data: {"uid":uid},
-            dataType: "json",
-            timeout: 1000,
-            success: function (datas) {
-                    $("#b_patientName").val(datas['name']);
-                    $("#b_sex").val(datas['sex']);
-                    $("#b_year").val(datas['year']);
-                    $("#b_month").val(datas['month']);
-                    $("#b_day").val(datas['day']);
-                    $("#b_fathername").val(datas['fathername']);
-                    $("#b_fatherAge").val(datas['fatherage']);
-                    $("#b_fworkplace").val(datas['fatherunit']);
-                    $("#b_fatherjob").val(datas['fatherwork']);
-                    $("#b_mothername").val(datas['mothername']);
-                    $("#b_motherAge").val(datas['motherage']);
-                    $("#b_mworkplace").val(datas['motherunit']);
-                    $("#b_motherjob").val(datas['motherwork']);
-                    $("#b_healthstatus").val(datas['motherhealth']);
-                    $("#b_takemedicine").val(datas['contraceptivesituation']);
-                    $("#b_medicinename").val(datas['contraceptivename']);
-                    $("#b_tai").val(datas['tai']);
-                    $("#b_chan").val(datas['chan']);
-                    $("#b_special").val(datas['special']);
-                    $("#b_yunzhou").val(datas['yunzhou']);
-                    $("#b_csstatus").val(datas['intrapartumsituation']);
-                    $("#b_irritability").val(datas['drugallergy']);
-                    $("#b_weight").val(datas['birthweight']);
-                    $("#b_height").val(datas['birthheight']);
-                    $("#b_address").val(datas['address']);
-                    $("#b_postcode").val(datas['zipcode']);
-                    $("#b_phone").val(datas['contactnumber']);
-                    $("#b_source").val(datas['visitorigin']);
-                    var ls=datas['livingstatus']
-                    $("input:radio[name='livingstatus'][value='"+ls+"']").attr('checked','true');
-                    $("#b_temp").val(datas['temp']);
-            },
-            error: function (datas) {
-            }
-        });
-    });
 
-    function searchPatient() {
-        var url = "/child/doctor_home";
-        var pName = $("#patientName").val();
-        var telephone = $("#telephone").val();
-        var ID_Card = $("#ID_Card").val();
-        var socialID = $("#socialID").val();
-        var startTime = $("#LAY_demorange_s").val();
-        var endTime = $("#LAY_demorange_e").val();
-        $.ajax({
-            type: "post",
-            async: true,
-            url: url,
-            data: {p_name:pName, p_phone:telephone, p_id_card:ID_Card,
-                p_socailID:socialID, start_time:startTime, end_time:endTime},
-            dataType: "json",
-            timeout: 1000,
-            success: function (results) {
-
-
-
-            },
-            error: function (datas) {
-
-            }
-        });
-    }
-
-    function searchMoban() {
-        var url = "/child/doctor_home_moban_search";
-        var pName = $("#disease_name").val();
-        $.ajax({
-            type: "post",
-            async: true,
-            url: url,
-            data: {p_name:pName},
-            dataType: "json",
-            timeout: 1000,
-            success: function (results) {
-                if(results["status"] == 0) {
-                    alert("系统暂时无该疾病模板，请您先建立模板档案！");
-                } else {
-                    var datas = results["res_all"];
-                    $("#showTable").html("");
-                    var new_tables = '';
-                    new_tables += '<table id="case_table" class="table table-bordered table-striped">'
-                        + '<thead>'
-                        + '<tr>'
-                        + '<th>' + '病例编号' + '</th>'
-                        + '<th>' + '姓名' + '</th>'
-                        + '<th>' + '性别' + '</th>'
-                        + '<th>' + '年龄' + '</th>'
-                        + '<th>' + '手机号' + '</th>'
-                        + '<th>' + '身份证号' + '</th>'
-                        + '<th>' + '社保号' + '</th>'
-                        + '<th>' + '主诉' + '</th>'
-                        + '<th>' + '时间' + '</th>'
-                        + '<th>' + '查看或处理' + '</th>'
-                        + '<th>' + '首诊' + '</th>'
-                        + '<th>' + '复诊' + '</th>'
-                        + '</tr>'
-                        + '</thead>';
-
-                    new_tables += '<tbody>';
-                    for (var i = datas.length - 1; i >= 0; i--) {
-                        new_tables +=
-                                        '<tr>'
-                                        + '<td>' + datas[i]["caseFirstID"] + '.' + datas[i]["caseSecondID"] + '</td>'
-                                        + '<td>' + datas[i]["name"] + '</td>'
-                                        + '<td>' + datas[i]["sex"] + '</td>'
-                                        + '<td>' + datas[i]["age"] + '岁' + '</td>'
-                                        + '<td>' + datas[i]["telephone"] + '</td>'
-                                        + '<td>' + datas[i]["identityCardNum"] + '</td>'
-                                        + '<td>' + datas[i]["socialSecurityNum"] + '</td>'
-                                        + '<td>' + datas[i]["chiefComplaint"] + '</td>'
-                                        + '<td>' + datas[i]["caseDate"] + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '</tr>';
-                    }
-                    if(datas.length < 5) {
-                        for (var j = datas.length; j < 5; j++) {
-                             new_tables +=
-                                        '<tr>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' +  '</td>'
-                                        + '<td>' +  '</td>'
-                                        + '<td>' +  '</td>'
-                                        + '<td>' +  '</td>'
-                                        + '<td>' +  '</td>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '<td>' + '</td>'
-                                        + '</tr>';
-                        }
-                    }
-                    new_tables += '</tbody>' + '</table>';
-                    $(new_tables).appendTo($("#showTable"));
-                    $("#case_table").DataTable({
-                        "searching": false,
-                        "ordering": false,
-                        "iDisplayLength": 5
-                    });
-                }
-            },
-            error: function (datas) {
-
-            }
-        });
-    }
-
-    function buildPatient() {
-        var pName = $("#b_patientName").val();
-        var pSex = $("#b_sex").val();
-        var pYear= $("#b_year").val();
-        var pMonth = $("#b_month").val();
-        var pDay = $("#b_day").val();
-        var pFname = $("#b_fathername").val();
-        var pFage = $("#b_fatherAge").val();
-        var pFworkplace=$("#b_fworkplace").val();
-        var pFjob=$("#b_fatherjob").val();
-        var pMname = $("#b_mothername").val();
-        var pMage = $("#b_motherAge").val();
-        var pMworkplace=$("#b_mworkplace").val();
-        var pMjob=$("#b_motherjob").val();
-        var phealthstatus=$("#b_healthstatus").val();
-        var ptakemedicine=$("#b_takemedicine").val();
-        var pmedicinename=$("#b_medicinename").val();
-        var ptai=$("#b_tai").val();
-        var pchan=$("#b_chan").val();
-        var pspecial=$("#b_special").val();
-        var pyunzhou=$("#b_yunzhou").val();
-        var pcsstatus=$("#b_csstatus").val();
-        var pirritability=$("#b_irritability").val();
-        var pweight=$("#b_weight").val();
-        var pheight=$("#b_height").val();
-        var paddress=$("#b_address").val();
-        var ppostcode=$("#b_postcode").val();
-        var pphone=$("#b_phone").val();
-        var psource=$("#b_source").val();
-        var plivingstatus=$('input:radio[name="livingstatus"]:checked').val();
-        var ptemp=$("#b_temp").val();
-        $("#b_patientName").attr("readonly","readonly")
-        $('#b_sex').attr("readonly","readonly")
-        $('#b_year').attr("readonly","readonly")
-        $('#b_month').attr("readonly","readonly")
-        $('#b_day').attr("readonly","readonly")
-        $('#b_fathername').attr("readonly","readonly")
-        ad={}
-        ad['uid']="{{ current.get('uid') }}"
-        ad['name']=pName
-        ad['sex']=pSex
-        ad['year']=pYear
-        ad['month']=pMonth
-        ad['day']=pDay
-        ad['fathername']=pFname
-        ad['fatherage']=pFage
-        ad['fatherunit']=pFworkplace
-        ad['fatherwork']=pFjob
-        ad['mothername']=pMname
-        ad['motherage']=pMage
-        ad['motherunit']=pMworkplace
-        ad['motherwork']=pMjob
-        ad['motherhealth']=phealthstatus
-        ad['contraceptivesituation']=ptakemedicine
-        ad['contraceptivename']=pmedicinename
-        ad['tai']=ptai
-        ad['chan']=pchan
-        ad['special']=pspecial
-        ad['yunzhou']=pyunzhou
-        ad['intrapartumsituation']=pcsstatus
-        ad['drugallergy']=pirritability
-        ad['birthweight']=pweight
-        ad['birthheight']=pheight
-        ad['address']=paddress
-        ad['zipcode']=ppostcode
-        ad['contactnumber']=pphone
-        ad['visitorigin']=psource
-        ad['livingstatus']=plivingstatus
-        ad['temp']=ptemp
-        ad['belong']="1"
-        $.ajax({
-            type: "post",
-            async: true,
-            url: "/child/storehealthrecord",
-            data: ad,
-            dataType: "json",
-            timeout: 1000,
-            success: function (datas) {
-
-            },
-            error: function (datas) {
-            }
-        });
-
-    }
-
-    function check_DCRelation() {
-        var caseIDs = $("#hz_case_id").val();
-        var url = "/doctor_share_case";
-        $.ajax({
-            type: "post",
-            async: true,
-            url: url,
-            data: {caseIDs:caseIDs},
-            dataType: "json",
-            timeout: 1000,
-            success: function (datas) {
-                if(datas == "error") {
-                    layer.alert("您输入的医生姓名或手机号错误，请重新输入！");
-                } else {
-                    layer.alert("邀请成功！");
-                }
-            },
-            error: function (datas) {
-            }
-        });
-    }
-
-</script>
 
 </body>
 </html>

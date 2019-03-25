@@ -273,3 +273,42 @@ def get_advice(uid):
         temp_dict = dict()
         temp_dict['status'] = "fail"
     return temp_dict
+
+
+def get_growthstandard():
+
+
+    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    cursor = db.cursor()
+    # cursor.execute(
+    #     "SELECT birth FROM 健康检查表  where uid='%s'" % (uid)
+    # )
+    # results = cursor.fetchall()
+    # if len(results) == 1:
+    #     for res in results:
+    #         age=math.ceil((((datetime.date.today() - res[0]).total_seconds())/2592000))
+    # else:
+    #     age="0"
+    cursor.execute(
+        "SELECT * FROM 男年龄身高 "
+    )
+    results = cursor.fetchall()
+    db.close()
+    if len(results) > 0:
+        temp_dict1 = []
+        for res in results:
+            temp_dict = dict()
+            temp_dict['age']=res[0]
+            temp_dict['status']="success"
+            temp_dict['P3']=res[1]
+            temp_dict['P10']=res[2]
+            temp_dict['P50']=res[3]
+            temp_dict['P85']=res[4]
+            temp_dict['P97'] = res[5]
+            temp_dict1.append(temp_dict)
+
+    else:
+        temp_dict = dict()
+        temp_dict['status'] = "fail"
+
+    return temp_dict1

@@ -24,14 +24,10 @@ class GetAdvice(tornado.web.RequestHandler):
             self.write(temp_dict)
 
 class GetGrowthStandard(tornado.web.RequestHandler):
-
     def get(self):
-
         pass
     def post(self):
-
         temp_dict = OPDB.get_growthstandard()
-        # if temp_dict['status'] == "success":
         self.write(temp_dict)
 
 class JudgeTimesAndIsExisted(tornado.web.RequestHandler):

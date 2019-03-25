@@ -292,19 +292,48 @@ def get_growthstandard():
     cursor.execute(
         "SELECT * FROM 男年龄身高 "
     )
-    results = cursor.fetchall()
+    results1 = cursor.fetchall()
+    cursor.execute(
+        "SELECT * FROM 男身长体重 "
+    )
+    results2 = cursor.fetchall()
+    cursor.execute(
+        "SELECT * FROM 男童年龄体重 "
+    )
+    results3 = cursor.fetchall()
     db.close()
-    if len(results) > 0:
-        temp_dict = {}
-        index=0
+
+    if len(results1) > 0:
+        temp_dict1 = {}
         age=[]
         P3=[]
         P10=[]
         P50=[]
         P85=[]
         P97=[]
+        for res in results1:
+            age.append(res[0])
+            P3.append(res[1])
+            P10.append(res[2])
+            P50.append(res[3])
+            P85.append(res[4])
+            P97.append(res[5])
+        temp_dict1['age']=age
+        temp_dict1['P3']=P3
+        temp_dict1['P10']=P10
+        temp_dict1['P50']=P50
+        temp_dict1['P85']=P85
+        temp_dict1['P97'] =P97
 
-        for res in results:
+    if len(results2) > 0:
+        temp_dict = {}
+        age=[]
+        P3=[]
+        P10=[]
+        P50=[]
+        P85=[]
+        P97=[]
+        for res in results1:
             age.append(res[0])
             P3.append(res[1])
             P10.append(res[2])
@@ -317,8 +346,29 @@ def get_growthstandard():
         temp_dict['P50']=P50
         temp_dict['P85']=P85
         temp_dict['P97'] =P97
-    else:
-        temp_dict = dict()
-        temp_dict['status'] = "fail"
-    print (temp_dict)
-    return temp_dict
+
+    if len(results1) > 0:
+        temp_dict = {}
+        age=[]
+        P3=[]
+        P10=[]
+        P50=[]
+        P85=[]
+        P97=[]
+        for res in results1:
+            age.append(res[0])
+            P3.append(res[1])
+            P10.append(res[2])
+            P50.append(res[3])
+            P85.append(res[4])
+            P97.append(res[5])
+        temp_dict['age']=age
+        temp_dict['P3']=P3
+        temp_dict['P10']=P10
+        temp_dict['P50']=P50
+        temp_dict['P85']=P85
+        temp_dict['P97'] =P97
+
+    temp_res={"1":temp_dict1,"2":temp_dict2,"3":temp_dict3}
+
+    return temp_res

@@ -550,6 +550,8 @@
             dataType: "json",
             timeout: 1000,
             success: function (result){
+                $("#hz_dq").val(result["4"]['desc']);
+                $("#hz_yd").val(result["4"]['evalu']);
                 myChart1.setOption({
                 xAxis: {
                             data: result["1"]['age']

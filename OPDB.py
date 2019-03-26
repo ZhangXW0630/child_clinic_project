@@ -4,11 +4,13 @@ import time
 import datetime
 import math
 
-
+def conn():
+    conn_cx = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    return conn_cx
 
 
 def insert_patient_user(phone,password):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8' )
+    db = conn()
     cursor = db.cursor()
     cursor.execute("INSERT INTO 家长用户表 (user_phone, user_password) VALUES ('%s','%s')" % (phone, password)
                    )
@@ -16,7 +18,7 @@ def insert_patient_user(phone,password):
     db.close()
 
 def insert_doctor_user(phone,password):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute("INSERT INTO 医生用户表 (user_phone, user_password) VALUES ('%s','%s')" % (phone, password)
                    )
@@ -24,14 +26,14 @@ def insert_doctor_user(phone,password):
     db.close()
 
 def query_doctor_user(phone,password):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute("INSERT INTO 医生用户表 (user_phone, user_password) VALUES ('%s','%s')" % (phone, password)
                    )
     db.commit()
     db.close()
 def query_patient_user(phone,password):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute("SELECT id,user_name,user_phone,user_password FROM 家长用户表  where user_phone='%s' and user_password='%s'" % (phone, password)
                    )
@@ -53,7 +55,7 @@ def query_patient_user(phone,password):
 
 
 def query_isexist(uid):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute(
         "SELECT * FROM 健康检查表  where uid='%s'" % (uid)
@@ -105,7 +107,7 @@ def query_isexist(uid):
         return temp_dict
 
 def query_isexist_inquery(uid):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute(
         "SELECT * FROM 询问记录表  where uid='%s'" % (uid)
@@ -150,7 +152,7 @@ def query_isexist_inquery(uid):
         return temp_dict
 
 def insert_patient_healthstatus_table(ad):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute("INSERT INTO 健康检查表 (uid,`name`, sex,birth,"
                    "fathername,fatherage,fatherunit,fatherwork,mothername,"
@@ -161,7 +163,7 @@ def insert_patient_healthstatus_table(ad):
     db.close()
 
 def insert_patient_inquirystatus_table(ad):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute("INSERT INTO 询问记录表 (uid,times,data,age,"
                    "weight,height,breastmilksituation,breastmilkfrequency,alwaysbreastmilk,"
@@ -178,7 +180,7 @@ def insert_patient_inquirystatus_table(ad):
     db.close()
 
 def query_patientsinquiry_table(uid,times):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute(
         "SELECT * FROM 询问记录表  where uid='%s' and times='%s'" % (uid,times)
@@ -223,17 +225,17 @@ def query_patientsinquiry_table(uid,times):
 
 #获取标准数据
 def query_current_times(uid):
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute(
-        "SELECT * FROM 询问记录表  where uid='%s'" % (uid)
+        "SELECT MAX(times) FROM 询问记录表  where uid='%s'" % (uid)
     )
     results = cursor.fetchall()
     db.close()
     if len(results) == 1:
         for res in results:
             temp_dict = dict()
-            temp_dict['times']=int(res[2])+1
+            temp_dict['times']=int(res[0])+1
     else:
         temp_dict = dict()
         temp_dict['times']=1
@@ -244,7 +246,7 @@ def get_standard_date():
 def get_advice(uid):
 
 
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
     cursor.execute(
         "SELECT birth FROM 健康检查表  where uid='%s'" % (uid)
@@ -252,7 +254,7 @@ def get_advice(uid):
     results = cursor.fetchall()
     if len(results) == 1:
         for res in results:
-            age=math.ceil((((datetime.date.today() - res[0]).total_seconds())/2592000))
+            age=math.floor((((datetime.date.today() - res[0]).total_seconds())/2592000))
     else:
         age="0"
     cursor.execute(
@@ -278,17 +280,8 @@ def get_advice(uid):
 def get_growthstandard():
 
 
-    db = pymysql.connect("10.10.108.232", "root", "123456", "sh_db", charset='utf8')
+    db = conn()
     cursor = db.cursor()
-    # cursor.execute(
-    #     "SELECT birth FROM 健康检查表  where uid='%s'" % (uid)
-    # )
-    # results = cursor.fetchall()
-    # if len(results) == 1:
-    #     for res in results:
-    #         age=math.ceil((((datetime.date.today() - res[0]).total_seconds())/2592000))
-    # else:
-    #     age="0"
     cursor.execute(
         "SELECT * FROM 男年龄身高1 "
     )
@@ -305,8 +298,16 @@ def get_growthstandard():
         "SELECT * FROM 询问记录表 where uid = '1' "
     )
     results4 = cursor.fetchall()
+    cursor.execute(
+        "select * from 询问记录表 where times in(select max(times) from 询问记录表) and  uid = '1'"
+    )
+    results5 = cursor.fetchall()
+    cursor.execute(
+        "select * from 生长曲线评价库 "
+    )
+    results6 = cursor.fetchall()
     db.close()
-
+    m = 0
     if len(results1) > 0:
         temp_dict1 = {}
         age=[]
@@ -355,7 +356,6 @@ def get_growthstandard():
             j=0
 
             while i<len(Length):
-                # print (results4[3][6])
                 if(j<len(results4) and results4[j][6] == Length[i]):
                     b_user.append(results4[j][5])
                     j+=1
@@ -397,7 +397,49 @@ def get_growthstandard():
         temp_dict3['P97'] =P97
         temp_dict3['b_user']=b_user
 
+    if len(results4) > 0:
+        temp_dict4 = {}
+        desc = []
+        evalu = []
+        for res in results2:
+            if (results5[0][6] != res[0]):
+                if results5[0][5] >= res[4]:
+                    m = 300
+                elif results5[0][5] > res[2]:
+                    m = 200
+                elif results5[0][5] <= res[1]:
+                    m = 100
+                break
 
-    temp_res={"1":temp_dict1,"2":temp_dict2,"3":temp_dict3}
+        for res in results1:
+            if (results5[0][4] != res[0]):
+                if results5[0][6] >= res[4]:
+                    m += 30
+                elif results5[0][6] > res[2]:
+                    m += 20
+                elif results5[0][6] <= res[1]:
+                    m += 10
+                break
+
+        for res in results3:
+            if (results5[0][4] != res[0]):
+                if results5[0][5] >= res[4]:
+                    m += 3
+                elif results5[0][5] > res[2]:
+                    m += 2
+                elif results5[0][5] <= res[1]:
+                    m += 1
+                break
+        for res in results6:
+            if res[1] == str(m):
+                desc.append(res[2])
+                evalu.append(res[3])
+                break
+        temp_dict4['desc']=desc
+        temp_dict4['evalu']=evalu
+
+
+
+    temp_res={"1":temp_dict1,"2":temp_dict2,"3":temp_dict3,"4":temp_dict4}
 
     return temp_res

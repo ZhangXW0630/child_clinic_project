@@ -194,13 +194,13 @@
                     <div class="box box-success" style="border-radius:8px">
                         <div class="box-body">
                                   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-                            <div id="main1" style="width: 800px;height:600px;"></div>
+                            <div id="main1" style="width: 1000px;height:600px;"></div>
                                 <script type="text/javascript">
-                                        var myChart = echarts.init(document.getElementById('main1'));
+                                        var myChart1 = echarts.init(document.getElementById('main1'));
 
-                                                myChart.setOption({
+                                                myChart1.setOption({
                                                     title: {
-                                                        text: '身高体重(W/Y)图'
+                                                        text: '年龄身高(H/Y)图'
                                                     },
                                                     tooltip: {
                                                         trigger: 'axis'
@@ -277,143 +277,172 @@
                                         <!--// 使用刚指定的配置项和数据显示图表。-->
                                         <!--myChart.setOption(option);-->
                                     </script>
-                            <!--<div id="main2" style="width: 600px;height:400px;"></div>-->
-                                <!--<script type="text/javascript">-->
-                                        <!--var myChart = echarts.init(document.getElementById('main2'));-->
+                            <div id="main2" style="width: 1000px;height:600px;"></div>
+                                <script type="text/javascript">
+                                        var myChart2 = echarts.init(document.getElementById('main2'));
 
-                                                <!--option = {-->
-                                                    <!--title: {-->
-                                                        <!--text: '年龄身高(H/Y)图'-->
-                                                    <!--},-->
-                                                    <!--tooltip: {-->
-                                                        <!--trigger: 'axis'-->
-                                                    <!--},-->
-                                                    <!--legend: {-->
-                                                        <!--data:['P1','P2','P3','P5','P10']-->
-                                                    <!--},-->
-                                                    <!--grid: {-->
-                                                        <!--left: '3%',-->
-                                                        <!--right: '4%',-->
-                                                        <!--bottom: '3%',-->
-                                                        <!--containLabel: true-->
-                                                    <!--},-->
-                                                    <!--toolbox: {-->
-                                                        <!--feature: {-->
-                                                            <!--saveAsImage: {}-->
-                                                        <!--}-->
-                                                    <!--},-->
-                                                    <!--xAxis: {-->
-                                                        <!--type: 'category',-->
-                                                        <!--boundaryGap: false,-->
-                                                        <!--data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']-->
-                                                    <!--},-->
-                                                    <!--yAxis: {-->
-                                                        <!--type: 'value'-->
-                                                    <!--},-->
-                                                    <!--series: [-->
-                                                        <!--{-->
-                                                            <!--name:'P1',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[50.139, 52, 53, 55, 57, 58, 63]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P2',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[51.005, 57, 59, 61,64, 66, 68]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P3',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[64,66, 67, 69, 70,73,77]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P5',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[68, 69, 72, 75, 77, 78, 80]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P10',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[70, 77, 79, 82, 84, 85, 88]-->
-                                                        <!--}-->
-                                                    <!--]-->
-                                                <!--};-->
+                                                myChart2.setOption({
+                                                    title: {
+                                                        text: '身长体重(W/H)图'
+                                                    },
+                                                    tooltip: {
+                                                        trigger: 'axis'
+                                                    },
+                                                    legend: {
+                                                        data:['P3','P10','P50','P85','P97']
+                                                    },
+                                                    grid: {
+                                                        left: '3%',
+                                                        right: '4%',
+                                                        bottom: '3%',
+                                                        containLabel: true
+                                                    },
+                                                    toolbox: {
+                                                        feature: {
+                                                            saveAsImage: {}
+                                                        }
+                                                    },
+                                                    xAxis: {
+                                                        type: 'category',
+                                                        boundaryGap: false,
+                                                        data: []
+                                                    },
+                                                    yAxis: {
+                                                            scale: true,
+                                                            splitArea: {
+                                                                show: true
+                                                            }
+                                                        },
+                                                    dataZoom: [
+                                                            {
+                                                                type: 'inside',
+                                                                start: 50,
+                                                                end: 100
+                                                            },
+                                                            {
+                                                                show: true,
+                                                                type: 'slider',
+                                                                y: '90%',
+                                                                start: 50,
+                                                                end: 100
+                                                            }
+                                                        ],
+                                                    series: [
+                                                        {
+                                                            name:'P3',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'P10',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'P50',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                        name:'P85',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                        name:'P97',
+                                                            type:'line',
+                                                            data:[]
+                                                        }
+                                                    ]
+                                                });
 
 
                                         <!--// 使用刚指定的配置项和数据显示图表。-->
                                         <!--myChart.setOption(option);-->
-                                    <!--</script>-->
-                            <!--<div id="main3" style="width: 600px;height:400px;"></div>-->
-                                <!--<script type="text/javascript">-->
-                                        <!--var myChart = echarts.init(document.getElementById('main3'));-->
+                                    </script>
+                            <div id="main3" style="width: 1000px;height:600px;"></div>
+                                <script type="text/javascript">
+                                        var myChart3 = echarts.init(document.getElementById('main3'));
 
-                                                <!--option = {-->
-                                                    <!--title: {-->
-                                                        <!--text: '年龄体重(W/Y)图'-->
-                                                    <!--},-->
-                                                    <!--tooltip: {-->
-                                                        <!--trigger: 'axis'-->
-                                                    <!--},-->
-                                                    <!--legend: {-->
-                                                        <!--data:['P1','P2','P3','P5','P10']-->
-                                                    <!--},-->
-                                                    <!--grid: {-->
-                                                        <!--left: '3%',-->
-                                                        <!--right: '4%',-->
-                                                        <!--bottom: '3%',-->
-                                                        <!--containLabel: true-->
-                                                    <!--},-->
-                                                    <!--toolbox: {-->
-                                                        <!--feature: {-->
-                                                            <!--saveAsImage: {}-->
-                                                        <!--}-->
-                                                    <!--},-->
-                                                    <!--xAxis: {-->
-                                                        <!--type: 'category',-->
-                                                        <!--boundaryGap: false,-->
-                                                        <!--data: ['一月龄','二月龄','三月龄','四月龄','五月龄','六月龄','七月龄']-->
-                                                    <!--},-->
-                                                    <!--yAxis: {-->
-                                                        <!--type: 'value'-->
-                                                    <!--},-->
-                                                    <!--series: [-->
-                                                        <!--{-->
-                                                            <!--name:'P1',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[50.139, 52, 53, 55, 57, 58, 63]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P2',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[51.005, 57, 59, 61,64, 66, 68]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P3',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[64,66, 67, 69, 70,73,77]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P5',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[68, 69, 72, 75, 77, 78, 80]-->
-                                                        <!--},-->
-                                                        <!--{-->
-                                                            <!--name:'P10',-->
-                                                            <!--type:'line',-->
-                                                            <!--stack: '总量',-->
-                                                            <!--data:[70, 77, 79, 82, 84, 85, 88]-->
-                                                        <!--}-->
-                                                    <!--]-->
-                                                <!--};-->
+                                                myChart3.setOption({
+                                                    title: {
+                                                        text: '年龄体重(W/Y)图'
+                                                    },
+                                                    tooltip: {
+                                                        trigger: 'axis'
+                                                    },
+                                                    legend: {
+                                                        data:['P3','P10','P50','P85','P97']
+                                                    },
+                                                    grid: {
+                                                        left: '3%',
+                                                        right: '4%',
+                                                        bottom: '3%',
+                                                        containLabel: true
+                                                    },
+                                                    toolbox: {
+                                                        feature: {
+                                                            saveAsImage: {}
+                                                        }
+                                                    },
+                                                    xAxis: {
+                                                        type: 'category',
+                                                        boundaryGap: false,
+                                                        data: []
+                                                    },
+                                                    yAxis: {
+                                                            scale: true,
+                                                            splitArea: {
+                                                                show: true
+                                                            }
+                                                        },
+                                                    dataZoom: [
+                                                            {
+                                                                type: 'inside',
+                                                                start: 50,
+                                                                end: 100
+                                                            },
+                                                            {
+                                                                show: true,
+                                                                type: 'slider',
+                                                                y: '90%',
+                                                                start: 50,
+                                                                end: 100
+                                                            }
+                                                        ],
+                                                    series: [
+                                                        {
+                                                            name:'P3',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'P10',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'P50',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                        name:'P85',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                        name:'P97',
+                                                            type:'line',
+                                                            data:[]
+                                                        }
+                                                    ]
+                                                });
+
+
+                                        <!--// 使用刚指定的配置项和数据显示图表。-->
+                                        <!--myChart.setOption(option);-->
+                                    </script>
 
 
                                         <!--// 使用刚指定的配置项和数据显示图表。-->
@@ -481,7 +510,7 @@
             dataType: "json",
             timeout: 1000,
             success: function (result){
-                myChart.setOption({
+                myChart1.setOption({
                 xAxis: {
                             data: result["1"]['age']
                         },
@@ -489,27 +518,91 @@
                         {
                             // 根据名字对应到相应的系列
                             name: 'P3',
-                            data: result['P3']
+                            data: result["1"]['P3']
                         },
                         {
                             // 根据名字对应到相应的系列
                             name: 'P10',
-                            data: result['P10']
+                            data: result["1"]['P10']
                         },
                         {
                             // 根据名字对应到相应的系列
                             name: 'P50',
-                            data: result['P50']
+                            data: result["1"]['P50']
                         },
                         {
                             // 根据名字对应到相应的系列
                             name: 'P85',
-                            data: result['P85']
+                            data: result["1"]['P85']
                         },
                         {
                             // 根据名字对应到相应的系列
                             name: 'P97',
-                            data: result['P97']
+                            data: result["1"]['P97']
+                        },
+                        ]
+                })
+                myChart2.setOption({
+                xAxis: {
+                            data: result["2"]['Length']
+                        },
+                        series: [
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P3',
+                            data: result["2"]['P3']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P10',
+                            data: result["2"]['P10']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P50',
+                            data: result["2"]['P50']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P85',
+                            data: result["2"]['P85']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P97',
+                            data: result["2"]['P97']
+                        },
+                        ]
+                })
+                myChart3.setOption({
+                xAxis: {
+                            data: result["3"]['Age']
+                        },
+                        series: [
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P3',
+                            data: result["3"]['P3']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P10',
+                            data: result["3"]['P10']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P50',
+                            data: result["3"]['P50']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P85',
+                            data: result["3"]['P85']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: 'P97',
+                            data: result["3"]['P97']
                         },
                         ]
                 })

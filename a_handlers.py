@@ -19,6 +19,7 @@ class GetAdvice(tornado.web.RequestHandler):
         pass
     def post(self):
         user_id = self.get_argument('uid')
+        print (user_id)
         temp_dict = OPDB.get_advice(user_id)
         if temp_dict['status'] == "success":
             self.write(temp_dict)

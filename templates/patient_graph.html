@@ -206,7 +206,7 @@
                                                         trigger: 'axis'
                                                     },
                                                     legend: {
-                                                        data:['P3','P10','P50','P85','P97']
+                                                        data:['用户','P3','P10','P50','P85','P97']
                                                     },
                                                     grid: {
                                                         left: '3%',
@@ -252,6 +252,11 @@
                                                         },
                                                         {
                                                             name:'P10',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'用户',
                                                             type:'line',
                                                             data:[]
                                                         },
@@ -289,7 +294,7 @@
                                                         trigger: 'axis'
                                                     },
                                                     legend: {
-                                                        data:['P3','P10','P50','P85','P97']
+                                                        data:['用户','P3','P10','P50','P85','P97']
                                                     },
                                                     grid: {
                                                         left: '3%',
@@ -335,6 +340,11 @@
                                                         },
                                                         {
                                                             name:'P10',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'用户',
                                                             type:'line',
                                                             data:[]
                                                         },
@@ -372,7 +382,7 @@
                                                         trigger: 'axis'
                                                     },
                                                     legend: {
-                                                        data:['P3','P10','P50','P85','P97']
+                                                        data:['用户','P3','P10','P50','P85','P97']
                                                     },
                                                     grid: {
                                                         left: '3%',
@@ -418,6 +428,11 @@
                                                         },
                                                         {
                                                             name:'P10',
+                                                            type:'line',
+                                                            data:[]
+                                                        },
+                                                        {
+                                                            name:'用户',
                                                             type:'line',
                                                             data:[]
                                                         },
@@ -527,6 +542,11 @@
                         },
                         {
                             // 根据名字对应到相应的系列
+                            name: '用户',
+                            data: result["1"]['b_user']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
                             name: 'P50',
                             data: result["1"]['P50']
                         },
@@ -559,6 +579,12 @@
                         },
                         {
                             // 根据名字对应到相应的系列
+                            name: '用户',
+                            connectNulls:true,
+                            data: result["2"]['b_user']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
                             name: 'P50',
                             data: result["2"]['P50']
                         },
@@ -588,6 +614,11 @@
                             // 根据名字对应到相应的系列
                             name: 'P10',
                             data: result["3"]['P10']
+                        },
+                        {
+                            // 根据名字对应到相应的系列
+                            name: '用户',
+                            data: result["3"]['b_user']
                         },
                         {
                             // 根据名字对应到相应的系列

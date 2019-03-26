@@ -301,6 +301,10 @@ def get_growthstandard():
         "SELECT * FROM 男年龄体重1 "
     )
     results3 = cursor.fetchall()
+    cursor.execute(
+        "SELECT * FROM 询问记录表 where uid = '1' "
+    )
+    results4 = cursor.fetchall()
     db.close()
 
     if len(results1) > 0:
@@ -311,6 +315,7 @@ def get_growthstandard():
         P50=[]
         P85=[]
         P97=[]
+        b_user=[]
         for res in results1:
             age.append(res[0])
             P3.append(res[1])
@@ -318,12 +323,15 @@ def get_growthstandard():
             P50.append(res[3])
             P85.append(res[4])
             P97.append(res[5])
+        for res in results4:
+            b_user.append(res[6])
         temp_dict1['age']=age
         temp_dict1['P3']=P3
         temp_dict1['P10']=P10
         temp_dict1['P50']=P50
         temp_dict1['P85']=P85
         temp_dict1['P97'] =P97
+        temp_dict1['b_user'] = b_user
 
     if len(results2) > 0:
         temp_dict2 = {}
@@ -333,6 +341,7 @@ def get_growthstandard():
         P50=[]
         P85=[]
         P97=[]
+        b_user=[]
         for res in results2:
             Length.append(res[0])
             P3.append(res[1])
@@ -340,12 +349,27 @@ def get_growthstandard():
             P50.append(res[3])
             P85.append(res[4])
             P97.append(res[5])
+
+        if len(results4)>0:
+            i=0
+            j=0
+
+            while i<len(Length):
+                # print (results4[3][6])
+                if(j<len(results4) and results4[j][6] == Length[i]):
+                    b_user.append(results4[j][5])
+                    j+=1
+                else:
+                    b_user.append("NULL")
+                i+=1
+
         temp_dict2['Length']=Length
         temp_dict2['P3']=P3
         temp_dict2['P10']=P10
         temp_dict2['P50']=P50
         temp_dict2['P85']=P85
         temp_dict2['P97'] =P97
+        temp_dict2['b_user']=b_user
 
     if len(results3) > 0:
         temp_dict3 = {}
@@ -355,6 +379,7 @@ def get_growthstandard():
         P50=[]
         P85=[]
         P97=[]
+        b_user=[]
         for res in results3:
             Age.append(res[0])
             P3.append(res[1])
@@ -362,12 +387,16 @@ def get_growthstandard():
             P50.append(res[3])
             P85.append(res[4])
             P97.append(res[5])
+        for res in results4:
+            b_user.append(res[5])
         temp_dict3['Age']=Age
         temp_dict3['P3']=P3
         temp_dict3['P10']=P10
         temp_dict3['P50']=P50
         temp_dict3['P85']=P85
         temp_dict3['P97'] =P97
+        temp_dict3['b_user']=b_user
+
 
     temp_res={"1":temp_dict1,"2":temp_dict2,"3":temp_dict3}
 
